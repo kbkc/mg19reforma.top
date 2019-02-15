@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <blog translate="label">
+            <label>Blog</label>
+            <tab>magiccart</tab>
+            <sort_order>60</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <blog>
+                    <fields>
+                        <page_title translate="label">
+                            <label>Blog Page Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </page_title>
+                    </fields>
+                </blog>
+            </groups>
+        </blog>
+    </sections>
+</config>

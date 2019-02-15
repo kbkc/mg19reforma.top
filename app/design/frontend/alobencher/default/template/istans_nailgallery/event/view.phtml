@@ -1,0 +1,47 @@
+<?php
+/**
+ * Istans_Nailgallery extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Istans
+ * @package        Istans_Nailgallery
+ * @copyright      Copyright (c) 2016
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+/**
+ * Event view template
+ *
+ * @category    Istans
+ * @package     Istans_Nailgallery
+ * @author      Ultimate Module Creator
+ */
+?>
+<?php $imgWidth = 205; ?>
+<?php $imgHeight = 205; ?>
+<?php $_event = $this->getCurrentEvent();?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<div class="page-title event-title">
+    <h1><?php echo $_event->getCaption(); ?></h 1>
+</div>
+<div class="event-view">
+    <div class="event-image">
+            <?php if ($_event->getImage()) :?>
+         <?php $img_orig = 'event/file'.$_event->getImage();?>
+         <?php $img = Mage::helper('istans_nailgallery')->resizeImg($img_orig, $imgWidth, $imgHeight); ?>
+<a class="fancybox-thumb" rel="fancybox-thumb" href="<?php echo '/media/'.$img_orig;?>" title="<?php echo $_event->getCaption();?>">
+	<img src="<?php echo $img;?>" alt="" />
+</a>          
+    <?php endif;?>
+
+    </div>
+    <div class="event-caption">
+        <h2><?php echo $_event->getCaption();?></h2>
+    </div>
+
+</div>

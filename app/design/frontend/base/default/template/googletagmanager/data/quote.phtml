@@ -1,0 +1,36 @@
+<?php
+/**
+ * GoogleTagManager plugin for Magento 
+ *
+ * @package     Yireo_GoogleTagManager
+ * @author      Yireo (https://www.yireo.com/)
+ * @copyright   Copyright (c) 2017 Yireo (https://www.yireo.com/)
+ * @license     Open Software License
+ */
+
+/** @var Yireo_GoogleTagManager_Block_Quote $this */
+$quote = $this->getQuote();
+
+if($this->isEnabled() && $quote) {
+    $totals = $quote->getTotals();
+    $tax = (isset($totals['tax'])) ? $totals['tax']->getValue() : '';
+
+    if(!empty($quote) && $quote->getId() > 0) { 
+        $this->addAttribute('transactionEntity', 'QUOTE'); 
+        $this->addAttribute('transactionId', $quote->getId()); 
+        $this->addAttribute('transactionAffiliation', $this->quoteEscape($this->getWebsiteName()));
+        $this->addAttribute('transactionTotal', (float)$quote->getGrandTotal()); 
+        $this->addAttribute('transactionTax', $quote->getGrandTotal() - $quote->getShippingAmount() - $quote->getSubtotal()); 
+        $this->addAttribute('transactionProducts', $transactionProducts = $this->getItemsAsArray());
+
+        if($this->isCheckoutPage()){
+            $checkout = array(
+                'actionField' => array( 'step' => 1 ),
+                'products' => $transactionProducts
+            );
+
+            $this->getScriptHelper()->setEcommerceEvent('checkout');
+            $this->getScriptHelper()->addEcommerceData('checkout', $checkout);
+        }
+    } 
+} 

@@ -1,0 +1,41 @@
+<?php
+/**
+ * Istans_Nailgallery extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Istans
+ * @package        Istans_Nailgallery
+ * @copyright      Copyright (c) 2016
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+/**
+ * Gallery view widget template
+ *
+ * @category    Istans
+ * @package     Istans_Nailgallery
+ * @author      Ultimate Module Creator
+ */
+?>
+<?php $_gallery = $this->getCurrentGallery();?>
+<?php if ($_gallery) :?>
+    <div class="gallery-widget-view">
+        <h3><?php echo $_gallery->getCaption()?></h3>
+        <div>
+            <div class="image-widget">
+                <?php if ($_gallery->getImage()) :?>
+    <img src="<?php echo Mage::helper('istans_nailgallery/gallery_image')->init($_gallery, 'image')->resize(75);?>" alt="<?php echo $this->escapeHtml($_gallery->getCaption());?>" />
+<?php endif;?>
+            </div>
+            <div class="caption-widget">
+                <?php echo Mage::helper('istans_nailgallery')->__('Caption');?>:<?php echo $_gallery->getCaption();?>
+            </div>
+
+        </div>
+    </div>
+<?php endif;?>

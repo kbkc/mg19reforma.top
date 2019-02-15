@@ -1,0 +1,72 @@
+<?php
+    $stores = $this->getStoresData();
+    $cacheableActions = $this->getCacheableActions();
+?>
+
+<br><br>
+<div class="content-header">
+    <h3><?php echo('Flush Full Page Cache') ?></h3>
+</div>
+<div id="messages">
+    <ul class="messages">
+        <li class="notice-msg">
+            <ul>
+                <li>
+                    <span id='fpc_flushcache_message'>
+                        Select data for cache flushing
+                    </span>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<form action="<?php echo $this->getUrl('*/fpc_flushcache/flush')?>" method="post">
+    <div>
+        <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+        <fieldset>
+            <span class="field-row">
+                <select name="fpc_flushcache_store" id="fpc_flushcache_flush_store" class="" onchange="addCacheFlushInfo()">
+                    <option value="">Select store...</option>
+                    <?php foreach ($stores as $store): ?>
+                        <option value="<?php echo $store->getId() ?>"><?php echo $this->escapeHtml($store->getName()).' — '.$store->getBaseUrl().'&nbsp;&nbsp;&nbsp;( ID: '.$store->getId().')' ?></option>
+                    <?php endforeach ?>
+                </select>
+                <?php echo '&nbsp;&nbsp;&nbsp;'; ?>
+                <select name="fpc_flushcache_actions" id="fpc_flushcache_flush_actions" class="" onchange="addCacheFlushInfo()">
+                    <option value="">Select Cacheable Actions...</option>
+                    <?php foreach ($cacheableActions as $action): ?>
+                        <option value="<?php echo $action->getAction() ?>"><?php echo $action->getName() ?></option>
+                    <?php endforeach ?>
+                </select>
+                <?php echo '&nbsp;&nbsp;&nbsp;'; ?>
+                <span class="form-buttons">
+                    <button type="submit" class="scalable" title="Submit">
+                        <span><?php echo('Flush Full Page Cache') ?></span>
+                    </button>
+                </span>
+            </span>
+        </fieldset>
+    </div>
+</form>
+<script type="text/javascript">
+    function addCacheFlushInfo()
+    {
+        var selStore = document.getElementById('fpc_flushcache_flush_store');
+        var selAction = document.getElementById('fpc_flushcache_flush_actions');
+        var selStoreValue = selStore.options[selStore.selectedIndex].value;
+        var selActionValue = selAction.options[selAction.selectedIndex].value;
+        console.log(selStoreValue);
+        console.log(selActionValue);
+        var fpcFlushcacheMessage = document.getElementById('fpc_flushcache_message');
+        if (selStoreValue && !selActionValue) {
+            fpcFlushcacheMessage.innerHTML = 'FPC cache will be flushed for store with ID = ' + selStoreValue + '.';
+        } else if (!selStoreValue && selActionValue) {
+            fpcFlushcacheMessage.innerHTML = 'FPC cache will be flushed for page with action "' + selActionValue + '".';
+        } else if (selStoreValue && selActionValue) {
+            fpcFlushcacheMessage.innerHTML = 'FPC cache will be flushed for page with action "' + selActionValue
+                + '". Only for store with ID = ' + selStoreValue + '.';
+        } else if (!selStoreValue && !selActionValue) {
+            fpcFlushcacheMessage.innerHTML = 'Select data for cache flushing';
+        }
+    }
+</script>

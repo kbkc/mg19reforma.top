@@ -1,0 +1,19 @@
+<?php
+/**
+ * GoogleTagManager plugin for Magento
+ *
+ * @package     Yireo_GoogleTagManager
+ * @author      Yireo (https://www.yireo.com/)
+ * @copyright   Copyright (c) 2017 Yireo (https://www.yireo.com/)
+ * @license     Open Software License
+ */
+
+/** @var Yireo_GoogleTagManager_Block_Ecommerce $this */
+
+$toPush = array();
+if( $event = $this->getEcommerceEvent() ){
+    $toPush['event'] = $event;
+}
+$toPush['ecommerce'] = $this->getEcommerceData();
+?>
+dataLayer.push(<?php echo json_encode($toPush); ?>);

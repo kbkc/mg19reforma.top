@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @copyright Copyright (c) 2014 Sergey Cherepanov (sergey@cherepanov.org.ua)
+* @license Creative Commons Attribution 3.0 License
+*/
+-->
+<config>
+    <modules>
+        <Open_Gallery>
+            <active>false</active>
+            <codePool>community</codePool>
+            <depends>
+                <Mage_Core/>
+            </depends>
+        </Open_Gallery>
+    </modules>
+</config>

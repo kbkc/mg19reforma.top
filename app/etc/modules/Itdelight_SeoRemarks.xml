@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Itdelight_SeoRemarks>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Magiccart_Magicslider />
+                <Magiccart_Blog />
+            </depends>
+        </Itdelight_SeoRemarks>
+    </modules>
+</config>

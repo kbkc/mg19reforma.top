@@ -1,0 +1,47 @@
+<?php 
+/**
+ * Istans_Nailgallery extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Istans
+ * @package        Istans_Nailgallery
+ * @copyright      Copyright (c) 2016
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+/**
+ * Event image list template
+ *
+ * @category    Istans
+ * @package     Istans_Nailgallery
+ * @author      Ultimate Module Creator
+ */
+?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php $_eventimages = $this->getEventimages(); ?>
+<div class="page-title eventimage-title">
+    <?php if (Mage::helper('istans_nailgallery/eventimage')->isRssEnabled()) : ?>
+        <a href="<?php echo Mage::helper('istans_nailgallery/eventimage')->getRssUrl();?>" class="link-rss"><?php echo Mage::helper('istans_nailgallery')->__('Subscribe to RSS Feed')?></a>
+    <?php endif;?>
+    <h1><?php echo Mage::helper('istans_nailgallery')->__('Event image') ?></h1>
+</div>
+<?php if ($_eventimages->getSize() > 0) :?>
+    <?php echo $this->getPagerHtml(); ?>
+    <div class="eventimage-list-container">
+    <?php foreach ($_eventimages as $_eventimage) : ?>
+        <div class="eventimage-list-item">
+            <a href="<?php echo $_eventimage->getEventimageUrl()?>">
+                <?php echo $_eventimage->getTitle();?>
+            </a><br />
+        </div>
+    <?php endforeach;?>
+    </div>
+    <?php echo $this->getPagerHtml(); ?>
+<?php else : ?>
+    <?php echo Mage::helper('istans_nailgallery')->__('There are no event image at this moment');?>
+<?php endif;?>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Artjoker_SocialSharer>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Artjoker_SocialSharer>
+    </modules>
+</config>

@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Artjoker_SocialSharer>
+            <version>1.0.0</version>
+        </Artjoker_SocialSharer>
+    </modules>
+    <global>
+        <blocks>
+            <socialsharer>
+                <class>Artjoker_SocialSharer_Block</class>
+            </socialsharer>
+        </blocks>
+        <helpers>
+            <socialsharer>
+                <class>Artjoker_SocialSharer_Helper</class>
+            </socialsharer>
+        </helpers>
+    </global>
+    <default>
+        <catalog>
+            <socialsharer>
+                <enabled>0</enabled>
+                <facebook>1</facebook>
+                <config>
+                    <facebook>
+                        <name>facebook</name>
+                        <icon_class><![CDATA[fa fa-facebook]]></icon_class>
+                        <url><![CDATA[https://www.facebook.com/sharer/sharer.php?u={url}","","menubar=1,resizable=1,width=700,height=600"]]></url>
+                    </facebook>
+                    <instagram>
+                        <name>instagram</name>
+                        <icon_class><![CDATA[fa fa-instagram]]></icon_class>
+                        <url><![CDATA[https://www.facebook.com/sharer/sharer.php?u={url}","","menubar=1,resizable=1,width=700,height=600"]]></url>
+                    </instagram>
+                </config>
+            </socialsharer>
+        </catalog>
+    </default>
+</config>

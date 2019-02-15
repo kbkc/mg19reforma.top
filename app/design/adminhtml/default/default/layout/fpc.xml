@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout>
+    <adminhtml_cache_index>
+        <reference name="head">
+            <action method="addJs"><script>mirasvit/core/amcharts-3.4.5/amcharts.js</script></action>
+            <action method="addJs"><script>mirasvit/core/amcharts-3.4.5/serial.js</script></action>
+        </reference>
+        <reference name="content">
+            <block type="fpc/adminhtml_log" name="fpc_log" template="fpc/log.phtml" after="cache.additional" />
+            <block type="fpc/adminhtml_crawlerurl" name="fpc_crawlerurl" template="fpc/crawlerurl.phtml" after="cache.additional" />
+            <block type="fpc/adminhtml_flushcache" name="fpc_flushcache" template="fpc/flushcache.phtml" after="cache.additional" />
+        </reference>
+    </adminhtml_cache_index>
+    <adminhtml_fpc_optimalconfiguration_index>
+        <reference name="content">
+            <action method="unsetData"><key>cache_lifetime</key></action>
+            <action method="unsetData"><key>cache_tags</key></action>
+            <block type="fpc/adminhtml_optimalConfiguration" name="fpc_optimal_configuration" template="fpc/optimalconfiguration.phtml">
+                <action method="unsetData"><key>cache_lifetime</key></action>
+                <action method="unsetData"><key>cache_tags</key></action>
+            </block>
+        </reference>
+    </adminhtml_fpc_optimalconfiguration_index>
+</layout>

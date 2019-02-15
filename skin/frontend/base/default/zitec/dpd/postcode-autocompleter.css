@@ -1,0 +1,5 @@
+.autocomplete-indicator {
+    max-height: 200px;
+    background: white;
+    overflow-y: auto;
+}

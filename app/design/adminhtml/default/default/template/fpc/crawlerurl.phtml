@@ -1,0 +1,11 @@
+<?php if ($this->isFpcCrawlerInstalled()): ?>
+    <br><br>
+    <div class="content-header">
+        <h3><?php echo ('Crawler URLs Links') ?></h3>
+    </div>
+    <div>
+        <a href="<?php echo $this->getUrl('*/fpccrawler_url/index') ?>">Crawler URLs ( System->Full Page Cache->Crawler URLs )</a>
+        <p></p>
+        <a href="<?php echo $this->getUrl('*/fpccrawlerlogged_url/index') ?>">Crawler URLs for logged in users ( System->Full Page Cache->Crawler URLs for logged in users )</a>
+    </div>
+<?php endif; ?>

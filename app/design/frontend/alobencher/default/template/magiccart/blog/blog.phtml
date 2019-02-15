@@ -1,0 +1,81 @@
+<?php $posts = $this->getPosts(); ?>
+<div id="messages_product_view">
+    <?php Mage::app()->getLayout()->getMessagesBlock()->setMessages(Mage::getSingleton('customer/session')->getMessages(true)); ?>
+    <?php echo Mage::app()->getLayout()->getMessagesBlock()->getGroupedHtml(); ?>
+</div>
+<div class="blog-toolbar blog-toolbar-top">
+   <?php //echo $this->getChildHtml('blog_comments_toolbar'); ?>
+</div>
+<?php 
+$_hpImages = Mage::helper('blog/images');
+$width  = 870;
+$height = 430;
+?>
+<?php foreach ($posts as $post): ?>
+    <div class="postWrapper">
+        <div class="postTitle">
+            <h2><a href="<?php echo $post->getAddress(); ?>" ><?php echo $post->getTitle(); ?></a></h2>
+        </div>
+
+        <?php echo $this->getBookmarkHtml($post) ?>
+        <div class="postContent"><?php echo $post->getPostContent(); ?></div>
+
+		<div class="post-img">
+			<a href="<?php echo $post->getAddress(); ?>" ><?php echo $post->getImage() ? '<img  class="img-responsive" src="'. $_hpImages->resizeImg(basename($post->getImage()), $width, $height) .'" alt="blog" >' : ''; ?></a>
+			<div class="post-date-bottom">
+				<?php $s = $post->getCreatedTime(); $date = strtotime($s); $date2 = strtotime($s); ?>
+				<span class="date-home-day"><?php echo date("d", $date) ?></span>
+				<span class="date-home-month"><?php echo date("M", $date2) ?></span>
+			</div>
+		</div>
+        
+		<div class="by post-date">
+			<!-- <div class="number"><i class="fa fa-calendar-o"></i><span><?php //echo $post->getCreatedTime(); ?></span></div> -->
+			<div class="tags"><?php echo $this->getTagsHtml($post) ?></div>
+			<i class="fa fa-comment"></i><span class="comments"><?php echo $post->getCommentCount().''.$this->__('Comments') ?></span>
+			<div class="link-social"><span><?php echo Mage::helper('itdelight_seoremarks')->__('Share')?></span>
+				<ul class="link-list">
+					<li class="link-icon">
+						<span class="fa fa-facebook"
+							  onclick='inWin("https://www.facebook.com/sharer/sharer.php?u=<?php echo $post->getAddress(); ?>")'
+							  title="facebook">
+							<span class="hidden">hidden</span>
+						</span>
+					</li>
+					<li class="link-icon">
+						<span class="fa fa-twitter"
+							  onclick='inWin("https://twitter.com/share?url=<?php echo $post->getAddress(); ?>&text=<?php echo $post->getTitle(); ?>")'
+							  title="instagram"><span class="hidden">hidden</span>
+						</span>
+					</li>
+					<li class="link-icon">
+						<span class="fa fa-google"
+							  onclick='inWin("https://plus.google.com/share?url=<?php echo $post->getAddress(); ?>")'
+							  title="google"><span class="hidden">hidden</span>
+						</span>
+					</li>
+					<li class="link-icon">
+						<span class="fa fa-pinterest"
+							  onclick='inWin("http://pinterest.com/pin/create/button/?url=<?php echo $post->getAddress(); ?>&media=<?php echo $post->getImage(); ?>&description=<?php echo $post->getTitle(); ?>")'
+							  title="pinterest"><span class="hidden">hidden</span>
+						</span>
+					</li>
+				</ul>
+			</div>
+        </div>
+
+
+    </div>
+<?php endforeach; ?>
+<div class="blog-toolbar blog-toolbar-bottom">
+<?php echo $this->getChildHtml('blog_comments_toolbar'); ?>
+<?php //echo $this->getBlockHtml('blog_list_toolbar'); ?>
+</div>
+
+<script type="text/javascript">
+	function inWin(a){
+		if (a.href) a=a.href;
+		window.open(a ,"_self");
+		return false;
+	}
+</script>

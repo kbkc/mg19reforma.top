@@ -1,0 +1,84 @@
+<?php 
+/**
+ * Istans_Nailgallery extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Istans
+ * @package        Istans_Nailgallery
+ * @copyright      Copyright (c) 2016
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+/**
+ * Gallery list template
+ *
+ * @category    Istans
+ * @package     Istans_Nailgallery
+ * @author      Ultimate Module Creator
+ */
+?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php $_gallerys = $this->getGallerys(); 
+$imgWidth = 370;
+$imgHeight = 231;
+//$zonda = $this->helper('zonda');
+?>
+<div class="page-title gallery-title">
+    <?php if (Mage::helper('istans_nailgallery/gallery')->isRssEnabled()) : ?>
+        <a href="<?php echo Mage::helper('istans_nailgallery/gallery')->getRssUrl();?>" class="link-rss"><?php echo Mage::helper('istans_nailgallery')->__('Subscribe to RSS Feed')?></a>
+    <?php endif;?>
+    <h1><?php echo Mage::helper('istans_nailgallery')->__('Gallery') ?></h1>
+</div>
+<?php if ($_gallerys->getSize() > 0) :?>
+    <?php //echo $this->getPagerHtml(); ?>
+    <div class="products-grid first last odd">
+        <div class="portfolio-content tab-content">
+            <div class="row">
+
+    <?php foreach ($_gallerys as $_gallery) : ?>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 postfolio-item">
+            <div class="portfolio-hover">
+                <div class="product-image">
+                <?php $img_orig = '/gallery/image'. $_gallery->getImage(); ?>
+                <?php $img = Mage::helper('istans_nailgallery')->resizeImg($img_orig, $imgWidth, $imgHeight); ?>
+                <?php $img_full = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).$img_orig; ?>
+<a class="fancybox-thumb" rel="fancybox-thumb" href="<?php echo $img_full;?>" title="<?php echo $_gallery->getCaption();?>">
+	<img src="<?php echo $img;?>" alt="" />
+</a>                
+                </div>
+            </div>
+            <div class="portfolio-text">
+                <?php echo $_gallery->getCaption();?>
+            </div>
+        </div>
+    <?php endforeach;?>
+            </div>
+        </div>
+    </div>
+    <?php //echo $this->getPagerHtml(); ?>
+<?php else : ?>
+    <?php echo Mage::helper('istans_nailgallery')->__('There are no gallery at this moment');?>
+<?php endif;?>
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+	jQuery(".fancybox-thumb").fancybox({
+		prevEffect	: 'none',
+		nextEffect	: 'none',
+		helpers	: {
+			title	: {
+				type: 'outside'
+			},
+			thumbs	: {
+				width	: 205,
+				height	: 205
+			}
+		}
+	});
+});
+</script>

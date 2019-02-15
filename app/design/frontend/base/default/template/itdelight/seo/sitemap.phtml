@@ -1,0 +1,8 @@
+<?php /** @var $this Itdelight_SeoSitemap_Block_Sitemap */ ?>
+<?php $sitemap = $this->generateSitemap(); ?>
+<?php foreach ($sitemap['data'] as $link): ?>
+    <a href="<?php echo $link ?>"><?php echo $link ?></a><br/>
+<?php endforeach; ?>
+<?php for ($i = 1; $i < $sitemap['pages'] + 1; $i++): ?>
+    <a href="<?php echo Mage::getBaseUrl() ?>sitemaphtml/?p=<?php echo $i; ?>"><?php echo $i; ?></a>
+<?php endfor; ?>

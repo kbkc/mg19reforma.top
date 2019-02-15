@@ -1,0 +1,237 @@
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+<?php $_categoriesCollection = $this->_getCategories(); ?>
+<?php //$_productCollection = $this->_getProducts(); ?>
+<?php //if(count($_productCollection)) : ?>
+<?php
+$baseUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);
+$sortName = Mage::app()->getRequest()->getParam('sort');
+$sortDir = Mage::app()->getRequest()->getParam('dir');
+if(!isset($sortDir))$sortDir='asc';
+?>
+Demo Page
+<div class='quickorder'>
+    <?php
+    if(!Mage::getSingleton('customer/session')->isLoggedIn()){
+        ?>
+        <div class="description"><p>Log in or register to see your personal discounts</p></div>
+        <p></p>
+    <?php
+    }else{
+    }
+    ?>
+    <form id="edge_quickorder" name="edge_quickorder" method='post' action="<?php echo $this->getUrl('quickorder/index/addToCart')?>" >
+
+
+    <table>
+        <thead>
+        <tr>
+            <th width="5%">
+                <a href="<?php echo $baseUrl ?>quickorder?sort=sku"><?php echo 'Sku' ?></a>
+                <?php if($sortName == 'sku' && $sortDir == 'asc'): ?>
+                <a href="<?php echo $baseUrl ?>quickorder?sort=sku&dir=desc" title="Set Descending Direction">
+                    <img src="<?php echo $baseUrl ?>skin/frontend/alobencher/demo2/images/i_asc_arrow.gif" alt="Set Descending Direction" class="v-middle">
+                </a>
+                <?php elseif ($sortName == 'sku' && $sortDir == 'desc'):?>
+                <a href="<?php echo $baseUrl ?>quickorder?sort=sku&dir=asc" title="Set Ascending Direction">
+                    <img src="<?php echo $baseUrl ?>skin/frontend/alobencher/demo2/images/i_desc_arrow.gif" alt="Set Ascending Direction" class="v-middle">
+                </a>
+                <?php endif; ?>
+            </th>
+            <th width="18%">
+                <a href="<?php echo $baseUrl ?>quickorder?sort=name"><?php echo 'Product Name' ?></a>
+                <?php if($sortName == 'name' && $sortDir == 'asc'): ?>
+                    <a href="<?php echo $baseUrl ?>quickorder?sort=name&dir=desc" title="Set Descending Direction">
+                        <img src="<?php echo $baseUrl ?>skin/frontend/alobencher/demo2/images/i_asc_arrow.gif" alt="Set Descending Direction" class="v-middle">
+                    </a>
+                <?php elseif ($sortName == 'name' && $sortDir == 'desc'):?>
+                    <a href="<?php echo $baseUrl ?>quickorder?sort=name&dir=asc" title="Set Ascending Direction">
+                        <img src="<?php echo $baseUrl ?>skin/frontend/alobencher/demo2/images/i_desc_arrow.gif" alt="Set Ascending Direction" class="v-middle">
+                    </a>
+                <?php endif; ?>
+            </th>
+            <th width="10%"><?php echo 'Availability' ?><?php //echo $this->__('No. in Stock')     ?></th>
+            <th width="11%">
+                <a href="<?php echo $baseUrl ?>quickorder?sort=price"><?php echo 'Price' ?></a>
+                <?php if($sortName == 'price' && $sortDir == 'asc'): ?>
+                    <a href="<?php echo $baseUrl ?>quickorder?sort=price&dir=desc" title="Set Descending Direction">
+                        <img src="<?php echo $baseUrl ?>skin/frontend/alobencher/demo2/images/i_asc_arrow.gif" alt="Set Descending Direction" class="v-middle">
+                    </a>
+                <?php elseif ($sortName == 'price' && $sortDir == 'desc'):?>
+                    <a href="<?php echo $baseUrl ?>quickorder?sort=price&dir=asc" title="Set Ascending Direction">
+                        <img src="<?php echo $baseUrl ?>skin/frontend/alobencher/demo2/images/i_desc_arrow.gif" alt="Set Ascending Direction" class="v-middle">
+                    </a>
+                <?php endif; ?>
+            </th>
+            <th width="10%"><?php echo 'Quantity' ?></th>
+            <th width="5%"><?php echo 'Total' ?></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        /*
+        foreach ($_categoriesCollection as $_category) :
+
+
+            ?>
+        <tr>
+            <td><div class="cat-title"><?php echo $_category->getName();?></div></td>
+        </tr>
+        <?php $i = 0;
+        */
+        $i = 0;
+        $_productCollection = $this->_getProducts($_category);
+    foreach ($_productCollection as $_product):
+    $i++;
+    ?>
+        <tr>
+            <td><a class="product-item-link" href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->escapeHtml($_product->getSku()) ?></a></td>
+            <td><a class="product-item-link" href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->escapeHtml($_product->getName()) ?></a></td>
+            <?php
+            //$stock = Mage::getModel('cataloginventory/stock_item')->loadByProduct($_product);
+            //$stk_qty = $stock->getQty();
+            $stk_qty = 13;
+            //$parent_cat = $_product->getCategory()->getParentCategory()->getName() ;
+
+            ?>
+            <td>
+                <?php
+                if ($stk_qty > 0)
+                echo "<span class='stock'>In stock</span>"; //echo round($stk_qty);
+                else
+                echo "<span class='backorder'>Out of stock</span>";
+                ?>
+            </td>
+            <td>
+                <?php
+                $_formattedSpecialPrice = Mage::helper('core')->currency($_product->getFinalPrice(),true,false);
+                ?>
+                <span class="price"><?php echo  number_format($_product->getFinalPrice(), 2);?></span></td>
+            <td>
+                <?php /*
+                        <fieldset class="add-to-cart-box">
+                            <input type="hidden" name="products[]" value="<?php echo $_product->getId() ?>" />
+                            <span class="qty-box">
+                                <input name="qty[<?php echo $_product->getId() ?>]" type="text" class="input-text qty" id="qty<?php echo $_product->getId() ?>" maxlength="12" value="" /></span>
+                        </fieldset>
+                         *
+                         */ ?>
+                <div class="field qty">
+
+                    <div class="clearfix">
+                        <a class="qty_dec" href="javascript:void(0)"><i class="fa fa-minus"></i></a>
+                        <input type='hidden' class='input-sku' name='product[<?php echo $_product->getId() ?>][sku]' value='<?php echo $_product->getSku()?>'>
+                        <input id="cart-<?php echo $_product->getId() ?>-qty"
+                               name="product[<?php echo $_product->getId() ?>][qty]"
+
+                               value="0"
+                               type="text"
+                               size="4"
+                               title="<?php //echo $block->escapeHtml(__('Qty')); ?>"
+                               class="input-text qty"
+                               maxlength="12"
+
+                               data-validate="<?php //echo $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+                              />
+                        <a class="qty_inc" href="javascript:void(0)"><i class="fa fa-plus"></i></a>
+                    </div>
+                </div>
+
+            </td>
+            <td class="col subtotal" data-th="<?php echo __('Subtotal');?>">
+                <span class="cart msrp subtotal">--</span>
+                <?php //echo $block->getRowTotalHtml($_product); ?>
+            </td>
+        </tr>
+
+<?php endforeach; ?>
+<?php //endforeach; ?>
+<tr class="total-row total-container">
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td class="title"><?php echo __('Total');?></td>
+    <td class="summary-total">0</td>
+</tr>
+        </tbody>
+
+    </table>
+
+    <?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('quick-order')->toHtml(); ?>
+<div class="actions">
+    <button type="submit" class='button' title='Submit'>
+        <span><?php echo __('Checkout'); ?></span>
+    </button>
+</div>
+
+    </form>
+
+</div>
+<?php //endif ?>
+<script type="text/javascript">
+/*    require([
+        'jquery',
+    ], function (jquery) { */
+     //   jquery(function () { // to ensure that code evaluates on page load
+jQuery(document).ready(function(jQuery) {
+            var totalAll = 0;
+            jQuery('.qty_inc').click(function () {
+               // e.preventDefault();
+                var price = parseFloat(jQuery(this).parents('tr').find('span.price').text());
+                var qty = jQuery(this).parents('tr').find('input.qty').val();
+                qty =parseFloat(qty) + 1;
+                if (!isNaN(price) && !isNaN(qty)) {
+                    jQuery(this).parents('tr').find('input.qty').val(qty);
+                    var totalPrice = parseFloat(price) * (parseInt(qty));
+                    jQuery(this).parents('tr').find('span.subtotal').html(totalPrice.toFixed(2));
+                } else {
+                       jQuery(this).parents('tr').find('input.qty').val(0);
+                    jQuery(this).parents('tr').find('span.subtotal').html('--');
+                }
+                totalSum();
+                //console.log(jQuery(this).parents('tr').find('input.qty').val());
+            });
+            jQuery('.qty_dec').click(function () {
+                var price = parseFloat(jQuery(this).parents('tr').find('span.price').text());
+                var qty = jQuery(this).parents('tr').find('input.qty').val();
+                qty = parseFloat(qty) - 1;
+                if(!isNaN(price) && !isNaN(qty) && qty >= 0){
+                    jQuery(this).parents('tr').find('input.qty').val(qty);
+                    var totalPrice = parseFloat(price) * (parseInt(qty));
+                    jQuery(this).parents('tr').find('span.subtotal').html(totalPrice.toFixed(2));
+                } else {
+                    jQuery(this).parents('tr').find('input.qty').val(0);
+                    jQuery(this).parents('tr').find('span.subtotal').html('--');
+                }
+                console.log(price);
+                console.log(qty);
+                totalSum();
+            });
+            jQuery('.quickorder input.qty').keyup(function() {
+                var price = parseFloat(jQuery(this).parents('tr').find('span.price').text());
+                var qty = jQuery(this).parents('tr').find('input.qty').val();
+                var totalPrice = parseFloat(price) * (parseInt(qty));
+                jQuery(this).parents('tr').find('span.subtotal').html(totalPrice.toFixed(2));
+                totalSum();
+            });
+
+        });
+function totalSum() {
+    var total = 0;
+    var el = 0;
+    jQuery(".quickorder span.subtotal").each(function() {
+        // console.log(jQuery(this).html());
+        el = parseFloat(jQuery(this).html());
+        if(!isNaN(el)){
+            total += el;
+        }
+
+       // console.log(total);
+
+    });
+    jQuery(".quickorder .total-row .summary-total").html(total.toFixed(2));
+}
+/* });*/
+</script>
+

@@ -1,0 +1,11 @@
+<layout version="0.1.0">
+    <default>
+        <reference name="after_body_start">
+            <block type="core/template" name="gfonts.deferred-styles">
+                <action method="setTemplate">
+                    <template>page/html/body/gfonts.deferred-styles.phtml</template>
+                </action>
+            </block>
+        </reference>
+    </default>
+</layout>

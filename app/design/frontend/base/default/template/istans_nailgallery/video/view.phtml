@@ -1,0 +1,40 @@
+<?php
+/**
+ * Istans_Nailgallery extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Istans
+ * @package        Istans_Nailgallery
+ * @copyright      Copyright (c) 2016
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+/**
+ * Video view template
+ *
+ * @category    Istans
+ * @package     Istans_Nailgallery
+ * @author      Ultimate Module Creator
+ */
+?>
+<?php $_video = $this->getCurrentVideo();?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<div class="page-title video-title">
+    <h1><?php echo $_video->getTitle(); ?></h1>
+</div>
+<div class="video-view">
+    <div class="video-title">
+        <?php echo Mage::helper('istans_nailgallery')->__('Title');?>:<?php echo $_video->getTitle();?>
+
+    </div>
+    <div class="video-video">
+        <?php echo Mage::helper('istans_nailgallery')->__('video');?>:<?php echo $_video->getVideo();?>
+
+    </div>
+
+</div>

@@ -1,0 +1,329 @@
+<?php
+/**
+ * @category  Magebuzz
+ * @package   Magebuzz_Gallerymedia
+ * @version   0.1.6
+ * @copyright Copyright (c) 2012-2015 http://www.magebuzz.com
+ * @license   http://www.magebuzz.com/terms-conditions/
+ * @var $this Magebuzz_Gallerymedia_Block_Albums_List
+ */
+?>
+
+<?php $albumCollection = $this->getAlbumsMedia(); ?>
+<?php $_galleryHelper = Mage::helper('gallerymedia'); ?>
+<?php $boxSizeConfig = Mage::getStoreConfig('gallerymedia/media_setting/media_box_size'); ?>
+<?php $boxSize = $_galleryHelper->getConfigSize($boxSizeConfig); ?>
+<?php $count = is_array($albumCollection) ? count($albumCollection) : $albumCollection->count(); ?>
+<?php //if ($count > 0): ?>
+     <div class="block-title-tabs">
+         <ul class="magictabs nav nav-tabs">
+             <?php if ($count > 0): ?>
+             <li class="item active"><a class="title" href="#all" data-toggle="tab"><?php echo __('All work') ?></a></li>
+
+             <?php foreach ($albumCollection as $album): ?>
+                <li class="item"><a class="title" href="#<?php echo $album->getGalleryAlbumId()?>" data-toggle="tab"><?php echo __($album->getAlbumName()); ?></a></li>
+             <?php endforeach; ?>
+             <?php endif; ?>
+         </ul>
+     </div>
+  <div class="portfolio-content tab-content">
+      <div class="tab-pane active" id="all">
+          <?php
+          $collection = Mage::getModel('gallerymedia/galleryitems')->getCollection()
+                ->addFieldToFilter('status', '1');
+            $collection->getSelect()->order('sort_order', 'ASC');
+            ?>
+          <?php
+          $i=0;
+          if ($collection->getSize()):
+          ?>
+              <?php $_columnCount = 3; ?>
+              <div class="row">
+              <?php
+              foreach ($collection as $_item):
+                  //$i++;
+                  ?>
+                  <?php if ($i++ % $_columnCount == 0): ?>
+                  <div class="row">
+                      <?php endif ?>
+                  <?php if ($_item->getMediaType() == '2'): ?>
+                  <?php $filename = $_item->getItemFile(); ?>
+                  <?php $videoURL = $_item->getVideoUrl(); ?>
+                  <?php if ($videoURL) $videoId = $_galleryHelper->getYouTubeIdFromURL($videoURL); ?>
+              <?php endif; ?>
+
+                      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 postfolio-item">
+                          <?php if ($_item->getMediaType() == '2'): ?>
+                          <div class="portfolio-hover">
+                                  <?php if($videoURL != ''):?>
+                                  <a class="various fancybox.iframe"
+                                     href="https://www.youtube.com/embed/<?php echo $videoId?>?autoplay=1">
+                                      <div class="product-image video">
+                                      <img src="https://img.youtube.com/vi/<?php echo $videoId?>/0.jpg"/>
+                                      </div>
+                                      <div class="icon-video"></div>
+
+                                  </a>
+                                  <?php else: ?>
+                              <?php if ($_galleryHelper->isPreviewVideo()): ?>
+                                  <div id="popup_video_<?php echo $_item->getId(); ?>" style="display:none;">
+                                      <div id="popup_container_<?php echo $_item->getId(); ?>"
+                                           style="display: none;">Loading the player ...</div>
+                                      <script type="text/javascript">
+                                          jwplayer("popup_container_<?php echo $_item->getId(); ?>").setup({
+                                              flashplayer: "<?php echo $this->getJsUrl('magebuzz/gallerymedia/player.swf')?>",
+                                              file: "<?php if($videoURL != ''):?>https://www.youtube.com/watch?v=<?php echo $videoId?><?php else:?><?php echo Mage::getBaseUrl('media')."gallerymedia/mediafile/".$filename?><?php endif;?>",
+                                              controlbar: "over",
+                                              height: 380,
+                                              width: 231
+                                          });
+                                      </script>
+                                  </div>
+                                  <div class="video-thumbnail" <?php if ($this->getSizeHtml()) {
+                                      echo $this->getSizeHtml();
+                                  } else {
+                                      echo 'style="width:380px;height:231px;"';
+                                  } ?>>
+                                      <p <?php if ($this->getSizeHtml()) {
+                                          echo $this->getSizeHtml();
+                                      } else {
+                                          echo 'style="width:380px;height:231px;"';
+                                      } ?>>
+                                          <a class="venture_spring_popup" data-fancybox-group="gallery"
+                                             href="#popup_video_<?php echo $_item->getId(); ?>"
+                                             title="<?php echo $_item->getItemName(); ?>">
+                                              <?php $video_thumbnail = Mage::helper("gallerymedia/image")->init($_item)->resize($_item['media_thumbnail'], $boxSize[0], $boxSize[1], 'thumbnail'); ?>
+                                              <img src="<?php echo $video_thumbnail; ?>"
+                                                   title="<?php echo $_item->getItemName(); ?>"
+                                                   alt="<?php echo $_item->getItemName(); ?>" align="left"/>
+                                          </a>
+                                      </p>
+                                  </div>
+                                  <div class="icon"><img
+                                              src="<?php echo $this->getSkinUrl('magebuzz/gallerymedia/images//video_icon.png') ?>"/>
+                                  </div>
+                              <?php else: ?>
+                                  <div class="video-thumbnail" <?php if ($this->getSizeHtml()) {
+                                      echo $this->getSizeHtml();
+                                  } else {
+                                      echo 'style="width:380px;height:231px;"';
+                                  } ?>>
+                                      <p <?php if ($this->getSizeHtml()) {
+                                          echo $this->getSizeHtml();
+                                      } else {
+                                          echo 'style="width:380px;height:231px;"';
+                                      } ?>>
+                                          <a class="venture_spring_popup" data-fancybox-group="gallery"
+                                             href="<?php echo $this->getItemUrl($_item->getGalleryItemId()) ?>"
+                                             title="<?php echo $_item->getItemName(); ?>">
+                                              <?php $video_thumbnail = Mage::helper("gallerymedia/image")->init($_item)->resize($_item['media_thumbnail'], $boxSize[0], $boxSize[1], 'thumbnail'); ?>
+                                              <img src="<?php echo $video_thumbnail; ?>"
+                                                   title="<?php echo $_item->getItemName(); ?>"
+                                                   alt="<?php echo $_item->getItemName(); ?>" align="left"/>
+                                          </a>
+                                      </p>
+                                  </div>
+                                  <div class="icon"><img
+                                              src="<?php echo $this->getSkinUrl('magebuzz/gallerymedia/images/video_icon.png') ?>"/>
+                                  </div>
+                              <?php endif; ?>
+                                  <?php endif; ?>
+                          </div>
+                              <div class="portfolio-text">
+                                  <?php echo $_item->getItemName(); ?>
+                              </div>
+
+                          <?php else: ?>
+                              <div class="portfolio-hover">
+                                  <?php $imageUrlInit = Mage::helper("gallerymedia/image")->getImageUrl($_item->getItemFile()); ?>
+                                  <a <?php if ($_galleryHelper->isPreviewVideo()): ?>  class="various venture_spring_popup" data-fancybox-group="gallery"  href="<?php echo $imageUrlInit; ?>" <?php else : ?>href="<?php echo $this->getItemUrl($_item->getGalleryItemId()) ?>" <?php endif ?>
+                                          title="<?php echo $_item->getItemName(); ?>">
+                                      <?php $image_url = Mage::helper("gallerymedia/image")->init($_item)->resize($_item['item_file'], $boxSize[0], $boxSize[1]); ?>
+                                      <img src="<?php echo $image_url; ?>"
+                                           title="<?php echo $_item->getItemName(); ?>"
+                                           alt="<?php echo $_item->getItemName(); ?>"
+                                           class="img-responsive"/>
+                                  </a>
+                              </div>
+                              <div class="portfolio-text">
+                                  <?php echo $_item->getItemName(); ?>
+                              </div>
+                          <?php endif; ?>
+
+
+                      </div>
+                  <?php if ($i % $_columnCount == 0 || $i == count($collection)): ?>
+                  </div>
+              <?php endif ?>
+                  <?php
+              endforeach;
+              ?>
+              </div>
+          <?php
+          endif;
+          ?>
+      </div>
+      <?php if ($count > 0): ?>
+    <?php foreach ($albumCollection as $album): ?>
+        <div class="tab-pane" id="<?php echo $album->getGalleryAlbumId()?>">
+            <?php
+            $album_id = $album->getGalleryAlbumId();
+            $collection = Mage::getModel('gallerymedia/galleryitems')->getCollection()
+                ->addFieldToFilter('status', '1');
+            $collection->getSelect()
+                ->distinct()
+                ->join(array('media_album' => Mage::getSingleton('core/resource')->getTableName('gallery_album_entity_item')), 'media_album.gallery_item_id=main_table.gallery_item_id');
+            $collection->addFieldToFilter('gallery_album_id', $album_id);
+            $collection->getSelect()->order('sort_order', 'ASC');
+            ?>
+            <?php
+                if ($collection->getSize()):?>
+    <div class="row">
+                    <?php
+                    $i=0;
+                foreach ($collection as $_item):
+            ?>
+        <?php if ($i++ % $_columnCount == 0): ?>
+            <div class="row">
+                <?php endif ?>
+                    <?php if ($_item->getMediaType() == '2'): ?>
+                    <?php $filename = $_item->getItemFile(); ?>
+                    <?php $videoURL = $_item->getVideoUrl(); ?>
+                    <?php if ($videoURL) $videoId = $_galleryHelper->getYouTubeIdFromURL($videoURL); ?>
+                <?php endif; ?>
+                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 postfolio-item">
+                    <?php if ($_item->getMediaType() == '2'): ?>
+                         <div class="portfolio-hover">
+                             <?php if($videoURL != ''):?>
+                                 <a class="various fancybox.iframe"
+                                    href="https://www.youtube.com/embed/<?php echo $videoId?>?autoplay=1">
+                                     <div class="product-image video">
+                                         <img src="https://img.youtube.com/vi/<?php echo $videoId?>/0.jpg"/>
+                                     </div>
+                                     <div class="icon-video"></div>
+                                 </a>
+                             <?php else: ?>
+                             <?php if ($_galleryHelper->isPreviewVideo()): ?>
+                                 <div id="popup_video_<?php echo $_item->getId(); ?>" style="display:none;">
+                                     <div id="popup_container_<?php echo $_item->getId(); ?>"
+                                          style="display: none;">Loading the player ...</div>
+                                     <script type="text/javascript">
+                                         jwplayer("popup_container_<?php echo $_item->getId(); ?>").setup({
+                                             flashplayer: "<?php echo $this->getJsUrl('magebuzz/gallerymedia/player.swf')?>",
+                                             file: "<?php if($videoURL != ''):?>http://www.youtube.com/watch?v=<?php echo $videoId?><?php else:?><?php echo Mage::getBaseUrl('media')."gallerymedia/mediafile/".$filename?><?php endif;?>",
+                                             controlbar: "over",
+                                             height: 320,
+                                             width: 400
+                                         });
+                                     </script>
+                                 </div>
+                                 <div class="video-thumbnail" <?php if ($this->getSizeHtml()) {
+                                     echo $this->getSizeHtml();
+                                 } else {
+                                     echo 'style="width:200px;height:200px;"';
+                                 } ?>>
+                                     <p <?php if ($this->getSizeHtml()) {
+                                         echo $this->getSizeHtml();
+                                     } else {
+                                         echo 'style="width:200px;height:200px;"';
+                                     } ?>>
+                                         <a class="venture_spring_popup" data-fancybox-group="gallery"
+                                            href="#popup_video_<?php echo $_item->getId(); ?>"
+                                            title="<?php echo $_item->getItemName(); ?>">
+                                             <?php $video_thumbnail = Mage::helper("gallerymedia/image")->init($_item)->resize($_item['media_thumbnail'], $boxSize[0], $boxSize[1], 'thumbnail'); ?>
+                                             <img src="<?php echo $video_thumbnail; ?>"
+                                                  title="<?php echo $_item->getItemName(); ?>"
+                                                  alt="<?php echo $_item->getItemName(); ?>" align="left"/>
+                                         </a>
+                                     </p>
+                                 </div>
+                                 <div class="icon"><img
+                                             src="<?php echo $this->getSkinUrl('magebuzz/gallerymedia/images//video_icon.png') ?>"/>
+                                 </div>
+                             <?php else: ?>
+                                 <div class="video-thumbnail" <?php if ($this->getSizeHtml()) {
+                                     echo $this->getSizeHtml();
+                                 } else {
+                                     echo 'style="width:200px;height:200px;"';
+                                 } ?>>
+                                     <p <?php if ($this->getSizeHtml()) {
+                                         echo $this->getSizeHtml();
+                                     } else {
+                                         echo 'style="width:200px;height:200px;"';
+                                     } ?>>
+                                         <a class="venture_spring_popup" data-fancybox-group="gallery"
+                                            href="<?php echo $this->getItemUrl($_item->getGalleryItemId()) ?>"
+                                            title="<?php echo $_item->getItemName(); ?>">
+                                             <?php $video_thumbnail = Mage::helper("gallerymedia/image")->init($_item)->resize($_item['media_thumbnail'], $boxSize[0], $boxSize[1], 'thumbnail'); ?>
+                                             <img src="<?php echo $video_thumbnail; ?>"
+                                                  title="<?php echo $_item->getItemName(); ?>"
+                                                  alt="<?php echo $_item->getItemName(); ?>" align="left"/>
+                                         </a>
+                                     </p>
+                                 </div>
+                                 <div class="icon"><img
+                                             src="<?php echo $this->getSkinUrl('magebuzz/gallerymedia/images/video_icon.png') ?>"/>
+                                 </div>
+                             <?php endif; ?>
+                             <?php endif; ?>
+                         </div>
+                        <div class="portfolio-text">
+                            <?php echo $_item->getItemName(); ?>
+                        </div>
+                    <?php else: ?>
+                        <div class="portfolio-hover">
+                        <?php $imageUrlInit = Mage::helper("gallerymedia/image")->getImageUrl($_item->getItemFile()); ?>
+                     <a <?php if ($_galleryHelper->isPreviewVideo()): ?>  class="venture_spring_popup" data-fancybox-group="gallery"  href="<?php echo $imageUrlInit; ?>" <?php else : ?>href="<?php echo $this->getItemUrl($_item->getGalleryItemId()) ?>" <?php endif ?>
+                             title="<?php echo $_item->getItemName(); ?>">
+                        <?php $image_url = Mage::helper("gallerymedia/image")->init($_item)->resize($_item['item_file'], $boxSize[0], $boxSize[1]); ?>
+                        <img src="<?php echo $image_url; ?>"
+                             title="<?php echo $_item->getItemName(); ?>"
+                             alt="<?php echo $_item->getItemName(); ?>"
+                             class="img-responsive"/>
+                     </a>
+                        </div>
+                        <div class="portfolio-text">
+                           <?php echo $_item->getItemName(); ?>
+                        </div>
+                    <?php endif; ?>
+
+
+                 </div>
+                    <?php if ($i % $_columnCount == 0 || $i == count($collection)): ?>
+                    </div>
+                <?php endif ?>
+            <?php
+                endforeach;
+                ?>
+    </div>
+                <?php
+                endif;
+            ?>
+        </div>
+    <?php endforeach; ?>
+      <?php endif; ?>
+  </div>
+
+    <!----------------------------------->
+    <script type="text/javascript">
+
+        jQuery(document).ready(function (jQuery) {
+
+            console.log('test');
+            jQuery(".various").fancybox({
+                maxWidth: 800,
+                maxHeight: 600,
+                fitToView: false,
+                width: '70%',
+                height: '70%',
+                autoSize: false,
+                closeClick: false,
+                openEffect: 'none',
+                closeEffect: 'none'
+            });
+
+        });
+        </script>
+<?php /*else: ?>
+  <p class="note-msg"><?php echo $this->__('There are no album') ?></p>
+<?php endif;*/ ?>

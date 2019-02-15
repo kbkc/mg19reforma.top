@@ -1,0 +1,196 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Istans_Nailgallery extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Istans
+ * @package        Istans_Nailgallery
+ * @copyright      Copyright (c) 2016
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<widgets>
+    <nailgallery_gallery_view type="istans_nailgallery/gallery_widget_view" translate="name description" module="istans_nailgallery">
+        <name>Gallery view</name>
+        <description>Gallery view widget</description>
+        <is_email_compatible>0</is_email_compatible>
+        <parameters>
+            <gallery_id type="complex" translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Gallery</label>
+                <type>label</type>
+                <helper_block>
+                    <type>istans_nailgallery/adminhtml_gallery_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Gallery</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>120</sort_order>
+            </gallery_id>
+        </parameters>
+    </nailgallery_gallery_view>
+    <nailgallery_gallery_link type="istans_nailgallery/gallery_widget_link" translate="name description" module="istans_nailgallery">
+        <name>Gallery link</name>
+        <description>Gallery link widget</description>
+        <is_email_compatible>0</is_email_compatible>
+        <parameters>
+            <gallery_id type="complex" translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Gallery</label>
+                <type>label</type>
+                <helper_block>
+                    <type>istans_nailgallery/adminhtml_gallery_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Gallery</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>130</sort_order>
+            </gallery_id>
+        </parameters>
+    </nailgallery_gallery_link>
+    <nailgallery_event_view type="istans_nailgallery/event_widget_view" translate="name description" module="istans_nailgallery">
+        <name>Event view</name>
+        <description>Event view widget</description>
+        <is_email_compatible>0</is_email_compatible>
+        <parameters>
+            <event_id type="complex" translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Event</label>
+                <type>label</type>
+                <helper_block>
+                    <type>istans_nailgallery/adminhtml_event_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Event</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>120</sort_order>
+            </event_id>
+        </parameters>
+    </nailgallery_event_view>
+    <nailgallery_event_link type="istans_nailgallery/event_widget_link" translate="name description" module="istans_nailgallery">
+        <name>Event link</name>
+        <description>Event link widget</description>
+        <is_email_compatible>0</is_email_compatible>
+        <parameters>
+            <event_id type="complex" translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Event</label>
+                <type>label</type>
+                <helper_block>
+                    <type>istans_nailgallery/adminhtml_event_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Event</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>130</sort_order>
+            </event_id>
+        </parameters>
+    </nailgallery_event_link>
+    <nailgallery_video_view type="istans_nailgallery/video_widget_view" translate="name description" module="istans_nailgallery">
+        <name>Video view</name>
+        <description>Video view widget</description>
+        <is_email_compatible>0</is_email_compatible>
+        <parameters>
+            <video_id type="complex" translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Video</label>
+                <type>label</type>
+                <helper_block>
+                    <type>istans_nailgallery/adminhtml_video_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Video</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>120</sort_order>
+            </video_id>
+        </parameters>
+    </nailgallery_video_view>
+    <nailgallery_video_link type="istans_nailgallery/video_widget_link" translate="name description" module="istans_nailgallery">
+        <name>Video link</name>
+        <description>Video link widget</description>
+        <is_email_compatible>0</is_email_compatible>
+        <parameters>
+            <video_id type="complex" translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Video</label>
+                <type>label</type>
+                <helper_block>
+                    <type>istans_nailgallery/adminhtml_video_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Video</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>130</sort_order>
+            </video_id>
+        </parameters>
+    </nailgallery_video_link>
+    <nailgallery_eventimage_view type="istans_nailgallery/eventimage_widget_view" translate="name description" module="istans_nailgallery">
+        <name>Event image view</name>
+        <description>Event image view widget</description>
+        <is_email_compatible>0</is_email_compatible>
+        <parameters>
+            <eventimage_id type="complex" translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Event image</label>
+                <type>label</type>
+                <helper_block>
+                    <type>istans_nailgallery/adminhtml_eventimage_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Event image</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>120</sort_order>
+            </eventimage_id>
+        </parameters>
+    </nailgallery_eventimage_view>
+    <nailgallery_eventimage_link type="istans_nailgallery/eventimage_widget_link" translate="name description" module="istans_nailgallery">
+        <name>Event image link</name>
+        <description>Event image link widget</description>
+        <is_email_compatible>0</is_email_compatible>
+        <parameters>
+            <eventimage_id type="complex" translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Event image</label>
+                <type>label</type>
+                <helper_block>
+                    <type>istans_nailgallery/adminhtml_eventimage_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Event image</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>130</sort_order>
+            </eventimage_id>
+        </parameters>
+    </nailgallery_eventimage_link>
+</widgets>

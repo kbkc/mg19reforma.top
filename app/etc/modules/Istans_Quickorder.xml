@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Istans_Quickorder>
+      <active>true</active>
+      <codePool>local</codePool>
+      <version>0.1.0</version>
+    </Istans_Quickorder>
+  </modules>
+</config>

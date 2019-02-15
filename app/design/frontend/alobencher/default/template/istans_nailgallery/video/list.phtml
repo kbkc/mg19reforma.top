@@ -1,0 +1,71 @@
+<?php
+/**
+ * Istans_Nailgallery extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ *
+ * @category       Istans
+ * @package        Istans_Nailgallery
+ * @copyright      Copyright (c) 2016
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+/**
+ * Video list template
+ *
+ * @category    Istans
+ * @package     Istans_Nailgallery
+ * @author      Ultimate Module Creator
+ */
+?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php $_videos = $this->getVideos(); ?>
+<div class="page-title video-title">
+    <h1><?php echo Mage::helper('istans_nailgallery')->__('Video') ?></h1>
+</div>
+<?php if ($_videos->getSize() > 0) : ?>
+    <div class="cms-page-portfolio portfolio magicproduct">
+        <div class="portfolio-content tab-content">
+            <div class="row">
+                <?php foreach ($_videos as $_video) : ?>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 postfolio-item">
+                        <div class="portfolio-hover">
+                            <div class="product-image">
+                                <a class="various fancybox.iframe"
+                                   href="https://www.youtube.com/embed/<?php echo $_video->getVideo(); ?>?autoplay=1">
+                                    <img src="https://img.youtube.com/vi/<?php echo $_video->getVideo(); ?>/0.jpg"/>
+                                </a>
+                            </div>
+                            <div class="portfolio-text">
+                                <?php echo $_video->getTitle(); ?>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+<?php else : ?>
+    <?php echo Mage::helper('istans_nailgallery')->__('There are no video at this moment'); ?>
+<?php endif; ?>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        jQuery(".various").fancybox({
+            maxWidth: 800,
+            maxHeight: 600,
+            fitToView: false,
+            width: '70%',
+            height: '70%',
+            autoSize: false,
+            closeClick: false,
+            openEffect: 'none',
+            closeEffect: 'none'
+        });
+
+    });
+
+</script>    

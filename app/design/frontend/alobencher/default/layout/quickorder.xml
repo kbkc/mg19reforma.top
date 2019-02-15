@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <quickorder_index_index>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="addItem"><type>skin_css</type><name>css/datatables.css</name></action>
+            <action method="addItem"><type>skin_js</type><name>js/datatables.js</name></action>
+            <action method="addItem"><type>skin_css</type><name>css/quickorder.css</name></action>
+        </reference>
+        <reference name="content">
+            <block type="quickorder/index" name="quickorder_index" template="quickorder/index.phtml"/>
+        </reference>
+    </quickorder_index_index>
+</layout>
+	

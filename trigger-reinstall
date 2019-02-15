@@ -1,0 +1,5 @@
+
+DELETE FROM `core_resource` WHERE `code`='zitec_dpd_setup';
+DELETE FROM `core_resource` WHERE `code`='zitec_shippingreports_setup';
+DROP TABLE `zitec_dpd_manifest`, `zitec_dpd_pickup_order`, `zitec_dpd_ships`, `zitec_dpd_tablerate`;
+

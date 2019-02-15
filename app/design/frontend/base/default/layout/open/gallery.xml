@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright Copyright (c) 2014 Sergey Cherepanov (sergey@cherepanov.org.ua)
+ * @license Creative Commons Attribution 3.0 License
+ */
+-->
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <block type="open_gallery/scripts" name="gallery_scripts" template="open/gallery/scripts.phtml"/>
+            <action method="addItem">
+                <type>js_css</type>
+                <name>open/lib/jquery/colorbox/colorbox.css</name>
+            </action>
+            <action method="addCss">
+                <name>css/open/gallery.css</name>
+            </action>
+        </reference>
+    </default>
+    <open_gallery>
+        <update handle="page_one_column" />
+    </open_gallery>
+
+    <open_gallery_index_index>
+        <reference name="content">
+            <block type="open_gallery/home" name="gallery_home" template="open/gallery/home.phtml" />
+        </reference>
+    </open_gallery_index_index>
+
+    <open_gallery_category_view>
+        <reference name="content">
+            <block type="open_gallery/category_view" name="gallery_category_view" template="open/gallery/category/view.phtml">
+                <block type="open_gallery/category_view_item_list" name="gallery_item_list" as="item_list" template="open/gallery/item/list.phtml" />
+            </block>
+        </reference>
+    </open_gallery_category_view>
+
+    <open_gallery_item_view_image>
+        <reference name="content">
+            <block type="open_gallery/item_view" name="gallery_item_view" template="open/gallery/item/view/image.phtml" />
+        </reference>
+    </open_gallery_item_view_image>
+
+    <open_gallery_item_view_video>
+        <reference name="content">
+            <block type="open_gallery/item_view" name="gallery_item_view" template="open/gallery/item/view/video.phtml" />
+        </reference>
+    </open_gallery_item_view_video>
+</layout>

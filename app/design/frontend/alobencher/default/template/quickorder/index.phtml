@@ -1,0 +1,281 @@
+<?php
+/**
+ * @var $this Istans_Quickorder_Block_Index
+ */
+?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+<div class='quickorder'>
+    <form id="edge_quickorder" name="edge_quickorder" method='post' action="<?php echo $this->getUrl('quickorder/index/quickordertocart')?>">
+        <div class="actions">
+            <button type="button" class='button show-quick-order-form' title='<?php echo $this->__('Order'); ?>'>
+                <span><?php echo $this->__('Order'); ?></span>
+            </button>
+        </div>
+        <div class="quick-order-form-container">
+            <div class="quick-order-table-wrapper">
+                <table id="quick_order_form" class="display">
+                    <thead>
+                    <tr>
+                        <th width="5%"><?php echo Mage::helper('core')->__('Sku');?></th>
+                        <th><?php echo Mage::helper('core')->__('Product name');?></th>
+                        <th width="10%"><?php echo Mage::helper('core')->__('Availability');?></th>
+                        <th width="11%"><?php echo Mage::helper('core')->__('Price');?></th>
+                        <th width="10%"><?php echo Mage::helper('core')->__('Qty');?></th>
+                        <th width="12%"><?php echo Mage::helper('core')->__('Total');?></th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="actions">
+                <button type="button"
+                        class='button quickorder-to-cart'
+                        title='<?php echo $this->__('Checkout'); ?>'
+                        onclick="saveOrder()"
+                >
+                    <span><?php echo $this->__('Checkout'); ?></span>
+                </button>
+            </div>
+        </div>
+    </form>
+    <table id="quick_order" class="display" style="width:100%">
+        <thead>
+        <tr>
+            <th width="5%"><?php echo $this->__('Sku');?></th>
+            <th><?php echo $this->__('Product Name');?></th>
+            <th width="10%"><?php echo $this->__('Availability');?></th>
+            <th width="11%"><?php echo $this->__('Price');?></th>
+            <th width="10%"><?php echo $this->__('Qty');?></th>
+            <th width="12%"><?php echo $this->__('Total');?></th>
+        </tr>
+        </thead>
+    </table>
+</div>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        var table = jQuery('#quick_order').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": "<?php echo $this->getUrl('quickorder/index/products'); ?>",
+            "lengthMenu": [[10, 25, 50], [10, 25, 50]],
+            "createdRow": function ( row, data, index ) {
+                var itemQtyInOrder = 0;
+                var totalSum = 0;
+                if (jQuery('#quick_order_form .product-id-' + data['entity_id']).length > 0) {
+                    itemQtyInOrder = jQuery('#quick_order_form .product-id-' + data['entity_id']).eq(0).find('.item-qty .input-text.qty').val();
+                    totalSum = (itemQtyInOrder * data['price']).toFixed(2);
+                }
+                var price = data['product_price'];
+                jQuery(row).addClass('product-id-' + data['entity_id']);
+                jQuery('td', row).eq(0).html('<a class="product-item-link" href="' + data['product_url'] + '">' + data['sku'] + '</a>');
+                jQuery('td', row).eq(1).html('<a class="product-item-link" href="' + data['product_url'] + '">' + data['name'] + '</a>');
+                jQuery('td', row).eq(3).html(price);
+                if (!data['available'] || data['qty'] <= 0) {
+                    jQuery(row).addClass('outstock');
+                }
+                var dtQtyElement = jQuery('<div/>', {
+                    class: 'field qty',
+                });
+                var dtQtyElementInnerHtml = '';
+                if (data['available'] === true && data['qty'] > 0) {
+                    jQuery('td', row).eq(2).html('<span class="stock"><?php echo $this->__('In stock'); ?></span>');
+                    dtQtyElementInnerHtml = '<div class="clearfix">\n' +
+                        '    <div class="actions">\n' +
+                        '        <button type="button"\n' +
+                        '                class="button btn-cart qty_dec"\n' +
+                        '                data-min="1">\n' +
+                        '                    <i class="fa fa-minus btn_qty qty_dec"></i>\n' +
+                        '        </button>\n' +
+                        '    </div>\n' +
+                        '    <input type="hidden" class="input-sku" name="product[' + data['entity_id'] + '][sku]" value="' + data['sku'] + '">\n' +
+                        '    <input id="cart-' + data['entity_id'] + '-qty"\n' +
+                        '           name="product[' + data['entity_id'] + '][qty]"\n' +
+                        '           value="' + itemQtyInOrder + '"\n' +
+                        '           type="number"\n' +
+                        '           size="4"\n' +
+                        '           class="input-text qty"\n' +
+                        '           maxlength="12"\n' +
+                        '           max="' + data['max_qty'] + '" />\n' +
+                        '    <div class="actions">\n' +
+                        '        <button type="button"\n' +
+                        '                class="button btn-cart qty_inc">\n' +
+                        '                    <i class="fa fa-plus btn_qty qty_inc"></i>\n' +
+                        '        </button>\n' +
+                        '    </div>\n' +
+                        '</div>';
+                } else {
+                    jQuery('td', row).eq(2).html('<span class="backorder"><?php echo $this->__('Out of stock'); ?></span>');
+                    dtQtyElementInnerHtml = '--';
+                }
+                jQuery(dtQtyElement).eq(0).html(dtQtyElementInnerHtml);
+                jQuery('td', row).eq(4).html(jQuery(dtQtyElement).eq(0).html());
+                jQuery('td', row).eq(5).html(totalSum);
+            },
+            "columnDefs": [
+                {
+                    "targets": 4,
+                    "orderable": false,
+                    class: 'item-qty'
+                },
+                {
+                    "targets": 5,
+                    "orderable": false,
+                    class: 'total-sum'
+                }
+            ],
+            "columns": [
+                { "data": "sku" },
+                { "data": "name" },
+                { "data": "available" },
+                { "data": "product_price" },
+                { "data": "qty" },
+                { "data": "total" }
+            ]
+        });
+
+        var totalAll = 0;
+
+        jQuery('#quick_order tbody').on('click', 'tr', function (event) {
+            var data = table.row(this).data();
+            var element = event.target;
+
+            if (jQuery(element).hasClass('btn_qty')) {
+                if (jQuery(element).hasClass('qty_inc') && parseInt(jQuery(element).parents('td').find('.input-text.qty').val()) < data['max_qty']) {
+                    jQuery(element).parents('td').find('.input-text.qty').val(parseInt(jQuery(element).parents('td').find('.input-text.qty').val()) + 1);
+                }
+                if (jQuery(element).hasClass('qty_dec') && parseInt(jQuery(element).parents('td').find('.input-text.qty').val()) > 0) {
+                    jQuery(element).parents('td').find('.input-text.qty').val(parseInt(jQuery(element).parents('td').find('.input-text.qty').val()) - 1);
+                }
+                var quick_order_form = jQuery('#edge_quickorder');
+                var quick_order_table = jQuery('#quick_order_form', quick_order_form);
+
+                totalPrice(jQuery(this), data['price']);
+
+                if (parseInt(jQuery(element).parents('td').find('.input-text.qty').val()) > 0) {
+                    if (jQuery('.product-id-' + data['entity_id'], quick_order_table).length == 0) {
+                        jQuery(quick_order_table).append(jQuery(this).eq(0).clone());
+                    } else {
+                        jQuery('.product-id-' + data['entity_id'], quick_order_table).replaceWith(jQuery(this).eq(0).clone());
+                    }
+                } else {
+                    jQuery('.product-id-' + data['entity_id'], quick_order_table).replaceWith('');
+                }
+
+                var orderForm = jQuery('#edge_quickorder');
+                var orderTotalItems = jQuery('#quick_order_form tbody').find('tr');
+                if (orderTotalItems.length > 0) {
+                    jQuery(orderForm).addClass('has-items');
+                } else {
+                    jQuery(orderForm).removeClass('has-items');
+                }
+            }
+        });
+
+        jQuery('#quick_order tbody').on('keyup', 'tr', function (event) {
+            var data = table.row(this).data(),
+                element = event.target,
+                quick_order_form = jQuery('#edge_quickorder'),
+                quick_order_table = jQuery('#quick_order_form', quick_order_form);
+
+            // console.log(parseInt(jQuery(element).parents('td').find('.input-text.qty').val()));
+            // console.log(isNaN(parseInt(jQuery(element).parents('td').find('.input-text.qty').val())));
+
+            if (isNaN(parseInt(jQuery(element).parents('td').find('.input-text.qty').val()))) {
+                jQuery(element).parents('td').find('.input-text.qty').val(0);
+            }
+
+            jQuery(element).parents('td').find('.input-text.qty').val(parseInt(jQuery(element).parents('td').find('.input-text.qty').val()));
+
+            if (parseInt(jQuery(element).parents('td').find('.input-text.qty').val()) > data['max_qty']) {
+                jQuery(element).parents('td').find('.input-text.qty').val(parseInt(data['max_qty']));
+            }
+
+            totalPrice(jQuery(this), data['price']);
+
+            if (event.keyCode == 13) {
+                if (parseInt(jQuery(element).parents('td').find('.input-text.qty').val()) > 0) {
+                    if (jQuery('.product-id-' + data['entity_id'], quick_order_table).length == 0) {
+                        jQuery(quick_order_table).append(jQuery(this).eq(0).clone());
+                    } else {
+                        jQuery('.product-id-' + data['entity_id'], quick_order_table).replaceWith(jQuery(this).eq(0).clone());
+                    }
+                } else {
+                    jQuery('.product-id-' + data['entity_id'], quick_order_table).replaceWith('');
+                }
+
+                var orderForm = jQuery('#edge_quickorder');
+                var orderTotalItems = jQuery('#quick_order_form tbody').find('tr');
+                if (orderTotalItems.length > 0) {
+                    jQuery(orderForm).addClass('has-items');
+                } else {
+                    jQuery(orderForm).removeClass('has-items');
+                }
+            }
+        });
+
+        function totalPrice(element, price) {
+            var total;
+            var totalElement = jQuery(element).eq(0).children('.total-sum');
+            var qty = jQuery(element).eq(0).find('.input-text.qty').val();
+            total = (qty * price).toFixed(2);
+            jQuery(totalElement).html(total);
+        }
+
+        jQuery(document).on('scroll', function () {
+            if (jQuery('#sticky-wrapper').hasClass('is-sticky')) {
+                jQuery('.magicmenu').append(jQuery('#edge_quickorder').eq(0));
+            } else {
+                jQuery('#edge_quickorder').eq(0).insertBefore(jQuery('.quickorder'));
+            }
+        });
+        
+        // jQuery('.quickorder input.qty').keyup(function() {
+        //     var price = parseFloat(jQuery(this).parents('tr').find('span.price').text());
+        //     var qty = jQuery(this).parents('tr').find('input.qty').val();
+        //     var maxQty = jQuery(this).parents('tr').find('input.qty').attr('max');
+        //     if(qty > maxQty){
+        //         jQuery(this).parents('tr').find('input.qty').val(parseInt(maxQty));
+        //         qty = maxQty;
+        //     }
+        //     var totalPrice = parseFloat(price) * (parseInt(qty));
+        //     jQuery(this).parents('tr').find('span.subtotal').html(totalPrice.toFixed(2));
+        //     totalSum();
+        // });
+
+    });
+
+    function saveOrder() {
+        var form = jQuery('#edge_quickorder'),
+            formData = form.serialize(true);
+
+        jQuery.ajax({
+            type: 'post',
+            url: form.attr('action'),
+            data: formData,
+            success: function (response) {
+                response = JSON.parse(response);
+                if (!response['error']) {
+                    updateMinicart(response['body']);
+                    jQuery('.show-popup-quick-order').trigger('click');
+                } else {
+                    alert(response.body);
+                }
+            }
+        });
+    }
+
+    function updateMinicart(content) {
+        console.log(content);
+        var elements = jQuery('.mini-maincart');
+        if(content) {
+            elements.each(function() {
+                jQuery(this).parent().html(content);
+            });
+        } else {
+            var url = this.getMagicUrl('magicshop/ajax/reloadCart');
+            jQuery.ajax({ url : url, type : "post", success : function (result){ elements.each(function() { jQuery(this).parent().html(result) }) } });
+        }
+    }
+
+</script>

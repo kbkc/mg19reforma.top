@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Istans_Nailgallery extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Istans
+ * @package        Istans_Nailgallery
+ * @copyright      Copyright (c) 2016
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<layout>
+    
+    <istans_nailgallery_gallery_index translate="label" module="istans_nailgallery">
+        <label>Gallery list</label>
+        <update handle="page_one_column" />
+        <reference name="content">
+            <block type="istans_nailgallery/gallery_list" name="gallery_list" template="istans_nailgallery/gallery/list.phtml" />
+        </reference>
+    </istans_nailgallery_gallery_index>
+    <istans_nailgallery_event_index translate="label" module="istans_nailgallery">
+        <label>Event list</label>
+        <update handle="page_one_column" />
+        <reference name="content">
+            <block type="istans_nailgallery/event_list" name="event_list" template="istans_nailgallery/event/list.phtml" />
+        </reference>
+    </istans_nailgallery_event_index>
+    <istans_nailgallery_video_index translate="label" module="istans_nailgallery">
+        <label>Video list</label>
+        <update handle="page_one_column" />
+        <reference name="content">
+            <block type="istans_nailgallery/video_list" name="video_list" template="istans_nailgallery/video/list.phtml" />
+        </reference>
+    </istans_nailgallery_video_index>
+    <istans_nailgallery_eventimage_index translate="label" module="istans_nailgallery">
+        <label>Event image list</label>
+        <update handle="page_one_column" />
+        <reference name="content">
+            <block type="istans_nailgallery/eventimage_list" name="eventimage_list" template="istans_nailgallery/eventimage/list.phtml" />
+        </reference>
+    </istans_nailgallery_eventimage_index>
+    <istans_nailgallery_gallery_view translate="label" module="istans_nailgallery">
+        <label>Gallery view page</label>
+        <update handle="page_one_column" />
+        <reference name="content">
+            <block type="istans_nailgallery/gallery_view" name="gallery_view" template="istans_nailgallery/gallery/view.phtml" />
+        </reference>
+    </istans_nailgallery_gallery_view>
+    <istans_nailgallery_event_view translate="label" module="istans_nailgallery">
+        <label>Event view page</label>
+        <update handle="page_one_column" />
+        <reference name="content">
+            <block type="istans_nailgallery/event_view" name="event_view" template="istans_nailgallery/event/view.phtml" />
+            <block type="istans_nailgallery/event_eventimage_list" name="event.eventimage_list" as="event_eventimages" template="istans_nailgallery/event/eventimage/list.phtml" />
+        </reference>
+    </istans_nailgallery_event_view>
+    <istans_nailgallery_video_view translate="label" module="istans_nailgallery">
+        <label>Video view page</label>
+        <update handle="page_one_column" />
+        <reference name="content">
+            <block type="istans_nailgallery/video_view" name="video_view" template="istans_nailgallery/video/view.phtml" />
+        </reference>
+    </istans_nailgallery_video_view>
+    <istans_nailgallery_eventimage_view translate="label" module="istans_nailgallery">
+        <label>Event image view page</label>
+        <update handle="page_one_column" />
+        <reference name="content">
+            <block type="istans_nailgallery/eventimage_view" name="eventimage_view" template="istans_nailgallery/eventimage/view.phtml" />
+        </reference>
+    </istans_nailgallery_eventimage_view>
+    <istans_nailgallery_gallery_rss translate="label" module="istans_nailgallery">
+        <label>Gallery rss feed</label>
+        <block type="istans_nailgallery/gallery_rss" output="toHtml" name="istans_nailgallery.gallery.rss" />
+    </istans_nailgallery_gallery_rss>
+    <istans_nailgallery_event_rss translate="label" module="istans_nailgallery">
+        <label>Event rss feed</label>
+        <block type="istans_nailgallery/event_rss" output="toHtml" name="istans_nailgallery.event.rss" />
+    </istans_nailgallery_event_rss>
+    <istans_nailgallery_video_rss translate="label" module="istans_nailgallery">
+        <label>Video rss feed</label>
+        <block type="istans_nailgallery/video_rss" output="toHtml" name="istans_nailgallery.video.rss" />
+    </istans_nailgallery_video_rss>
+    <istans_nailgallery_eventimage_rss translate="label" module="istans_nailgallery">
+        <label>Event image rss feed</label>
+        <block type="istans_nailgallery/eventimage_rss" output="toHtml" name="istans_nailgallery.eventimage.rss" />
+    </istans_nailgallery_eventimage_rss>
+    <rss_index_index>
+        <reference name="content">
+            <block type="istans_nailgallery/rss" name="nailgallery.rss" template="istans_nailgallery/rss.phtml">
+                <action method="addFeed" ifconfig="istans_nailgallery/gallery/rss" translate="label" module="istans_nailgallery">
+                    <label>Gallery</label>
+                    <url helper="istans_nailgallery/gallery/getRssUrl" />
+                </action>
+                <action method="addFeed" ifconfig="istans_nailgallery/event/rss" translate="label" module="istans_nailgallery">
+                    <label>Event</label>
+                    <url helper="istans_nailgallery/event/getRssUrl" />
+                </action>
+                <action method="addFeed" ifconfig="istans_nailgallery/video/rss" translate="label" module="istans_nailgallery">
+                    <label>Video</label>
+                    <url helper="istans_nailgallery/video/getRssUrl" />
+                </action>
+                <action method="addFeed" ifconfig="istans_nailgallery/eventimage/rss" translate="label" module="istans_nailgallery">
+                    <label>Event image</label>
+                    <url helper="istans_nailgallery/eventimage/getRssUrl" />
+                </action>
+            </block>
+        </reference>
+    </rss_index_index>
+</layout>

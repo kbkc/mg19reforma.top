@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <!--<default>-->
+        <!--<reference name="footer_links">-->
+            <!--<block type="blog/blog" name="add.blog.footer">-->
+                <!--<action method="addBlogLink" ifconfig="blog/menu/footer"><param>footer</param></action>-->
+            <!--</block>-->
+        <!--</reference>-->
+        <!---->
+        <!--<reference name="top.links">-->
+            <!--<block type="blog/blog" name="add.blog.link">-->
+                <!--<action method="addBlogLink" ifconfig="blog/menu/top"><param>top</param></action>-->
+            <!--</block>-->
+        <!--</reference>-->
+        <!--<reference name="head">-->
+            <!--<action method="addItem">-->
+                <!--<type>skin_css</type>-->
+                <!--<name>aw_blog/css/style.css</name>-->
+            <!--</action>-->
+        <!--</reference>-->
+		<!--<reference name="right">-->
+            <!--<block type="blog/menu_sidebar" name="left.blog.menu"  before="-">-->
+                <!--<action method="setTemplate" ifconfig="blog/menu/left">-->
+                    <!--<template>aw_blog/menu.phtml</template>-->
+                <!--</action>-->
+                <!--<block type="blog/tags" name="blog_tags" />-->
+            <!--</block>-->
+        <!--</reference>-->
+    <!--</default>-->
+
+    <flipbook_index_index>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+		<reference name="head">
+            <!--<action method="removeItem"><type>js</type><script>magiccart/jquery.min.js</script></action>-->
+            <!--<action method="addJs"><script>catalogue/extras/jquery.min.1.7.js</script></action>-->
+
+            <!--<action method="addJs"><script>catalogue/extras/jquery-migrate-1.2.1.js</script></action>-->
+            <!--<action method="addJs"><script>catalogue/extras/jquery-ui-1.8.20.custom.min.js</script></action>-->
+            <!--<action method="addJs"><script>catalogue/extras/modernizr.2.5.3.min.js</script></action>-->
+            <!--<action method="addJs"><script>lib/jquery/noconflict.js</script></action>-->
+            <!--<action method="addJs"><script>catalogue/lib/hash.js</script></action>-->
+
+            <!--<action method="addJs"><script>lib/jquery/noconflict.js</script><params>defer</params></action>-->
+            <!--<action method="addJs"><script>catalogue/lib/hash.js</script><params>defer</params></action>-->
+        </reference>
+        <reference name="content">
+            <block type="core/template" name="flipbook.content" template="mageneo/flipbook/content.phtml"/>
+        </reference>
+    </flipbook_index_index>
+
+    <!--<blog_index_list>-->
+        <!--<reference name="footer" >-->
+            <!--<block type="blog/blog" name="copyright.blog.footer" template="aw_blog/copyright.phtml"/>-->
+        <!--</reference>-->
+        <!--<reference name="content">-->
+            <!--<block type="blogfeatures/blog" name="blog" template="aw_blog/blog.phtml">-->
+                <!--<block type="blog/product_toolbar" name="aw_blog_list_toolbar" template="catalog/product/list/toolbar.phtml">-->
+                    <!--<block type="blog/html_pager" name="product_list_toolbar_pager"/>-->
+                <!--</block>-->
+            <!--</block>-->
+        <!--</reference>-->
+    <!--</blog_index_list>-->
+    <!--<blog_post_view>-->
+        <!--<reference name="footer" >-->
+            <!--<block type="blog/blog" name="copyright.blog.footer" template="aw_blog/copyright.phtml"/>-->
+        <!--</reference>-->
+        <!--<reference name="content">-->
+            <!--<block type="blog/post" name="post" template="aw_blog/post.phtml">-->
+                <!--<block type="blog/product_toolbar" name="aw_blog_list_toolbar" template="catalog/product/list/toolbar.phtml">-->
+                    <!--<block type="blog/html_pager" name="product_list_toolbar_pager"/>-->
+                <!--</block>-->
+            <!--</block>-->
+        <!--</reference>-->
+    <!--</blog_post_view>-->
+    <!--<blog_cat_view>-->
+        <!--<reference name="footer" >-->
+            <!--<block type="blog/blog" name="copyright.blog.footer" template="aw_blog/copyright.phtml"/>-->
+        <!--</reference>-->
+        <!--<reference name="content">-->
+            <!--<block type="blog/cat" name="cat" template="aw_blog/cat.phtml">-->
+                 <!--<block type="blog/product_toolbar" name="aw_blog_list_toolbar" template="catalog/product/list/toolbar.phtml">-->
+                    <!--<block type="blog/html_pager" name="product_list_toolbar_pager"/>-->
+                <!--</block>-->
+            <!--</block>-->
+        <!--</reference>-->
+    <!--</blog_cat_view>-->
+
+    <!--<blog_rss_index>-->
+        <!--<reference name="footer" >-->
+            <!--<block type="blog/blog" name="copyright.blog.footer" template="aw_blog/copyright.phtml"/>-->
+        <!--</reference>-->
+        <!--<block type="blog/rss" output="toHtml" name="rss.blog.new"/>-->
+    <!--</blog_rss_index>-->
+</layout>

@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Istans_Nailart extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Istans
+ * @package        Istans_Nailart
+ * @copyright      Copyright (c) 2016
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+--> 
+<layout>
+    <adminhtml_nailart_gallery_index>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>istans_nailart/gallery</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="istans_nailart/adminhtml_gallery" name="gallery" />
+
+        </reference>
+    </adminhtml_nailart_gallery_index>
+    <adminhtml_nailart_gallery_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="istans_nailart/adminhtml_gallery_grid" name="gallery_grid"/>
+        </block>
+    </adminhtml_nailart_gallery_grid>
+    <!-- Gallery add/edit action -->
+    <adminhtml_nailart_gallery_edit>
+        <update handle="editor"/>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>istans_nailart/gallery</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="istans_nailart/adminhtml_gallery_edit" name="gallery_edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="istans_nailart/adminhtml_gallery_edit_tabs" name="gallery_tabs"></block>
+        </reference>
+    </adminhtml_nailart_gallery_edit>
+
+</layout>

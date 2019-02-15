@@ -1,0 +1,9 @@
+<layout version="0.1.0">
+    <default>
+        <reference name="content">
+            <block type="popuporder/quickorder" name="itdelightseositemap.quickorder" template="itdelight/quickorder/form.phtml">
+                <block type="checkout/cart_sidebar" name="ajaxcart" template="magiccart/magicshop/checkout/cart/mini_cart.phtml"/>
+            </block>
+        </reference>
+    </default>
+</layout>

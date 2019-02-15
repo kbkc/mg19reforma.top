@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Itdelight_OutOfStockSort>
+            <version>0.0.1</version>
+        </Itdelight_OutOfStockSort>
+    </modules>
+    <global>
+    </global>
+    <frontend>
+        <events>
+            <catalog_product_collection_load_before>
+                <observers>
+                    <itdelight_outofstock>
+                        <type>model</type>
+                        <class>Itdelight_OutOfStockSort_Model_Observer</class>
+                        <method>outOfStockSort</method>
+                    </itdelight_outofstock>
+                </observers>
+            </catalog_product_collection_load_before>
+        </events>
+    </frontend>
+    <default>
+        <cataloginventory>
+            <options>
+                <outofstock_to_end>1</outofstock_to_end>
+            </options>
+        </cataloginventory>
+    </default>
+</config>

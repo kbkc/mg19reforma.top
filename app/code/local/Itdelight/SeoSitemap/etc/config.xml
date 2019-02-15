@@ -1,0 +1,37 @@
+<config>
+    <modules>
+        <Itdelight_SeoSitemap>
+            <version>0.1.0</version>
+        </Itdelight_SeoSitemap>
+    </modules>
+    <frontend>
+        <routers>
+            <itdelightseositemap>
+                <use>standard</use>
+                <args>
+                    <module>Itdelight_SeoSitemap</module>
+                    <frontName>sitemaphtml</frontName>
+                </args>
+            </itdelightseositemap>
+        </routers>
+        <layout>
+            <updates>
+                <itdelightseositemap>
+                    <file>itdelightseositemap.xml</file>
+                </itdelightseositemap>
+            </updates>
+        </layout>
+    </frontend>
+    <global>
+        <blocks>
+            <itdelightseositemap>
+                <class>Itdelight_SeoSitemap_Block</class>
+            </itdelightseositemap>
+        </blocks>
+        <helpers>
+            <itdelightseositemap>
+                <class>Itdelight_SeoSitemap_Helper</class>
+            </itdelightseositemap>
+        </helpers>
+    </global>
+</config>

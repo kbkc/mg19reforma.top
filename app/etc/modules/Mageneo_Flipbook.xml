@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Mageneo_Flipbook>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Mageneo_Flipbook>
+    </modules>
+</config>

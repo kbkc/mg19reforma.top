@@ -1,0 +1,132 @@
+<div class="container">
+<div class="main-content col-main col-main-full catalogue">
+
+<?php
+$collection = Mage::getModel('catalog/category')
+                ->load(102)->getCollection()
+                ->addAttributeToSelect('*')
+                ->addAttributeToFilter('catalogue_display', 1)        
+                ->addAttributeToSort('position'); 
+
+foreach ($collection as $col) {
+    if($col->getLevel()==3) {
+        $sub = $col->getChildren();
+        ?>
+<div class="postWrapper clearfix">
+<div class="postTitle heading"><?php echo $col->getName(); ?></div>
+<div class="content clearfix">
+    <div class="contentWrapper">
+    <div class="image">
+        <?php $imageSrc = $col->getImage();
+        if(!empty($imageSrc)):
+                $imageUrl = Mage::getBaseUrl('media').'catalog/category/'.$imageSrc;
+        else:
+                $imageUrl = Mage::getBaseUrl('media').'catalog/category/blog-5.jpg_2.gif';
+        endif;
+        //$imageUrl = Mage::getBaseUrl('media').'catalog/category/'.$imageSrc;
+/*$imageObj = new Varien_Image ( $imageUrl );
+$imageObj=$imageObj->constrainOnly ( true )
+->keepAspectRatio ( true )
+->keepFrame ( false )
+->quality ( 100 )
+->resize ( 630, 350 )
+->save ( $imageResized );*/
+        echo '<img src="'. $imageUrl .'" alt="'. $col->getName() .'"  />';
+        ?>
+    </div>
+        <div class="rightPanel">    
+    <div class="description"><?php echo $col->getDescription();?></div>
+        </div>
+            <div class="link">
+        <?php if ($sub): ?>
+        <span class="sublink"><?php echo $this->__('Learn More')?> ></span>
+        <?php endif; ?>
+        <a href="<?php echo $col->getUrl(); ?>"><?php echo $this->__('Buy')?> ></a>
+    </div>
+
+            </div>   
+
+<?php       // echo var_dump($col);
+        //echo '"'.$col->getName(); 
+        //echo '"'.$col->getImage(); 
+        //$imageProduct = $col->getImageUrl();
+        //echo '<img src="'. $imageProduct .'" alt="'. $nameProduct .'"  />';
+        //echo '"'.$col->getDescription();
+        //echo '",'; 
+        //echo $col->getId(); 
+        //echo ';<br>';
+
+if($sub): ?>
+<div class="subcat">
+<?php
+    foreach ($collection as $col2) {
+            if($col2->getLevel()==4) {
+                if($col2->getParentId()==$col->getId()) {
+                    ?>
+    <div class="postTitle heading"><?php echo $col2->getName(); ?></div>
+    <div class="contentWrapper">
+    <div class="image">
+        <?php $imageSrc2 = $col2->getImage();
+        if(!empty($imageSrc2)):
+                $imageUrl2 = Mage::getBaseUrl('media').'catalog/category/'.$imageSrc2;
+        else:
+                $imageUrl2 = Mage::getBaseUrl('media').'catalog/category/blog-5.jpg_2.gif';
+        endif;
+
+/*$imageObj = new Varien_Image ( $imageUrl );
+$imageObj=$imageObj->constrainOnly ( true )
+->keepAspectRatio ( true )
+->keepFrame ( false )
+->quality ( 100 )
+->resize ( 630, 350 )
+->save ( $imageResized );*/
+        echo '<img src="'. $imageUrl2 .'" alt="'. $col2->getName() .'"  />';
+        ?>
+    </div>
+        <div class="rightPanel">    
+    <div class="description"><?php echo $col2->getDescription();?></div>
+        </div>
+    <div class="link">
+        <a href="<?php echo $col2->getUrl(); ?>"><?php echo $this->__('Buy')?> ></a>
+    </div>
+        
+            </div>
+    <?php
+                    //echo '"** '.$col2->getName(); 
+                    //echo '",'; 
+                    //echo $col2->getId(); 
+                    //echo ';<br>';
+                    foreach ($collection as $col3) {
+                        if($col3->getLevel()==5) {
+                            if($col3->getParentId()==$col2->getId()) {
+                                echo '"***** '.$col3->getName(); 
+                                echo '",'; 
+                                echo $col3->getId(); 
+                                echo ';<br>';
+                            }
+                        }
+                    }
+?>   
+ 
+<?php                    
+                }
+            }
+        } ?>
+</div>    
+<?php        
+endif;        
+?>       
+
+</div>
+    </div>    
+<?php    
+    }
+}
+?>
+</div>
+</div>
+<script>
+jQuery('.catalogue .postWrapper span.sublink').click(function () {
+    jQuery(this).closest(".postWrapper").find('[class*="subcat"]').first().slideToggle('normal');
+});
+</script>

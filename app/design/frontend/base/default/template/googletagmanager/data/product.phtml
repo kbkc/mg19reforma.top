@@ -1,0 +1,82 @@
+<?php
+/**
+ * GoogleTagManager plugin for Magento
+ *
+ * @package     Yireo_GoogleTagManager
+ * @author      Yireo (https://www.yireo.com/)
+ * @copyright   Copyright (c) 2016 Yireo (https://www.yireo.com/)
+ * @license     Open Software License
+ */
+
+/** @var Yireo_GoogleTagManager_Block_Product $this */
+/** @var Mage_Catalog_Model_Product $product */
+$product = $this->getProduct();
+
+if ($this->isEnabled() && $product) {
+
+    $store = $this->getStore();
+    $taxCalculation = Mage::getModel('tax/calculation');
+    $request = $taxCalculation->getRateRequest(null, null, null, $store);
+    $taxClassId = $product->getTaxClassId();
+    $taxpercent = $taxCalculation->getRate($request->setProductClassId($taxClassId));
+
+    if (!empty($product) && $product->getId() > 0) {
+
+        $price = $product->getPrice();
+        $specialPrice = $product->getSpecialprice();
+        if (($specialPrice > 0) && ($specialPrice < $price)) {
+            $price = $specialPrice;
+        }
+        $tax = ($price / (100 + $taxpercent)) * $taxpercent;
+        $gender = Mage::getModel('catalog/resource_eav_attribute')->loadByCode(Mage_Catalog_Model_Product::ENTITY, 'gender')->getSource()->getOptionText($product->getGender());
+
+        $this->addAttribute('productId', $product->getId());
+        $this->addAttribute('productName', $this->quoteEscape($product->getName()));
+        $this->addAttribute('productSku', $this->quoteEscape($product->getSku()));
+        $this->addAttribute('productPrice', $this->formatPrice($price));
+        $this->addAttribute('productPriceExcludingTax', $this->formatPrice($price - $tax));
+        $this->addAttribute('productTax', $this->formatPrice($tax));
+        $this->addAttribute('productTaxRate', $taxpercent);
+        $this->addAttribute('productGender', $gender);
+        $children = array();
+        $child = array();
+        if ($product->isConfigurable()) {
+            $childProducts = Mage::getModel('catalog/product_type_configurable')->getUsedProducts(null,$product);
+            foreach ($childProducts as $childProduct) {
+                $child['name'] = $childProduct->getName();
+                $child['id'] = $childProduct->getId();
+                $child['price'] = $this->formatPrice($price);
+                $child['sku'] = $childProduct->getSku();
+                array_push($children, $child);
+            }
+            $this->addAttribute('productChildren', $children);
+        }
+
+        $category = $product->getCategory();
+        $categoryName = (is_object($category)) ? $this->quoteEscape($category->getName()) : null;
+
+        $detail = array();
+
+        if (!empty($categoryName)) {
+            $detail['actionField'] = array('list' => $categoryName);
+        }
+
+        $productData = array(
+            'id' => $product->getId(),
+            'name' => $this->quoteEscape($product->getName()),
+            'sku' => $product->getSku(),
+            'price' => $this->formatPrice($this->getModuleHelper()->getProductPrice($product)),
+            'priceexcludingtax' => $this->formatPrice($price - $tax),
+            'tax' => $this->formatPrice($tax),
+            'taxrate' => $taxpercent,
+            'brand' => $this->quoteEscape($this->getProductAttributeText($product, 'manufacturer')),
+            'gender' => $gender,
+            'category' => $categoryName,
+            'children' => $children,
+        );
+
+        $detail['products'] = array($productData);
+
+        $this->getScriptHelper()->addEcommerceData('detail', $detail);
+    }
+}

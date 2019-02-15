@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Istans_Nailgallery extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Istans
+ * @package        Istans_Nailgallery
+ * @copyright      Copyright (c) 2016
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+--> 
+<layout>
+    <adminhtml_nailgallery_gallery_index>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>cms/istans_nailgallery/gallery</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="istans_nailgallery/adminhtml_gallery" name="gallery" />
+
+        </reference>
+    </adminhtml_nailgallery_gallery_index>
+    <adminhtml_nailgallery_gallery_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="istans_nailgallery/adminhtml_gallery_grid" name="gallery_grid"/>
+        </block>
+    </adminhtml_nailgallery_gallery_grid>
+    <!-- Gallery add/edit action -->
+    <adminhtml_nailgallery_gallery_edit>
+        <update handle="editor"/>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>cms/istans_nailgallery/gallery</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="istans_nailgallery/adminhtml_gallery_edit" name="gallery_edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="istans_nailgallery/adminhtml_gallery_edit_tabs" name="gallery_tabs"></block>
+        </reference>
+    </adminhtml_nailgallery_gallery_edit>
+
+    <adminhtml_nailgallery_event_index>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>cms/istans_nailgallery/event</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="istans_nailgallery/adminhtml_event" name="event" />
+
+        </reference>
+    </adminhtml_nailgallery_event_index>
+    <adminhtml_nailgallery_event_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="istans_nailgallery/adminhtml_event_grid" name="event_grid"/>
+        </block>
+    </adminhtml_nailgallery_event_grid>
+    <!-- Event add/edit action -->
+    <adminhtml_nailgallery_event_edit>
+        <update handle="editor"/>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>cms/istans_nailgallery/event</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="istans_nailgallery/adminhtml_event_edit" name="event_edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="istans_nailgallery/adminhtml_event_edit_tabs" name="event_tabs"></block>
+        </reference>
+    </adminhtml_nailgallery_event_edit>
+
+    <adminhtml_nailgallery_video_index>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>cms/istans_nailgallery/video</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="istans_nailgallery/adminhtml_video" name="video" />
+
+        </reference>
+    </adminhtml_nailgallery_video_index>
+    <adminhtml_nailgallery_video_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="istans_nailgallery/adminhtml_video_grid" name="video_grid"/>
+        </block>
+    </adminhtml_nailgallery_video_grid>
+    <!-- Video add/edit action -->
+    <adminhtml_nailgallery_video_edit>
+        <update handle="editor"/>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>cms/istans_nailgallery/video</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="istans_nailgallery/adminhtml_video_edit" name="video_edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="istans_nailgallery/adminhtml_video_edit_tabs" name="video_tabs"></block>
+        </reference>
+    </adminhtml_nailgallery_video_edit>
+
+    <adminhtml_nailgallery_eventimage_index>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>cms/istans_nailgallery/eventimage</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="istans_nailgallery/adminhtml_eventimage" name="eventimage" />
+
+        </reference>
+    </adminhtml_nailgallery_eventimage_index>
+    <adminhtml_nailgallery_eventimage_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="istans_nailgallery/adminhtml_eventimage_grid" name="eventimage_grid"/>
+        </block>
+    </adminhtml_nailgallery_eventimage_grid>
+    <!-- Eventimage add/edit action -->
+    <adminhtml_nailgallery_eventimage_edit>
+        <update handle="editor"/>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>cms/istans_nailgallery/eventimage</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="istans_nailgallery/adminhtml_eventimage_edit" name="eventimage_edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="istans_nailgallery/adminhtml_eventimage_edit_tabs" name="eventimage_tabs"></block>
+        </reference>
+    </adminhtml_nailgallery_eventimage_edit>
+
+</layout>

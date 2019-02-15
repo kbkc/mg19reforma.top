@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Istans_Nailgallery extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Istans
+ * @package        Istans_Nailgallery
+ * @copyright      Copyright (c) 2016
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <istans_nailgallery translate="title" module="istans_nailgallery">
+                                        <title>Nailgallery</title>
+                                    </istans_nailgallery>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                    <cms>
+                        <children>
+                            <istans_nailgallery translate="title" module="istans_nailgallery">
+                                <title>Nailgallery</title>
+                                <children>
+                                    <gallery translate="title" module="istans_nailgallery">
+                                        <title>Gallery</title>
+                                        <sort_order>0</sort_order>
+                                    </gallery>
+                                   <!--
+                                    <event translate="title" module="istans_nailgallery">
+                                        <title>Event</title>
+                                        <sort_order>10</sort_order>
+                                    </event>
+                                    -->
+                                    <video translate="title" module="istans_nailgallery">
+                                        <title>Video</title>
+                                        <sort_order>20</sort_order>
+                                    </video>
+                                    <!--
+                                    <eventimage translate="title" module="istans_nailgallery">
+                                        <title>Event Image</title>
+                                        <sort_order>30</sort_order>
+                                    </eventimage>
+                                    -->
+                                </children>
+                            </istans_nailgallery>                        </children>
+                    </cms>
+
+                </children>
+            </admin>
+        </resources>
+    </acl>
+    <menu>
+        <cms>
+            <children>
+                <istans_nailgallery translate="title" module="istans_nailgallery">
+                    <title>Nailgallery</title>
+                    <sort_order>0</sort_order>
+                    <children>
+                        <gallery translate="title" module="istans_nailgallery">
+                            <title>Gallery</title>
+                            <action>adminhtml/nailgallery_gallery</action>
+                            <sort_order>0</sort_order>
+                        </gallery>
+                        <!--
+                        <event translate="title" module="istans_nailgallery">
+                            <title>Event</title>
+                            <action>adminhtml/nailgallery_event</action>
+                            <sort_order>10</sort_order>
+                        </event>
+                        -->
+                        <video translate="title" module="istans_nailgallery">
+                            <title>Video</title>
+                            <action>adminhtml/nailgallery_video</action>
+                            <sort_order>20</sort_order>
+                        </video>
+                        <!--
+                        <eventimage translate="title" module="istans_nailgallery">
+                            <title>Event Image</title>
+                            <action>adminhtml/nailgallery_eventimage</action>
+                            <sort_order>30</sort_order>
+                        </eventimage>
+                        -->
+                    </children>
+                </istans_nailgallery>            </children>
+        </cms>
+
+    </menu>
+</config>

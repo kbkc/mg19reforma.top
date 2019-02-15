@@ -1,0 +1,83 @@
+<?php
+/**
+ * @copyright Copyright (c) 2014 Sergey Cherepanov (sergey@cherepanov.org.ua)
+ * @license Creative Commons Attribution 3.0 License
+ */
+
+/** @var Open_Gallery_Block_Home $this */
+$categoryCollection = $this->getCategoryCollection();
+$helper             = Mage::helper('open_gallery');
+//$itemCollection = $this->getItemCollection();
+$imageWidth         = $helper->getCategoryListImageWidth();
+$imageHeight        = $helper->getCategoryListImageHeight();
+$columnCount        = $this->hasData('column_count') ? $this->getData('column_count') : 4;
+?>123
+<div class="cms-page-portfolio portfolio magicproduct" id="cms-page-portfolio">
+    <div class="block-title-tabs">
+        <ul class="magictabs nav nav-tabs">
+        <?php $i = 0; foreach ($categoryCollection as $category):
+        /** @var Open_Gallery_Model_Category $category */ ?>
+            <li class="item">
+                <a class="title" href="#<?php echo $category->getId();?>" data-toggle="tab"><?php echo $category->getTitle();?></a>
+            </li>
+        <?php $i++; endforeach;?>
+        </ul>
+    </div>
+
+    <div class="portfolio-content tab-content">
+        <?php foreach ($categoryCollection as $category):
+        /** @var Open_Gallery_Model_Category $category */ ?>
+        <div class="tab-pane" id="<?php echo $category->getId();?>">
+            <?php $itemCollection = NULL; $itemCollection = $this->getItemCollection($category); ?>
+            <?php $i = 0; foreach ($itemCollection as $item):
+                ?>
+            <div class="row">
+                <?php if($i && 0 == $i%$columnCount):?>
+                </div><div class="row">
+                    <?php endif;?>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 postfolio-item">
+                    <div class="portfolio-hover">
+                        <a href="#">
+                            <img class="img-responsive" src="<?php echo $this->getThumbnailUrl($item)?>" alt="<?php echo $item->getTitle();?>" />
+                        </a>
+                        <!--<div class="portfolio-action">
+                            <a class="portfolio-view fa fa-search" href="#">
+                                <em class="hidden">hidden</em>
+                            </a>
+                            <a class="portfolio-link fa fa-link" href="#">
+                                <em class="hidden">hidden</em>
+                            </a>
+                        </div>-->
+                    </div>
+                    <div class="portfolio-text">
+                        <p><?php echo $item->getTitle();?></p>
+
+                    </div>
+                </div>
+            </div>
+                <?php $i++; endforeach;?>
+
+
+        </div>
+        <?php  endforeach;?>
+    </div>
+
+<?php /*
+<h1><?php echo $this->__('Open Gallery')?></h1>
+<ul class="gallery-list gallery-category-list">
+    <?php $i = 0; foreach ($categoryCollection as $category):
+     ?>
+    <?php if($i && 0 == $i%$columnCount):?>
+    </ul><ul class="gallery-list gallery-category-list">
+    <?php endif;?>
+    <li class="gallery-item">
+        <a class="gallery-image" href="<?php echo $this->getCategoryUrl($category)?>">
+            <img width="<?php echo $imageWidth;?>" height="<?php echo $imageHeight;?>" src="<?php echo $this->getThumbnailUrl($category)?>" alt="<?php echo $category->getTitle();?>" />
+        </a>
+        <a class="gallery-title" href="<?php echo $this->getCategoryUrl($category)?>">
+            <span><?php echo $category->getTitle();?></span>
+        </a>
+    </li>
+    <?php $i++; endforeach;?>
+</ul>
+<?php */ ?>
