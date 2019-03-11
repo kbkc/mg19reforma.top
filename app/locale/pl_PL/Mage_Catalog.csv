@@ -695,6 +695,7 @@
 "The image is not specified.","Obrazek nie został podany."
 "The model collection resource name is not defined.","Nazwa zasobu modelu kolekcji jest niezdefiniowana."
 "The product %s has been added to comparison list.","Produkt %s został dodany do listy porównania."
+"The product %s has been added to comparison list. %s","Produkt %s został dodany do listy porównania. %s"
 "The product %s has been removed from comparison list.","Produkt %s został usunięty z listy porównania."
 "The product attribute has been deleted.","Cecha produktu została usunięta."
 "The product attribute has been saved.","Cecha produktu została zapisana."
@@ -840,3 +841,5 @@
 "unselect all","odznacz wszystko"
 "x","x"
 "Gel polishes","lakiery hybrydowe Gel Polish"
+"Description","Opis"
+"View compared products.","Pokaż porównanie."

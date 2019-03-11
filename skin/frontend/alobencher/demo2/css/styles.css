@@ -1163,9 +1163,9 @@ ul.magictabs{padding:0; margin-bottom: 40px}
 
 
 /*Product item*/
-.item .per-product .hover-box{position: absolute; right: 0; left: 0; top: calc(100% - 50px); /*visibility: hidden;*/ opacity: 0.6;}
+.item .per-product .hover-box{/*position: absolute;*/ right: 0; left: 0; top: calc(100% - 50px); /*visibility: hidden;*/ opacity: 0.6;}
 .item:hover .per-product .hover-box{visibility: visible; opacity: 1;}
-.item .actions-no .button.btn-cart {display: inline-block; width: 103.14px; margin: 0; height: 40px; border: 0; background-color: #59b9bd; /*opacity: 0; visibility: hidden; transform: scale(0); transition: all 0.4s*/}
+.item .actions-no .button.btn-cart {display: inline-block; /*width: 103.14px;*/ margin: 0; height: 40px; border: 0; background-color: #59b9bd; /*opacity: 0; visibility: hidden; transform: scale(0); transition: all 0.4s*/}
 .item .actions-no .button.btn-cart span{height: 40px; font-family: "Roboto"}
 .item:hover .actions-no .button.btn-cart{transform: scale(1); opacity: 1; visibility: visible;}
 /*.item:hover .actions .add-to-links li.wishlist{animation-name: alo_themes; animation-duration: 0.5s;}
@@ -1345,7 +1345,7 @@ ul.magictabs{padding:0; margin-bottom: 40px}
 .products-list li.item.last{border-bottom:0}
 .products-list .product-name{margin:0 0 10px 0;font-weight:normal;font-size:100%;line-height: normal;}
 .products-list .product-name a{font-size:16px; text-decoration:none;text-transform: capitalize; color: #3f3f3f; font-weight: 300}
-.products-list .price-box{float:left;margin:0px;position: static;padding: 0;line-height: 1;}
+.products-list .price-box{float:left;margin:0px;position: static;padding: 0;line-height: 1;margin-right: 20px;}
 .products-list .item:hover .price-box{display: block;}
 .products-list .price-box .regular-price .price,.products-list .price-box .special-price .price{font-size: 16px; line-height: 20px; color: #363636}
 .products-list .price-box .old-price .price{font-size: 16px; color: #a0a0a0; font-weight: 300; padding-right: 10px; line-height: 20px}
@@ -3105,4 +3105,13 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .postWrapper .post-date {
     padding-left: 55px;
+}
+.item .category-products-grid .product-hover .link-compare{
+	position: absolute;
+    bottom: 20px;
+    right: 5px;
+    z-index: 20;
+}
+.custom-menu .magicmenu .nav-desktop .level0.cat.dropdown .level1 > a > span{
+	font-weight: bold;
 }

@@ -32,7 +32,7 @@
             </modules>
         </translate>
         <events>
-            <controller_action_predispatch_checkout_cart_index>
+           <!-- <controller_action_predispatch_checkout_cart_index>
                 <observers>
                     <popuporder_checkout_cart_index>
                         <class>popuporder/observer</class>
@@ -47,7 +47,7 @@
                         <method>closeUrl</method>
                     </popuporder_checkout_onepage_index>
                 </observers>
-            </controller_action_predispatch_checkout_onepage_index>
+            </controller_action_predispatch_checkout_onepage_index>-->
         </events>
     </frontend>
     <global>

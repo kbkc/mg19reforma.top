@@ -32,6 +32,7 @@
 <?php $_product = $this->getProduct(); ?>
 <?php if($_product->isSaleable()): ?>
     <?php
+	$showPopup=false;
     if (Mage::getSingleton('checkout/session')->getQuote()->getItemByProduct($_product)) {
 		$showPopup=true;
         $buttonTitle = $this->__('In Cart');
