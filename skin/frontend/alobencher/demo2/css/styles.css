@@ -3115,3 +3115,9 @@ input[type=number]::-webkit-outer-spin-button {
 .custom-menu .magicmenu .nav-desktop .level0.cat.dropdown .level1 > a > span{
 	font-weight: bold;
 }
+.custom-menu .magicmenu .nav-desktop .level0.dropdown.cat.active > .level0 {
+    opacity: 1;
+    top: 100%;
+    visibility: visible;
+    transform: translate(0, 0);
+}
