@@ -3141,3 +3141,12 @@ input[type=number]::-webkit-outer-spin-button {
 body {
   /* overflow-y: hidden;*/
 }
+.show-popup-quick-order a{
+    color: inherit;
+}
+.magicmenu .nav-desktop > .level0.media{
+    overflow: unset;
+}
+.wrap_quickview .product-view .product-shop .share-to-links{
+    margin-top: 20px;
+}
