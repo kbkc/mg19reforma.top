@@ -71,13 +71,14 @@
 				}
 			});
 		} else{
-			$this.find("li span").click(function() {
+			$this.find("ul.level1 li span").click(function() {
 				if($(this).parent().find("ul").size() != 0){
 					if(opts.accordion){
 						//Do nothing when the list is open
 						if(!$(this).parent().find("ul").is(':visible')){
-							var parents = $(this).parent().parents("ul");
+							var parents = $(this).parents("ul");
 							var visible = $this.find("ul:visible");
+							console.log(parents);
 							visible.each(function(visibleIndex){
 								var close = true;
 								parents.each(function(parentIndex){
@@ -88,9 +89,9 @@
 								});
 								if(close){
 									if($(this).parent().find("ul") != visible[visibleIndex]){
-										$(visible[visibleIndex]).slideUp(opts.speed, function(){
-											$(this).parent("li").find("a:first").next().html(opts.closedSign).addClass(opts.closedSign);
-										});
+										//$(visible[visibleIndex]).slideUp(opts.speed, function(){
+										//	$(this).parent("li").find("a:first").next().html(opts.closedSign).addClass(opts.closedSign);
+										//});
 									}
 								}
 							});
