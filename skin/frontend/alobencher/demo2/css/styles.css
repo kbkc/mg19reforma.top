@@ -3157,6 +3157,7 @@ ul.nav-accordion li.level0 > ul.level0 > li.level1 > ul.level1{
     display: block;
 }
 ul.nav-accordion li.level0 > span:before,
+ul.nav-accordion li.level0 > span.expand:before,
 ul.nav-accordion li.level0 > ul.level0 > li.level1 >span:before{
     display: none;
 }
