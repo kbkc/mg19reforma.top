@@ -26,7 +26,7 @@
 ?>
 <?php
 $_item = $this->getItem();
-$isVisibleProduct = $_item->getProduct()->isVisibleInSiteVisibility() && $_item->getIsGift() == false;
+$isVisibleProduct = $_item->getProduct()->isVisibleInSiteVisibility();
 $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_BEFORE_ORDER_CONFIRM);
 ?>
 <tr>
@@ -178,15 +178,11 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
         <?php endif; ?>
     <?php endif; ?>
     <td class="a-center">
-        <div class="custom-qty clearfix">
-            <?php if ($_item->getIsGift()) : ?>
-                <?php echo $this->getQty() ?>
-            <?php else: ?>
-               <a class="alo_qty alo_qty_dec" href="javascript:void(0)"><i class="fa fa-caret-down"></i></a>
-                <input name="cart[<?php echo $_item->getId() ?>][qty]" value="<?php echo $this->getQty() ?>" size="4" title="<?php echo $this->__('Qty') ?>" class="input-text qty" maxlength="12" />
-                <a class="alo_qty alo_qty_inc" href="javascript:void(0)"><i class="fa fa-caret-up"></i></a>
-            <?php endif; ?>
-       </div>
+       <div class="custom-qty clearfix">
+       <a class="alo_qty alo_qty_dec" href="javascript:void(0)"><i class="fa fa-caret-down"></i></a>
+        <input name="cart[<?php echo $_item->getId() ?>][qty]" value="<?php echo $this->getQty() ?>" size="4" title="<?php echo $this->__('Qty') ?>" class="input-text qty" maxlength="12" />
+        <a class="alo_qty alo_qty_inc" href="javascript:void(0)"><i class="fa fa-caret-up"></i></a>
+        </div>
     </td>
 
     <!--Sub total starts here -->
@@ -283,9 +279,5 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
         <?php endif; ?>
     </td>
     <?php endif; ?>
-    <td class="a-center">
-        <?php if (!$_item->getIsGift()) : ?>
-            <a href="<?php echo $this->getDeleteUrl()?>" title="<?php echo $this->__('Remove item')?>" class="btn-remove btn-remove2"><i class="fa fa-times-circle icons"></i><?php //echo $this->__('Remove item')?></a>
-        <?php endif; ?>
-    </td>
+    <td class="a-center"><a href="<?php echo $this->getDeleteUrl()?>" title="<?php echo $this->__('Remove item')?>" class="btn-remove btn-remove2"><i class="fa fa-times-circle icons"></i><?php //echo $this->__('Remove item')?></a></td>
 </tr>
