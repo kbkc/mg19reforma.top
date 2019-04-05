@@ -24,12 +24,13 @@ class Smartbees_Gift_Model_Observer
         $quote->setStoreId(Mage::app()->getStore()->getId());
 
         foreach ($quote->getAllItems() as $item) {
-            if ($item->getIsGift()) {
+            if ($item->getIsGift() && $item->getGiftCustomPrice() == 0) {
                 $quote->removeItem($item->getId());
             }
-            if ($item->getGiftCustomPrice()) {
-                $quote->removeItem($item->getId());
-            }
+//            if ($item->getGiftCustomPrice() !== 0) {
+//                $item->setOrginalCustomPrice($item->getGiftCustomPrice());
+//                $quote->save();
+//            }
         }
 
         $quote->setStoreId($originalStore);
@@ -55,10 +56,12 @@ class Smartbees_Gift_Model_Observer
             $qty = (int)$rule->getDiscountAmount();
             $skus = $this->getSkuList($rule->getGiftSku());
             foreach ($skus as $sku) {
-                $freeItem = $this->getFreeQuoteItem($rule->getId(), $sku, $quote->getStoreId(), $qty, $rule->getGiftCustomPrice());
+
+                $freeItem = $this->getFreeQuoteItem($rule->getId(), $sku, $quote->getStoreId(), $qty);
                 $quote->addItem($freeItem);
                 $this->setQuoteItemTaxPercent($freeItem);
                 $freeItem->setApplyingRule($rule);
+
             }
             $rule->setData('is_applied', true);
         } catch (RuntimeException $e) {
@@ -137,10 +140,9 @@ class Smartbees_Gift_Model_Observer
      * @param $sku
      * @param $storeId
      * @param $qty
-     * @param int $giftCustomPrice
      * @return mixed
      */
-    protected function getFreeQuoteItem($ruleId, $sku, $storeId, $qty, $giftCustomPrice = 0)
+    protected function getFreeQuoteItem($ruleId, $sku, $storeId, $qty)
     {
         if ($qty < 1) {
             throw new RuntimeException(sprintf(
@@ -172,7 +174,7 @@ class Smartbees_Gift_Model_Observer
         $quoteItem = Mage::getModel('sales/quote_item')->setProduct($product);
         $quoteItem
             ->setQty($qty)
-            ->setCustomPrice(($giftCustomPrice != 0) ? $giftCustomPrice : 0.0)
+            ->setCustomPrice(0.0)
             ->setOriginalCustomPrice($product->getPrice())
             ->setIsGift(true)
             ->setWeeeTaxApplied('a:0:{}')
