@@ -269,7 +269,7 @@ p.required{font-size:11px;text-align:right;color:#EB340A}
 .note-msg,.notice-msg{border-color:#757575;color:#59b9bd}
 #popupNewsletterMessages.messages { padding: 40px 9px 10px 10px !important;}
 /* BreadCrumbs */
-.banner{background-image: url("../images/banner-breadcrumbs.jpg"); background-repeat:  no-repeat; background-position: center center; background-size: cover ;font-size: 48px; font-weight: bold; color: #757575; min-height: 310px; margin: 0 0; padding: 130px 0; line-height: 50px; text-align: center;}
+.banner{/*background-image: url("../images/banner-breadcrumbs.jpg"); background-repeat:  no-repeat; background-position: center center; background-size: cover ;*/font-size: 48px; font-weight: bold; color: #757575;/* min-height: 310px;*/ margin: 0 0; /*padding: 130px 0;*/ line-height: 50px; text-align: center;}
 .breadcrumbs li{display:inline-block;position: relative;text-transform: capitalize;}
 .breadcrumbs li.home::before{display: none;}
 .breadcrumbs li a{outline:medium none;color: #b3b3b3; font-size: 13px; font-weight: 300; text-transform: capitalize; padding: 0 13px}
