@@ -1,0 +1,125 @@
+<config>
+    <tabs>
+        <registrationpoll translate="label" module="registration_poll">
+            <label>Registration Poll</label>
+            <sort_order>99999</sort_order>
+        </registrationpoll>
+    </tabs> 
+    <sections>
+        <registrationpoll_options translate="label" module="registration_poll">
+            <label>Registration form options</label>
+            <tab>registrationpoll</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>  
+            <groups>
+                <registrationpoll_question translate="label">
+                    <label>Question</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>   
+                    <fields>
+                        <registration_poll_question>
+                            <label>Question</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                    
+                        </registration_poll_question>
+                    </fields>                          
+                </registrationpoll_question>
+
+                <registrationpoll_answers translate="label">
+                    <label>Answers</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>   
+                    <fields>
+                        <registration_poll_answer1>
+                            <label>Answer 1</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                    
+                        </registration_poll_answer1>
+                         <registration_poll_answer2>
+                            <label>Answer 2</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                    
+                        </registration_poll_answer2>
+                        <registration_poll_answer3>
+                            <label>Answer 3</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                    
+                        </registration_poll_answer3>
+                        <registration_poll_answer4>
+                            <label>Answer 4</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                    
+                        </registration_poll_answer4>
+                        <registration_poll_answer5>
+                            <label>Answer 5</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                    
+                        </registration_poll_answer5>
+                        <registration_poll_answer6>
+                            <label>Answer 6</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                    
+                        </registration_poll_answer6>
+                        <registration_poll_answer7>
+                            <label>Answer 7</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                    
+                        </registration_poll_answer7>
+                        
+                    </fields>  
+                </registrationpoll_answers>
+                <registrationpoll_max_number_of_answers translate="label">
+                    <label>Max Number of  answers</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>   
+                    <fields>
+                        <registration_poll_number_max_number_of_answers>
+                            <label>Max Number of answers</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                    
+                        </registration_poll_number_max_number_of_answers>
+                    </fields>                          
+                </registrationpoll_max_number_of_answers>
+            </groups>                  
+        </registrationpoll_options>
+    </sections>
+</config> 
