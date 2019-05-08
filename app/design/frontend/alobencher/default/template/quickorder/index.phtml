@@ -55,6 +55,17 @@
 <script type="text/javascript">
     jQuery(document).ready(function() {
         var table = jQuery('#quick_order').DataTable({
+            language: {
+                search:         Translator.translate('Search:'),
+                lengthMenu:    Translator.translate('Show _MENU_ entries'),
+                info:           Translator.translate('Showing _START_ to _END_ of _TOTAL_ entries'),
+                paginate: {
+                    first:      "Pierwsza",
+                    previous:   Translator.translate('Previous'),
+                    next:       Translator.translate('Next'),
+                    last:       "Ostatnia"
+        },
+            },
             "processing": true,
             "serverSide": true,
             "ajax": "<?php echo $this->getUrl('quickorder/index/products'); ?>",

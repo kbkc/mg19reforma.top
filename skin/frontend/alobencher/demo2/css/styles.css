@@ -244,6 +244,7 @@ input.input-text:focus,select:focus,textarea:focus{background-color:#fff;
 .buttons-set-order{margin:10px 0 0}
 .buttons-set-order .please-wait{padding:12px 7px 0 0}
 .fieldset{border:1px solid #eee;background:#fff;padding:22px 25px 12px 33px;margin:28px 0}
+.fieldset input{display: inline-block;}
 .fieldset .legend{float:left;font-weight:normal;text-transform:capitalize;font-size:14px;border:1px solid #eee;background:#fff;color:#252525;margin:-33px 0 0 -10px;padding:0 8px;position:relative}
 /* Form Validation */
 .validation-advice{clear:both;min-height:13px;margin:3px 0 0;padding-left:17px;font-size:11px;font-weight:bold;line-height:13px;background:url(../images/validation_advice_bg.gif) 2px 0 no-repeat;color:#eb340a;text-align: left;}
@@ -269,7 +270,7 @@ p.required{font-size:11px;text-align:right;color:#EB340A}
 .note-msg,.notice-msg{border-color:#757575;color:#59b9bd}
 #popupNewsletterMessages.messages { padding: 40px 9px 10px 10px !important;}
 /* BreadCrumbs */
-.banner{background-image: url("../images/banner-breadcrumbs.jpg"); background-repeat:  no-repeat; background-position: center center; background-size: cover ;font-size: 48px; font-weight: bold; color: #757575; min-height: 310px; margin: 0 0; padding: 130px 0; line-height: 50px; text-align: center;}
+.banner{/*background-image: url("../images/banner-breadcrumbs.jpg"); background-repeat:  no-repeat; background-position: center center; background-size: cover ;*/font-size: 48px; font-weight: bold; color: #757575;/* min-height: 310px;*/ margin: 0 0; /*padding: 130px 0;*/ line-height: 50px; text-align: center;}
 .breadcrumbs li{display:inline-block;position: relative;text-transform: capitalize;}
 .breadcrumbs li.home::before{display: none;}
 .breadcrumbs li a{outline:medium none;color: #b3b3b3; font-size: 13px; font-weight: 300; text-transform: capitalize; padding: 0 13px}

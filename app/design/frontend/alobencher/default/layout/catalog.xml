@@ -76,6 +76,11 @@ Default layout, loads most of the pages
         <reference name="footer_links">
             <action method="addLink" translate="label title" module="catalog" ifconfig="catalog/seo/site_map"><label>Site Map</label><url helper="catalog/map/getCategoryUrl" /><title>Site Map</title></action>
         </reference>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>magiccart/magicslider/css/magicslider.css</stylesheet>
+            </action>>
+        </reference>
         <block type="catalog/product_price_template" name="catalog_product_price_template" />
     </default>
 
@@ -86,6 +91,17 @@ Category default layout
 
     <catalog_category_default translate="label">
         <label>Catalog Category (Non-Anchor)</label>
+        <reference name="top_main_content">
+            <block type="cms/block" name="top1-main-slide" >
+                <action method="setBlockId"><block_id>cms-static-main-slide-2</block_id></action>
+            </block>
+            <block type="cms/block" name="top2-main-collection" >
+                <action method="setBlockId"><block_id>cms-static-main-collection2</block_id></action>
+            </block>
+			<block type="cms/block" name="top3-main-collection" >
+                <action method="setBlockId"><block_id>cms_static_slider_eu</block_id></action>
+            </block>
+        </reference>
         <!--
         <reference name="left_first">
             <block type="catalog/navigation" name="catalog.leftnav" after="currency" template="catalog/navigation/left.phtml">

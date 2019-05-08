@@ -22,6 +22,15 @@
 			</quickorder>
 		  </updates>
 		</layout>
+	<translate>
+		<modules>
+			<Istans_Quickorder>
+				<files>
+					<default>Istans_Quickorder.csv</default>
+				</files>
+			</Istans_Quickorder>
+		</modules>
+	</translate>
   </frontend>
   <global>
     <helpers>
