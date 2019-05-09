@@ -1,0 +1,11 @@
+<?php
+
+	$totalCart = Mage::getSingleton('checkout/session')->getQuote()->getGrandTotal();
+	$extracharge_amount = Dialcom_Przelewy_Model_Payment_Przelewy::getExtrachargeAmountByAmount($totalCart * 100);
+	$paymentmethod = Mage::getSingleton('checkout/session')->getQuote()->getPayment()->getMethod();
+?>
+
+<?php if ($extracharge_amount > 0 && $paymentmethod === 'dialcom_przelewy') { ?>
+	<p style="font-size:small;font-style: italic;"><?php echo $this->__('This payment will be increased by'); ?>
+	<b><?php echo number_format($extracharge_amount / 100, 2, ',',' ').' '.Mage::app()->getStore()->getCurrentCurrencyCode(); ?></b>.</p>
+<?php } ?>

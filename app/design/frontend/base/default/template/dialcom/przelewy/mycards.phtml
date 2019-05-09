@@ -1,0 +1,72 @@
+<div class="page-title">
+    <h1><?php echo $this->__('My payment cards') ?></h1>
+</div>
+
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+<?php $ccards = Dialcom_Przelewy_Model_Recuring::getCards(); ?>
+
+<?php $p24_forget = Dialcom_Przelewy_Model_Recuring::getP24Forget(); ?>
+
+<form method="post" id="form-validate">
+    <div class="fieldset">
+        <ul class="form-list">
+            <li class="control">
+                <input type="hidden" name="cardforget" value="1">
+                <input type="checkbox" name="p24_forget" id="p24_forget" value="1" title="<?php echo $this->__('Do not remember my cards') ?>" class="checkbox" <?php echo $p24_forget ? 'checked="checked"' : '' ?> style="float:left">
+                <label for="p24_forget" style="float:left"><?php echo $this->__('Do not remember my cards') ?></label>
+                <button type="submit" title="<?php echo $this->__('Save'); ?>" class="button" style="float:left"><span><?php echo $this->__('Save'); ?></span></button>
+            </li>
+        </ul>
+    </div>
+</form>
+
+<div style="clear:both"></div>
+
+<?php if (count($ccards) == 0) { ?>
+	<p><?php echo $this->__('Payment cards not found.') ?></p>
+<?php } else { ?>
+
+<div class="dashboard">
+    <div class="box-account box-info">
+        <div class="box-head">
+            <h2><?php echo $this->__('Your payment cards are listed below.') ?></h2>
+        </div>
+
+
+
+		<?php foreach($ccards as $ccard) : ?>
+
+		<div class="ccbox"> 
+			<h1 class="page-heading"><?php echo filter_var($ccard->_data['card_type'], FILTER_SANITIZE_STRING); ?></h1>
+			<p><?php echo filter_var($ccard->_data['mask'], FILTER_SANITIZE_STRING); ?></p>
+			<p><?php echo filter_var(substr($ccard->_data['expires'],0,2), FILTER_SANITIZE_STRING); ?>/<?php echo filter_var(substr($ccard->_data['expires'],2), FILTER_SANITIZE_STRING); ?></p>
+			<a class="button" href="?cardrm=<?php echo (int)$ccard->_data['id']; ?>"
+				onclick="return confirm('<?php echo $this->__('Are You sure?') ?>');"
+				title="<?php echo $this->__('Delete') ?>">
+				<?php echo $this->__('Delete') ?>
+			</a>
+		</div>
+
+		<?php endforeach; ?>
+        
+    </div>
+</div>
+
+<div class="buttons-set">
+    <p class="back-link"><a href="<?php echo filter_var($this->getUrl('customer/account/'), FILTER_SANITIZE_URL) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+</div>
+
+<?php }  // if has ccards ?> 
+
+<style>
+	.ccbox {
+		background: #fbfbfb;
+		border: 1px solid #d6d4d4;
+		padding: 1em;
+		margin: 1em;
+		width: 40%;
+		display: inline-block;
+	}
+	.ccbox:nth-child(odd) { margin-left:1%; }
+</style>

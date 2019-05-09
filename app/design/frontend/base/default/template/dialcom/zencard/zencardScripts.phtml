@@ -1,0 +1,208 @@
+<?php
+
+require_once Mage::getBaseDir('code') .
+    '/' .
+    Mage::getConfig()->getNode('modules/Dialcom_Przelewy/codePool') .
+    '/Dialcom/ZenCard/Handler/ApiHandler.php';
+
+$storeID = Mage::helper("przelewy")->getStoreID();
+
+if ((int)Mage::getStoreConfig('przelewytab1/additionall/zencard', $storeID) === 1 &&
+    Mage::helper('checkout/cart')->getCart()->getItemsCount()
+) {
+    $quote = Mage::getSingleton('checkout/session')->getQuote();
+    $quoteItems = $quote->getAllItems();
+    $productsWithTaxes = 0;
+    foreach ($quoteItems as $item) {
+        $productsWithTaxes += $item->getRowTotalInclTax();
+    }
+
+    $grandTotal = Mage::getModel('checkout/cart')->getQuote()->getGrandTotal()
+        ? Mage::getModel('checkout/cart')->getQuote()->getGrandTotal()
+        : 0;
+
+    $apiHandler = new ApiHandler();
+    ?>
+    <?php if ($apiHandler->isZendCardEnabled() && $apiHandler->getZendCardScriptUrl()): ?>
+        <style>
+            .price {
+                white-space: nowrap;
+            }
+        </style>
+
+        <!-- ZenCard coupon -->
+        <div id="zenCardDiscount"></div>
+        <div id="productsWithTaxes" style="display: none"></div>
+
+        <!-- Including ZenCard scripts -->
+        <script src="<?php echo filter_var($apiHandler->getZendCardScriptUrl(), FILTER_SANITIZE_URL); ?>"
+                data-zencard-mtoken="<?php echo filter_var($apiHandler->getZendCardScriptToken(), FILTER_SANITIZE_STRING); ?>"></script>
+
+        <script>
+
+            productsWithTaxes = parseFloat('<?php echo $productsWithTaxes ?>');
+
+            grandTotal = parseFloat('<?php echo $subtotalInclTax ?>');
+
+            zencardData = {
+                amount: 0,
+                amountWithDiscount: 0,
+                discount: 0
+            };
+
+            basketAmountSelector = '.subtotal .price ~ .price';
+            basketAmountTotalWithoutTax = '';
+            basketAmountTotalSelector = '#checkout-review-table tfoot tr.last .price, #shopping-cart-totals-table tfoot tr:last-child .price';
+
+            // Catching all requests and update basket amounts after getting response.
+            (function () {
+                var origOpen = XMLHttpRequest.prototype.open;
+                XMLHttpRequest.prototype.open = function () {
+                    this.addEventListener('load', function () {
+                        if (!this.dontTriggerFunctions) {
+                            customWriteDiscount();
+                            window.dispatchEvent(new Event('resize'));
+                        }
+                    });
+                    origOpen.apply(this, arguments);
+                };
+            })();
+
+            function customWriteDiscount() {
+                updateProductWithTaxes(
+                    updateGrandTotalValue(
+                        function () {
+                            updateBasketAmounts(basketAmountSelector);
+                            updateBasketAmounts(basketAmountTotalSelector, true);
+                            updateBasketAmounts(basketAmountTotalWithoutTax, false, true);
+                        }
+                    )
+                );
+            }
+
+            function updateBasketAmounts(selector, total = false) {
+
+                var discount = zencardData.discount / 100;
+                var amountWithDiscount = zencardData.amountWithDiscount / 100;
+                if (total)
+                    amountWithDiscount = grandTotal - discount;
+
+                var displayZenCardText = !total ? ( amountWithDiscount != productsWithTaxes ) : ( amountWithDiscount != grandTotal );
+
+                var zenCardText = displayZenCardText ? getZenCardText(selector, discount) : '';
+                updateBasketAmount(selector, amountWithDiscount, zenCardText);
+
+            }
+
+            function updateProductWithTaxes(callback) {
+                jQuery.ajax({
+                    url: '<?php echo filter_var(Mage::getUrl('zencard/zencard/getProductsWithTaxes'), FILTER_SANITIZE_URL) ?>',
+                    method: "POST",
+                    success: function (response) {
+                        productsWithTaxes = parseFloat(response);
+                    },
+                    complete: function () {
+                        if (callback)
+                            callback();
+                    },
+                    xhrFields: {
+                        dontTriggerFunctions: true
+                    }
+                });
+            }
+
+            function updateGrandTotalValue(callback) {
+                jQuery.ajax({
+                    url: '<?php echo filter_var(Mage::getUrl('zencard/zencard/getGrandTotal'), FILTER_SANITIZE_URL) ?>',
+                    method: "POST",
+                    success: function (response) {
+                        grandTotal = parseFloat(response);
+                    },
+                    complete: function () {
+                        if (callback)
+                            callback();
+                    },
+                    xhrFields: {
+                        dontTriggerFunctions: true
+                    }
+                });
+            }
+
+            function getZenCardText(selector, discount) {
+                var amount = jQuery(selector).html();
+                var zenCardText = '';
+                if (amount) {
+                    amount = amount.replace('&nbsp;', ' ');
+                    if (amount.indexOf('<?php echo __("ZenCard Discount") ?>') == -1) {
+                        zenCardText = '<p style="font-size: 10px; text-transform: capitalize">(<?php echo __(
+                                "ZenCard Discount"
+                            ) ?>: -' + amount.replace(/^([\d\s]+),(\d{2})/g, discount.formatMoney(2, ',', ' ')) + ')</p>';
+                    }
+                }
+
+                return zenCardText;
+            }
+
+            function updateBasketAmount(selector, discount, text) {
+                var amount = jQuery(selector).html();
+
+                if (amount) {
+                    amount = amount.replace('&nbsp;', ' ');
+                    console.log(amount);
+                    jQuery(selector).html(amount.replace(/^([\d\s]+),(\d{2})/g, discount.formatMoney(2, ',', ' ')) + text);
+                }
+            }
+
+            Number.prototype.formatMoney = function (c, d, t) {
+                var n = this,
+                    c = isNaN(c = Math.abs(c)) ? 2 : c,
+                    d = d == undefined ? "." : d,
+                    t = t == undefined ? "," : t,
+                    s = n < 0 ? "-" : "",
+                    i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
+                    j = (j = i.length) > 3 ? j % 3 : 0;
+                return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+            };
+
+            jQuery(document).ready(function () {
+                jQuery(".cart.display-single-price").append('<div id="zenCards" style="width: 60%; float: left;"></div>');
+                jQuery(".cart.display-single-price").append('<div id="zenDiscount" style="width: 60%; float: left;"></div>');
+
+                if (!jQuery("#zenCards").length) {
+                    jQuery(".cart.display-both-prices").append('<div id="zenCards" style="width: 100%; float: left;"></div>');
+                    jQuery(".cart.display-both-prices").append('<div id="zenDiscount" style="width: 100%; float: left;"></div>');
+                }
+
+                if (!jQuery("#zenCards").length) {
+                    jQuery("#checkout-step-review").append('<div id="zenCards"></div>');
+                    jQuery("#checkout-step-review").append('<div id="zenDiscount"></div>');
+                }
+
+                if (!jQuery("#zenCards").length) {
+                    jQuery("#header").append('<div id="zenCards" style="height:0px; overflow: hidden;"></div>');
+                }
+
+                var customWriteAmountWithDiscount = function customWriteAmountWithDiscount(amountWithDiscountObj) {
+
+                };
+
+                Zencard.run(function () {
+                    Zencard.listen('discountEvent', function discountEventShopHandler(eventData) {
+                        zencardData.amount = eventData.amount;
+                        zencardData.amountWithDiscount = eventData.amountWithDiscount;
+                        zencardData.discount = eventData.amount - eventData.amountWithDiscount;
+                        customWriteDiscount();
+                    });
+                    jQuery("#productsWithTaxes").html(productsWithTaxes);
+                    Zencard.config({
+                        couponElementPath: '#zenCards',
+                        basketAmountPath: '#productsWithTaxes',
+                        amountWithDiscountPath: '#zenDiscount',
+                        writeAmountWithDiscount: customWriteAmountWithDiscount
+                    });
+                    Zencard.go();
+                });
+            });
+        </script>
+    <?php endif; ?>
+<?php } ?>

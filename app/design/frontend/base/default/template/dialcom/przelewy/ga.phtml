@@ -1,0 +1,65 @@
+<?php
+
+$storeID = (int)Mage::helper("przelewy")->getStoreID();
+$passed_order_id = (int) $this->getData('ga_order_id');
+$ga_order_id = isset($passed_order_id) ? $passed_order_id : (int)Mage::app()->getRequest()->getParam('ga_order_id', 0);
+$ga_key = filter_var(Mage::getStoreConfig('przelewytab1/klucze/ga_key', $storeID),FILTER_SANITIZE_STRING);
+
+if ($ga_order_id > 0 && !empty($ga_key)) {
+    $order = Mage::getModel('sales/order')->loadByIncrementId($ga_order_id);
+    $currency = filter_var(Mage::app()->getStore()->getCurrentCurrencyCode(), FILTER_SANITIZE_STRING);
+    $amount = $order->getGrandTotal() - $order->getShippingAmount();
+    $address = $order->getBillingAddress();
+
+    $ga_conversion = array(
+        array('_setAccount', $ga_key),
+        array('_trackPageview'),
+        array('_set', 'currencyCode', $currency),
+        array(
+            '_addTrans',
+            $ga_order_id,
+            Mage::app()->getStore()->getName(),
+            floatval($order->getGrandTotal() - $order->getShippingAmount()),
+            floatval( $order->getShippingTaxAmount()),
+            floatval($order->getShippingAmount()),
+            filter_var($address->getCity(), FILTER_SANITIZE_STRING),
+            filter_var($address->getRegion(), FILTER_SANITIZE_STRING),
+            filter_var($address->getCountry(),FILTER_SANITIZE_STRING)
+        ),
+    );
+
+    $products = $order->getAllItems();
+
+
+    if (is_array($products)) {
+        foreach ($products as $item) {
+            $ga_conversion[] = array(
+                '_addItem',
+                $ga_order_id,
+                (int)$item->getItemId(),
+                filter_var($item->getName(), FILTER_SANITIZE_STRING),
+                filter_var($item->getSku(), FILTER_SANITIZE_STRING),
+                floatval($item->getPrice()),
+                floatval($item->getData('qty_ordered')),
+            );
+        }
+    }
+    $ga_conversion[] = array('_trackTrans');
+
+
+    ?>
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        <?php foreach($ga_conversion as $ga_item) { ?>
+        _gaq.push(['<?php echo implode("','", $ga_item); ?>']);
+        <?php } ?>
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+<?php } ?>

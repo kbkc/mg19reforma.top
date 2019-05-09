@@ -1,0 +1,488 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <przelewyconfig translate="label" module="przelewy">
+            <label>Przelewy24</label>
+            <sort_order>2424</sort_order>
+        </przelewyconfig>
+    </tabs>
+    <sections>
+        <przelewytab1 translate="label" module="adminhtml">
+            <label>Przelewy24 settings</label>
+            <tab>przelewyconfig</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>2424</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <klucze translate="label">
+                    <label>Keys</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <api_key>
+                            <label>API key</label>
+                            <backend_model>przelewy/advancedvalidator</backend_model>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>You can get API key from Przelewy24 dashboard, from my data tab</comment>
+                        </api_key>
+                        <ga_key>
+                            <label>Google Analytics key</label>
+                            <backend_model>przelewy/advancedvalidator</backend_model>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </ga_key>
+                    </fields>
+                </klucze>
+                <oneclick translate="label">
+                    <label>Oneclick payments</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <oneclick>
+                            <label>Oneclick payments</label>
+                            <frontend_type>select</frontend_type>
+                            <backend_model>przelewy/advancedvalidator</backend_model>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </oneclick>
+                        <payinshop>
+                            <label>Payments inside shop</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Allows to pay by credit/debit card without leaving the store website</comment>
+                        </payinshop>
+                    </fields>
+                </oneclick>
+                <paymethods translate="label">
+                    <label>Payment methods</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>3</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <showpaymethods>
+                            <label>Show available payment methods in shop</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Customer can chose payment method on confirmation page</comment>
+                        </showpaymethods>
+                        <paymethod_first>
+                            <label>paymethod_first</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </paymethod_first>
+                        <paymethod_second>
+                            <label>paymethod_second</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </paymethod_second>
+                        <paymethods_all>
+                            <label>paymethods_all</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>dialcom_przelewy/config_kanaly</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </paymethods_all>
+                    </fields>
+                </paymethods>
+                <promoted>
+                    <label>Additional settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>4</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <show_promoted>
+                            <label>Promote some payment methods</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Selected items will be shown next to other payments gateways</comment>
+                        </show_promoted>
+                        <paymethod_promoted>
+                            <label>paymethod_promoted</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </paymethod_promoted>
+                    </fields>
+                </promoted>
+                <paysettings translate="label">
+                    <label>Payment Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>5</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <usegraphical>
+                            <label>Use graphics list of payment methods</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </usegraphical>
+                        <p24regulations>
+                            <label>Acceptation of Przelewy24 conditions</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Shows button for acceptation of Przelewy24 conditions in shop website</comment>
+                        </p24regulations>
+                        <raty>
+                            <label>Installment Settings</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>dialcom_przelewy/config_raty</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </raty>
+                        <payslow>
+                            <label>Show only immediate payments</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>This setting decrease the number of available payment methods</comment>
+                        </payslow>
+                        <timelimit>
+                            <label>Adjust the time limit for completion of the transaction</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>przelewy/advancedvalidator</backend_model>
+                            <validate>validate-number</validate>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Value 0 means no time limit</comment>
+                        </timelimit>
+                        <sendlink_mailtemplate>
+                            <label>Mail theme for button 'Send P24 link by email'</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sendlink_mailtemplate>
+                        <ivr>
+                            <label>Pay by IVR</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </ivr>
+                        <chg_state>
+                            <label>Change order status</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </chg_state>
+                        <mk_invoice>
+                            <label>Create invoice</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </mk_invoice>
+                        <wait_for_result>
+                            <label>Wait for transaction result</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>After leaving the bank website, wait for the P24 transaction result?</comment>
+                        </wait_for_result>
+                    </fields>
+                </paysettings>
+                <additionall translate="label">
+                    <label>Additional settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>6</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <extracharge>
+                            <label>Enable extra charge</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </extracharge>
+                        <extracharge_product>
+                            <label>Choose product</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>dialcom_przelewy/config_product</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>This virtual product will be added to the invoice with amount:</comment>
+                            <depends><extracharge>1</extracharge></depends>
+                        </extracharge_product>
+                        <extracharge_amount>
+                            <label>Increase payment (amount)</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>przelewy/advancedvalidator</backend_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><extracharge>1</extracharge></depends>
+                        </extracharge_amount>
+                        <extracharge_percent>
+                            <label>Increase payment (percent)</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>przelewy/advancedvalidator</backend_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Payment will be increased by greater of these amounts</comment>
+                            <depends><extracharge>1</extracharge></depends>
+                        </extracharge_percent>
+                        <ga_before_payment>
+                            <label>Send to GA with tax</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>By default, the Google Analytics tracking code is placed on the confirmation page</comment>
+                        </ga_before_payment>
+                        <!--<zencard>-->
+                            <!--<label>Enable ZenCard</label>-->
+                            <!--<frontend_type>select</frontend_type>-->
+                            <!--<backend_model>przelewy/advancedvalidator</backend_model>-->
+                            <!--<source_model>adminhtml/system_config_source_yesno</source_model>-->
+                            <!--<sort_order>6</sort_order>-->
+                            <!--<show_in_default>1</show_in_default>-->
+                            <!--<show_in_website>1</show_in_website>-->
+                            <!--<show_in_store>1</show_in_store>-->
+                            <!--<comment>Set ZenCard setting in Przelewy24 dashboard</comment>-->
+                        <!--</zencard>-->
+                    </fields>
+                </additionall>
+                <multicurr translate="label">
+                    <label>Subaccounts currency</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>7</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <multicurr_list>
+                            <label>Currency list</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>dialcom_przelewy/config_waluty</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </multicurr_list>
+                        <multicurr_merchantid>
+                            <label>multicurr_merchantid</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>przelewy/advancedvalidator</backend_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </multicurr_merchantid>
+                        <multicurr_shopid>
+                            <label>multicurr_shopid</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>przelewy/advancedvalidator</backend_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </multicurr_shopid>
+                        <multicurr_salt>
+                            <label>multicurr_salt</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>przelewy/advancedvalidator</backend_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </multicurr_salt>
+                        <multicurr_api>
+                            <label>multicurr_api</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>przelewy/advancedvalidator</backend_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </multicurr_api>
+                    </fields>
+                </multicurr>
+            </groups>
+        </przelewytab1>
+        <payment>
+            <groups>
+                <dialcom_przelewy translate="label">
+                    <label>Przelewy</label>
+                    <sort_order>2424</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <active translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </active>
+                        <title translate="label">
+                            <label>Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </title>
+                        <text translate="label">
+                            <label>Additional description</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </text>
+                        <merchant_id translate="label">
+                            <backend_model>przelewy/validator</backend_model>
+                            <label>Merchant ID:</label>
+                            <comment>ID in Przelewy24 - main account login</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </merchant_id>
+                        <shop_id translate="label">
+                            <backend_model>przelewy/validator</backend_model>
+                            <label>Shop ID:</label>
+                            <comment>ID in Przelewy24 - main account login</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </shop_id>
+                        <salt translate="label">
+                            <backend_model>przelewy/validator</backend_model>
+                            <label>CRC key:</label>
+                            <comment>You can get CRC key from Przelewy24 dashboard, from my data tab</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </salt>
+                        <min_order_total translate="label">
+                            <label>Minimum order amount</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </min_order_total>
+                        <max_order_total translate="label">
+                            <label>Maximum order amount</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </max_order_total>
+                        <sort_order translate="label">
+                            <label>Order on gateway list</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </sort_order>
+                        <mode translate="label">
+                            <backend_model>przelewy/validator</backend_model>
+                            <label>Test mode (SANDBOX)</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </mode>
+                    </fields>
+                </dialcom_przelewy>
+            </groups>
+        </payment>
+    </sections>
+</config>
