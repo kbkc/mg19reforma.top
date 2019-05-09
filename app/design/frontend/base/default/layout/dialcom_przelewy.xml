@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<layout>
+	<checkout_onepage_index translate="label">
+		<reference name="head">
+			<action method="addLinkRel">
+				<rel>stylesheet</rel>
+				<href>https://secure.przelewy24.pl/skrypty/ecommerce_plugin.css.php</href>
+			</action>
+			<action method="addCss"><style>../../../../js/dialcom/przelewy/jquery-ui-1.11.4/jquery-ui.min.css</style></action>
+			<action method="addJs"><script>dialcom/przelewy/jquery-1.11.3.min.js</script></action>
+			<action method="addJs"><script>dialcom/przelewy/jquery-ui-1.11.4/jquery-ui.min.js</script></action>
+			<action method="addJs"><script>dialcom/przelewy/noconflict.js</script></action>
+		</reference>
+		<reference name="head">
+			<block type="core/template" name="zencardScripts" template="dialcom/zencard/zencardScripts.phtml" before="-"/>
+		</reference>
+	</checkout_onepage_index>
+	<customer_account>
+		<reference name="customer_account_navigation">
+			<action method="addLink" translate="label">
+				<name>my_stored_cards</name>
+				<path>przelewy/przelewy/mycards</path>
+				<label>My payment cards</label>
+			</action>
+		</reference>
+	</customer_account>
+	<przelewy_przelewy_mycards>
+		<update handle="customer_account" />
+		<reference name="my.account.wrapper">
+			<block type="core/template" name="przelewy_mycards_content" template="dialcom/przelewy/mycards.phtml"/>       
+		</reference>        
+	</przelewy_przelewy_mycards>
+	<przelewy_przelewy_redirect>
+		<reference name="content">
+			<block type="core/template" name="przelewy_redirect_content" template="dialcom/przelewy/redirect.phtml"/>
+			<block type="core/template" name="przelewy_checkout_ga" template="dialcom/przelewy/ga.phtml"/>
+		</reference>        
+	</przelewy_przelewy_redirect>
+	<przelewy_przelewy_summary>
+		<reference name="content">
+			<block type="core/template" name="przelewy_summary_content" template="dialcom/przelewy/summary.phtml"/>       
+		</reference>        
+	</przelewy_przelewy_summary>
+	<catalog_product_view>
+		<reference name="content">
+			<block type="core/template" name="przelewy_product_raty" template="dialcom/przelewy/product_raty.phtml"/> 
+		</reference>
+	</catalog_product_view>
+	<checkout_onepage_review>
+		<reference name="checkout.onepage.review.info.items.after">
+			<block type="core/template" name="przelewy_extracharge" template="dialcom/przelewy/extracharge.phtml"/> 
+		</reference>
+	</checkout_onepage_review>	
+	<checkout_onepage_success>
+		<reference name="head">
+			<action method="addJs"><script>dialcom/przelewy/3dsReload.js</script></action>
+		</reference>
+		<reference name="content">
+			<block type="core/template" name="przelewy_checkout_ga" template="dialcom/przelewy/ga.phtml"/>
+		</reference>
+	</checkout_onepage_success>
+	<sales_order_view>
+		<reference name="my.account.wrapper">
+			<block type="core/template" name="przelewy_order_details" template="dialcom/przelewy/order_details.phtml" after="sales.order.info"/>
+		</reference>
+	</sales_order_view>
+</layout>

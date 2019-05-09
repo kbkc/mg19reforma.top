@@ -1,0 +1,307 @@
+<?php
+$totalCart = Mage::getSingleton('checkout/session')->getQuote()->getGrandTotal();
+
+$storeID = Mage::helper("przelewy")->getStoreID();
+
+$oneclick = Mage::getStoreConfig('przelewytab1/oneclick/oneclick', $storeID);
+$payinshop = Mage::getStoreConfig('przelewytab1/oneclick/payinshop', $storeID);
+$paymethod_first = explode(',', Mage::getStoreConfig('przelewytab1/paymethods/paymethod_first', $storeID));
+$paymethod_second = explode(',', Mage::getStoreConfig('przelewytab1/paymethods/paymethod_second', $storeID));
+$cards = $oneclick ? $this->getCards() : array();
+$payment_list = $this->getKanalyPlatnosci(Mage::app()->getStore()->getCurrentCurrencyCode());
+$lastPaymentMethod = $this->getLastPaymentMethod();
+$channelsRaty = Dialcom_Przelewy_Model_Config_Kanaly::getChannelsRaty();
+$channelsCards = Dialcom_Przelewy_Model_Recuring::getChannelsCards();
+$extracharge_amount = Dialcom_Przelewy_Model_Payment_Przelewy::getExtrachargeAmountByAmount($totalCart * 100);
+$ratyMinimum = Dialcom_Przelewy_Model_Payment_Przelewy::getMinRatyAmount();
+$p24_forget = Dialcom_Przelewy_Model_Recuring::getP24Forget();
+$promoted = Mage::getStoreConfig('przelewytab1/promoted/show_promoted', $storeID);
+$promoted_items = explode(',', Mage::getStoreConfig('przelewytab1/promoted/paymethod_promoted', $storeID));
+
+//wyrzuca z listy metod płatności raty, jeśli kwota zamówienia poniżej progu
+if ($totalCart < $ratyMinimum) {
+    foreach ($payment_list as $bankId => $bankName) {
+        if (in_array($bankId, $channelsRaty)) {
+            unset($payment_list[$bankId]);
+        }
+    }
+}
+
+$orig_payment_list = $payment_list;
+foreach ($payment_list as $id => $item) {
+    if (!in_array($id, $paymethod_first) && !in_array($id, $paymethod_second)) {
+        $paymethod_second[] = (int)$id;
+    }
+}
+
+?>
+
+<input type="hidden" value='<?php echo json_encode($payment_list); ?>' id="p24bankNames">
+
+<?php
+
+$display_promoted = array();
+
+// raty na liście bramek
+if ((int)Mage::getStoreConfig('przelewytab1/paysettings/raty',
+        $storeID) > 0 && $totalCart >= Dialcom_Przelewy_Model_Payment_Przelewy::getMinRatyAmount() && is_array($channelsRaty)
+) {
+    foreach ($channelsRaty as $channelRaty) {
+        if (isset($payment_list[$channelRaty]) && !in_array($channelRaty, $display_promoted)) {
+            $display_promoted[] = $channelRaty;
+        }
+    }
+}
+// formy płatności na liście bramek
+if ($promoted == '1' && count($promoted_items) > 0 && !(count($promoted_items) == 1 && empty($promoted_items[0]))) {
+    foreach ($promoted_items as $p24channelId) {
+        if (isset($payment_list[$p24channelId]) && !in_array($p24channelId, $channelsRaty) && !in_array($p24channelId,
+                $display_promoted)
+        ) {
+
+            // jeśli karta, to dopisz do listy zapisane karty
+            if (in_array((int)$p24channelId, $channelsCards)) {
+                foreach ($cards as $card) {
+                    $display_promoted[] = $p24channelId . '|' . $card['id'];
+                    //$payment_list[$p24channelId . '|' . $card['id']] = $card['card_type'] . ' ' . substr($card['mask'],
+                    //        -9);
+                    $payment_list[$p24channelId . '|' . $card['id']] = $this->__('Your card') . ' ' . substr($card['mask'],
+                            -9);
+                }
+            }
+
+            // dopisz to listy tę formę
+            $display_promoted[] = (int)$p24channelId;
+        }
+    }
+}
+
+// wyświetl formy płatności na liście bramek, jeśli są
+foreach ($display_promoted as $p24channelId) {
+    $p24channelId = (int) $p24channelId;
+    ?>
+
+    <dt class="p24_raty">
+        <input id="inp_method_dialcom_przelewy_<?php echo $p24channelId; ?>"
+               data-value="dialcom_przelewy_method_<?php echo $p24channelId; ?>"
+               data-fake="dialcom_przelewy"
+               data-method="<?php echo $p24channelId; ?>"
+               value="dialcom_przelewy_method_<?php echo $p24channelId; ?>"
+               onclick="clickFakePaymentMethod(this);"
+               type="radio" name="payment[method]" class="radio" autocomplete="off">
+        <label
+            for="inp_method_dialcom_przelewy_<?php echo $p24channelId; ?>"><?php echo $payment_list[$p24channelId]; ?></label>
+    </dt>
+
+<?php } ?>
+
+
+<script type="text/javascript">
+    $j('document').ready(function () {
+        $j('#p_method_dialcom_przelewy[name="payment[method]"]').each(function () {
+            $j(this).parent('span.no-display').after($j(this))
+        });
+		$j('#p24_module_description').html('<?php echo $this->__("After ordering you will be redirected to the service Przelewy24 to finish payments"); ?>');
+    });
+</script>
+
+
+<script type="text/javascript">
+    //<![CDATA[
+    var $j = jQuery;
+    $j('dt.p24_raty').insertBefore($j('input[name="payment[method]"][value=dialcom_przelewy]').closest('dt'));
+    $j('document').ready(function () {
+        $j('head').append('<link rel="stylesheet" href="https://secure.przelewy24.pl/skrypty/ecommerce_plugin.css.php" type="text/css" />');
+        $j('head').append('<link rel="stylesheet" href="<?php echo filter_var($this->p24getCssUrl(), FILTER_SANITIZE_URL); ?>css_paymethods.css" type="text/css" />');
+        $j.getScript("<?php echo filter_var($this->p24getJsUrl(), FILTER_SANITIZE_URL); ?>payment.js");
+
+        var orig = $j('#p_method_dialcom_przelewy[name="payment[method]"]');
+        if (orig.attr('data-value') == undefined) {
+            orig
+                .attr('data-value', orig.val() + '_orig')
+                .attr('data-fake', orig.val())
+                .click(function () {
+                    clickFakePaymentMethod(this, false);
+                })
+            ;
+        }
+
+    });
+
+    //]]>
+</script>
+
+<div id="payment_form_dialcom_przelewy" style="display:none;padding-left:15px;">
+
+    <p id="p24_module_description"
+       style="padding-left:15px;font-size:small;font-style: italic;"><?php echo filter_var($this->getDescription(), FILTER_SANITIZE_STRING); ?></p>
+
+    <?php if (Mage::getStoreConfig('przelewytab1/oneclick/oneclick', $storeID) == '1') { ?>
+        <p style="font-size:small;font-style: italic;"><?php echo $this->__('In case of paying by card, the card\'s reference number will be saved for further payments.'); ?></p>
+        <?php if (Mage::getSingleton('customer/session')->isLoggedIn()) : ?>
+            <p style="font-size:small;font-style: italic; margin-bottom: 0.3em">
+                <input type="checkbox" name="payment[p24_forget]" id="p24_forget" value="1"
+                       title="<?php echo $this->__('Do not remember my cards') ?>"
+                       class="checkbox" <?php echo $p24_forget ? 'checked="checked"' : '' ?> >
+                <label for="p24_forget"><?php echo $this->__('Do not remember my cards') ?></label>
+            </p>
+        <?php endif; ?>
+    <?php } ?>
+
+    <?php if ($extracharge_amount > 0) { ?>
+        <p style="font-size:small;font-style: italic;"><?php echo $this->__('This payment will be increased by'); ?>
+            <b> <?php echo number_format($extracharge_amount / 100, 2, ',',
+                        ' ') . ' ' . Mage::app()->getStore()->getCurrentCurrencyCode(); ?></b>.
+        </p>
+    <?php } ?>
+
+    <?php if (Mage::getStoreConfig('przelewytab1/paysettings/p24regulations', $storeID) == '1') { ?>
+        <p style="font-size:small;font-style: italic; margin-bottom: 0.3em">
+            <input type="checkbox" name="payment[accept_regulations]" id="p24_accept_regulations" value="1"
+                   class="checkbox" style="display: inline-block;">
+            <label for="p24_accept_regulations"><?php echo $this->__('Yes, I have read and accept'); ?>
+                <a style="float:none;margin:0"
+                   href="http://www.przelewy24.pl/regulamin.htm"><?php echo $this->__('Przelewy24.pl terms'); ?></a>.</label>
+        </p>
+    <?php } ?>
+
+
+
+    <?php $payment_list = $orig_payment_list; ?>
+
+    <?php if (Mage::getStoreConfig('przelewytab1/paymethods/showpaymethods', $storeID)) { ?>
+        <?php if (Mage::getStoreConfig('przelewytab1/paysettings/usegraphical', $storeID)) { ?>
+            <div class="payMethodList">
+
+                <?php $makeUnfold = false; ?>
+                <?php if ($lastPaymentMethod && isset($payment_list[$lastPaymentMethod])) { ?>
+                    <?php echo $this->getBankHtml($lastPaymentMethod, __('Recently used')); ?>
+                    <?php $makeUnfold = true; ?>
+                <?php } ?>
+
+                <?php foreach ($cards as $card) { ?>
+                    <?php echo $this->getBankHtml(md5($card['card_type']), $this->__('Your card'),
+                        substr($card['mask'], -9), $card['id'], 'recurring'); ?>
+                    <?php $makeUnfold = true; ?>
+                <?php } ?>
+
+                <?php
+                // jeśli nie ma wyróżnionych metod płatności, to wyświetlaj wszystkie
+                if (count($paymethod_first) == 0 || (count($paymethod_first) == 1 && empty($paymethod_first[0]))) {
+                    $paymethod_first = $paymethod_second;
+                    $paymethod_second = array();
+                    $makeUnfold = false;
+                }
+                ?>
+
+
+                <?php foreach ($paymethod_first as $bank_id) {
+                    if (isset($payment_list[$bank_id]) && $bank_id != $lastPaymentMethod) { ?>
+                        <?php echo $this->getBankHtml($bank_id, $payment_list[$bank_id]); ?>
+                    <?php }
+                } ?>
+
+                <div style="clear:both"></div>
+                <div class="morePayMethods" style="display: none">
+                    <?php foreach ($paymethod_second as $bank_id) {
+                        if (isset($payment_list[$bank_id]) && !in_array($bank_id,
+                                $paymethod_first) && $bank_id != $lastPaymentMethod
+                        ) { ?>
+                            <?php echo $this->getBankHtml($bank_id, $payment_list[$bank_id]); ?>
+                            <?php $makeUnfold = true; ?>
+                        <?php }
+                    } ?>
+                    <?php foreach ($payment_list as $bank_id => $bank_name) {
+                        if (!in_array($bank_id, $paymethod_first) && !in_array($bank_id,
+                                $paymethod_second) && $bank_id != $lastPaymentMethod
+                        ) { ?>
+                            <?php echo $this->getBankHtml($bank_id, $bank_name); ?>
+                            <?php $makeUnfold = true; ?>
+                        <?php }
+                    } ?>
+                    <div style="clear:both"></div>
+                </div>
+                <?php if ($makeUnfold) { ?>
+                    <div class="moreStuff" onclick="$j(this).fadeOut(100);$j('.morePayMethods').slideDown()"
+                         title="<?php echo __('More payment methods'); ?>"></div>
+                <?php } ?>
+            </div>
+
+        <?php } ?>
+
+        <?php if (!Mage::getStoreConfig('przelewytab1/paysettings/usegraphical', $storeID)) { ?>
+            <ul class="form-list">
+                <?php $first = 1; ?>
+
+                <?php $makeUnfold = false; ?>
+                <?php if ($lastPaymentMethod && isset($payment_list[$lastPaymentMethod])) { ?>
+                    <?php echo $this->getBankTxt($lastPaymentMethod,
+                        'Ostatnio używane: ' . $payment_list[$lastPaymentMethod], $first-- > 0); ?>
+                    <?php $makeUnfold = true; ?>
+                <?php } ?>
+
+                <?php if (!empty($cards)) { ?>
+                    <?php foreach ($cards as $card) { ?>
+                        <?php echo $this->getBankTxt("",
+                            $this->__('Use card') . ' ' . $this->__('Your card') . ' <b>' . $card['mask'] . '</b> <a style="font-size:smaller;margin:0 1em" href="' . Mage::getUrl('przelewy/przelewy/mycards',
+                                array('cardrm' => $card['id'])) . '" onclick="return confirm(\'' . $this->__('Are You sure?') . '\');">usuń</a>'
+                            , $first-- > 0, $card['id'], $card['card_type'] . ' - ' . $card['mask']); ?>
+                        <?php $makeUnfold = true; ?>
+                    <?php } ?>
+                <?php } ?>
+
+                <?php foreach ($paymethod_first as $bank_id) {
+                    if (isset($payment_list[$bank_id]) && $bank_id != $lastPaymentMethod) { ?>
+                        <?php echo $this->getBankTxt($bank_id, $payment_list[$bank_id], $first-- > 0); ?>
+                        <?php $makeUnfold = true; ?>
+                    <?php }
+                } ?>
+
+                <div style="clear:both"></div>
+                <div class="morePayMethods txtStyle" style="display: none">
+                    <?php foreach ($paymethod_second as $bank_id) {
+                        if (isset($payment_list[$bank_id]) && !in_array($bank_id,
+                                $paymethod_first) && $bank_id != $lastPaymentMethod
+                        ) { ?>
+                            <?php echo $this->getBankTxt($bank_id, $payment_list[$bank_id], $first-- > 0); ?>
+                        <?php }
+                    } ?>
+                    <?php foreach ($payment_list as $bank_id => $bank_name) {
+                        if (!in_array($bank_id, $paymethod_first) && !in_array($bank_id,
+                                $paymethod_second) && $bank_id != $lastPaymentMethod
+                        ) { ?>
+                            <?php echo $this->getBankTxt($bank_id, $bank_name, $first-- > 0); ?>
+                        <?php }
+                    } ?>
+                </div>
+                <div style="clear:both"></div>
+                <?php if ($makeUnfold) { ?>
+                    <div class="moreStuff" onclick="$j(this).fadeOut(100);$j('.morePayMethods').slideDown()"
+                         title="><?php echo $this->__('More payment methods'); ?>"></div>
+                <?php } ?>
+
+            </ul>
+        <?php } ?>
+    <?php } ?>
+
+    <input type="hidden" value="" name="payment[method_id]">
+    <input type="hidden" value="" name="payment[method_name]">
+    <input type="hidden" value="" name="payment[cc_id]">
+    <input type="hidden" value="" name="payment[cc_name]">
+</div>
+
+<style>
+    .morePayMethods.txtStyle li {
+        width: 46%;
+        display: inline-block;
+    }
+
+    input.checkbox {
+        position: relative;
+        margin-top: 3px;
+    }
+
+    .moreStuff:before {
+        content: "\f078    <?php echo __('More payment methods'); ?>    \f078";
+    }
+</style>

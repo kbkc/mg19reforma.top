@@ -1,0 +1,161 @@
+<div class="box-left">
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head fieldset-legend">
+                <?php echo Mage::helper('przelewy')->__('Send refund to Przelewy24') ?>
+            </h4>
+        </div>
+        <div class="fieldset">
+            <div id="order_p24_refunds_block">
+                <div id="messageContainer"></div>
+                <?php if (!$this->isSoapExtensionInstalled()) { ?>
+                    <ul class="messages">
+                        <li class="error-msg"><?php echo Mage::helper('przelewy')->__('SOAP extension is not installed!') ?></li>
+                    </ul>
+                <?php } else {
+                    $refundsData = $this->getRefunds();
+                    $amount = isset($refundsData['amount']) ? $refundsData['amount'] : 0.0;
+                    if ($amount > 0) {
+                        $refunds = isset($refundsData['refunds']) && is_array($refundsData['refunds']) ? $refundsData['refunds'] : array();
+                        $formattedPrice = filter_var(Mage::helper('core')->currency($amount, true, false), FILTER_SANITIZE_STRING);
+                        $formattedGrandTotal = Mage::getModel('directory/currency')->formatTxt($amount, array('display' => Zend_Currency::NO_SYMBOL));
+                        $formattedGrandTotal = filter_var(str_replace(',', '.', $formattedGrandTotal), FILTER_SANITIZE_STRING);
+                        ?>
+                        <span class="field-row"><?php
+                            echo Mage::helper('przelewy')->__(
+                                'Here you can send a refund to the customer.
+                         The amount of the refund may not exceed the value of the transaction
+                          and the amount of funds available in your account.'
+                            ) ?>
+                </span>
+                        <span class="field-row">
+                    <strong>
+                        <?php
+                        echo Mage::helper('przelewy')->__('Amount to refund') . ': <span id="allowedAmount">' . $formattedPrice . ' </span>';
+                        ?>
+                    </strong>
+                </span>
+                        <form method="post" id="refundsP24Form">
+                            <?php echo $this->buildRefundsForm($formattedGrandTotal); ?>
+                        </form>
+                        <div class="buttons-set a-right" id="refundSubmitButton">
+                            <button type="submit" class="scalable" onclick="if(confirm(
+                                '<?php echo Mage::helper('przelewy')->__('This will generate outgoing transfer. Can you confirm the operation?'); ?>'
+                                )) {
+                                submitP24RefundsArea($('order_p24_refunds_block'),
+                                '<?php echo filter_var($this->getSubmitUrl(), FILTER_SANITIZE_URL); ?>'
+                                )}">
+                        <span>
+                            <span>
+                                <span>
+                                    <?php echo Mage::helper('przelewy')->__('Send') ?>
+                                </span>
+                            </span>
+                        </span>
+                            </button>
+                        </div>
+                        <?php
+                    } else {
+                        ?>
+                        <span class="field-row">
+                                <ul class="messages">
+                                    <li class="warning-msg"><?php echo Mage::helper('przelewy')->__('The payment has already been fully refunded - no funds to make further returns.') ?></li>
+                                </ul>
+                            </span>
+                        <?php
+                    }
+                }
+                ?>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="box-right">
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head fieldset-legend">
+                <?php echo Mage::helper('przelewy')->__('Przelewy24 - refunds list') ?>
+            </h4>
+        </div>
+        <div class="fieldset">
+            <div id="order_p24_refunds_block_list">
+                <?php if (!$this->isSoapExtensionInstalled()) { ?>
+                    <ul class="messages">
+                        <li class="error-msg"><?php echo Mage::helper('przelewy')->__('SOAP extension is not installed!') ?></li>
+                    </ul>
+                <?php } else {
+                    if (!isset($refunds)) {
+                        $refunds = isset($refundsData['refunds']) && is_array($refundsData['refunds']) ? $refundsData['refunds'] : array();
+                    }
+                    ?>
+                    <table cellspacing="0" id="refundsP24Table">
+                        <?php echo $this->buildRefundsTable($refunds); ?>
+                    </table>
+                    <?php
+                }
+                ?>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    #order_p24_refunds_block_list table, td, th {
+        border: none;
+    }
+
+    #order_p24_refunds_block_list table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    #order_p24_refunds_block_list th {
+        height: 30px;
+    }
+</style>
+<script>
+    function submitP24RefundsArea(area, url) {
+        if ($(area)) {
+            var fields = $(area).select('input', 'select', 'textarea');
+            var data = Form.serializeElements(fields, true);
+            url = url + (url.match(new RegExp('\\?')) ? '&isAjax=true' : '?isAjax=true');
+            new Ajax.Request(url, {
+                parameters: $H(data),
+                loaderArea: area,
+                onSuccess: function (transport) {
+                    try {
+                        if (transport.responseText.isJSON()) {
+                            var response = transport.responseText.evalJSON();
+                            if (response.error) {
+                                $('messageContainer').update(getP24ErrorMessage(response.message));
+                            } else {
+                                $('messageContainer').update(getP24SuccessMessage(response.message));
+                                if (response.data) {
+                                    $('allowedAmount').update(response.data.allowedAmount);
+                                    $('refundsP24Form').update(response.data.form);
+                                    $('refundsListErrorMessage').update('');
+                                    $('refundsP24Table').update(response.data.table);
+                                    if (response.data.blocked) {
+                                        $('refundSubmitButton').hide();
+                                    }
+                                }
+                            }
+                        } else {
+                            $('messageContainer').update(getP24SuccessMessage(transport.responseText));
+                        }
+                    }
+                    catch (e) {
+                        $('messageContainer').update(getP24ErrorMessage(e));
+                    }
+                }
+            });
+        }
+    }
+
+    function getP24ErrorMessage(message) {
+        return '<ul class="messages"><li class="error-msg">' + message + '</li></ul>';
+    }
+
+    function getP24SuccessMessage(message) {
+        return '<ul class="messages"><li class="success-msg">' + message + '</li></ul>';
+    }
+</script>

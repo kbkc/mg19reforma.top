@@ -1,0 +1,25 @@
+<?php
+
+$storeID = Mage::helper("przelewy")->getStoreID();
+
+$productPrice = Mage::registry('current_product')->getFinalPrice();
+
+if ((int)Mage::getStoreConfig('przelewytab1/paysettings/raty',
+        $storeID) == 2 && $productPrice >= Dialcom_Przelewy_Model_Payment_Przelewy::getMinRatyAmount()
+) {
+
+    $jsonString = Dialcom_Przelewy_Model_Payment_Przelewy::requestGet('https://secure.przelewy24.pl/kalkulator_raty.php?ammount=' . (int)($productPrice * 100) . '&format=json');
+
+    $json = json_decode($jsonString);
+
+    ?>
+
+    <script type="text/javascript">
+        $j(document).ready(function () {
+            $j('.price-box:first').append('<a class="price-installment" ' +
+                'target="_blank" href="https://secure.przelewy24.pl/kalkulator_raty/index.html?ammount=<?php echo floatval($productPrice); ?>' +
+                '"> <?php echo (int)$json->ilosc_rat; ?> rat x ~<?php echo (int)$json->rata; ?> zł </a>');
+        });
+    </script>
+
+<?php } ?>
