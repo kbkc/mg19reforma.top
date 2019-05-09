@@ -61,16 +61,16 @@
                         $question_value = Mage::getStoreConfig('registrationpoll_options/registrationpoll_question/registration_poll_question');
                         $max_num_of_answers = Mage::getStoreConfig('registrationpoll_options/registrationpoll_max_number_of_answers/registration_poll_number_max_number_of_answers');
                     ?>
-                    <label for="what_do_you_do" class="required"><em>*</em><?php echo $this->__($question_value).$this->__('Zaznacz max: ').'<span id="max_num_of_answers">'.$this->__($max_num_of_answers).'</span>'.$this->__(' odpowiedzi') ?></label>
+                    <label for="what_do_you_do" class="required"><em>*</em><?php echo $this->__($question_value).$this->__(' Zaznacz max: ').'<span id="max_num_of_answers">'.$this->__($max_num_of_answers).'</span>'.$this->__(' odpowiedzi') ?></label>
                     <div class="input-box">
-                            <?php
+                             <?php
                                  $options = $attribute->getSource()->getAllOptions();
                                  foreach($options as $option){
                             ?>
                             <input class ="inputPoll" type="checkbox" name="what_you_do" value='<?php echo $option['value']?>' <?php if($this->getFormData()->getWhatyoudo() == $option['value']){ echo 'selected="selected"';}?>> <?php echo $this->__($option['label'])?>
                             <br>
                             <?php } ?>
-                            <input type="text" name="what_you_do" id="what_you_do" value="<?php echo $this->escapeHtml($this->getFormData()->getWhatyoudo()) ?>" title="<?php echo $this->__('License Number') ?>" class="input-text" style="display: none;"  />
+                            <input type="text" name="what_you_do" id="what_you_do" value="<?php echo $this->escapeHtml($this->getFormData()->getWhatyoudo()) ?>" title="<?php echo $this->__('What you do') ?>" class="input-text" style="display: none;"  />
                             <script type="text/javaScript">
                                 jQuery('input.inputPoll').on('change', function () {
                                     if (jQuery(this).is(':checked')&&jQuery(":checkbox:checked").length<=(<?php echo $max_num_of_answers ?>)) {

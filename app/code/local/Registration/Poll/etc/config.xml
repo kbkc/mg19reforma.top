@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <config>
-    <adminhtml>
+ <adminhtml>
         <acl>
             <resources>
                 <admin>
@@ -10,7 +10,7 @@
                                 <config>
                                     <children>
                                         <registrationpoll_options>
-                                            <title>Store Registrationpoll Options Module Section</title>
+                                            <title>Store RegistrationPoll Options Module Section</title>
                                         </registrationpoll_options>
                                     </children>
                                 </config>
@@ -22,29 +22,24 @@
         </acl>
     </adminhtml>
     <modules>
-        <registration_poll>
+        <Registration_Poll>
             <version>1.0.0</version>
-        </registration_poll>
+        </Registration_Poll>
     </modules>
     <global>
         <helpers>
-            <registration_poll>
-                <class>registration_poll_Helper</class>
-            </registration_poll>
+            <Registration_Poll>
+                <class>Registration_Poll_Helper</class>
+            </Registration_Poll>
         </helpers>
         <resources>
             <registration_poll_setup>
                 <setup>
-                    <module>registration_poll</module>
+                    <module>Registration_Poll</module>
                     <class>Mage_Customer_Model_Resource_Setup</class>
                 </setup>
             </registration_poll_setup>
         </resources>
-        <models>
-            <registration_poll>
-                <class>registration_poll_Model</class>
-            </registration_poll>
-        </models>
     </global>
     <frontend>
         <layout>
@@ -56,11 +51,11 @@
         </layout>
         <translate>
             <modules>
-                <registration_poll>
+                <Registration_Poll>
                     <files>
-                        <default>registration_poll.csv</default>
+                        <default>Registration_Poll.csv</default>
                     </files>
-                </registration_poll>
+                </Registration_Poll>
             </modules>
         </translate>
     </frontend>

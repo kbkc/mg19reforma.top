@@ -1,5 +1,5 @@
 <?php
-class registration_poll_Model_Attribute_Source_Module extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
+class Registration_Poll_Model_Attribute_Source_Module extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
     public function getAllOptions()
     {
