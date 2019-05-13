@@ -1,3 +1,8 @@
+#esns_header_image img,
+#esns_contact_image img{
+    max-width: 100%;
+    max-height: 100%;
+}
 #esns_background_layer {
     position: absolute;
     z-index: 9998;
@@ -15,32 +20,41 @@
 #esns_box_layer {
     z-index: 9999;
     background-color: #ffffff;
-    width: 400px;
-    height: auto;
+    max-width: 65%;
+	max-height: 90%;
     overflow: hidden;
     position: fixed;
-    top: 0;
     left: 50%;
-    transform: translateX(-50%);
+    top: 50%;
+    transform: translate(-50%,-50%);
     text-align: center;
     display: inline-block;
     padding: 5px;
     border: 1px solid #bbbab8;
 }
-#esns_header_image{
-    background-image: url("../images/newssubscribers/main-imagenewslleter.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 378px;
-    width: 378px;
-    margin: 0 auto;
+@media screen and (min-width: 540px){
+    #esns_box_layer {
+        max-width: 455%;
+    }
 }
+@media screen and (min-width: 640px){
+    #esns_box_layer {
+        max-width: 35%;
+    }
+}
+@media screen and (min-width: 768px){
+    #esns_box_layer {
+        max-width: 20%;
+    }
+}
+#esns_header_image{
+        width: auto;
+        height: auto;
+        margin: 0 auto;
+    }
 #esns_contact_image{
-    background-image: url("../images/newssubscribers/contact-nl.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 63px;
-    width: 378px;
+    width: auto;
+    height: auto;
     margin: 10px auto; 
 }
 
@@ -60,7 +74,7 @@
     margin-right: auto;
 }
 #esns_box_block_2 {
-    width: 200px;
+    max-width: 200px;
     color: #5b5c5e;
     font-size: 12px;
     text-align: right;
@@ -95,17 +109,23 @@
     margin: 0 0 5px 0;
 }
 #esns_box_subscribe_input {
-    background-image: url("../images/newssubscribers/input-nl.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 320px;
+    position: relative;
+    max-width: 100%;
     height: 30px;
     margin-left: auto;
     margin-right: auto;
     clear: both;
 }
+#esns_box_subscribe_input img{
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    z-index: -1;
+}
 #esns_box_subscribe_input>#esns_email {
     color: lightgrey;
+    z-index: 3;
 }
 #esns_box_subscribe_input input {
     width: 270px;

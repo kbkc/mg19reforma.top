@@ -75,7 +75,6 @@ jQuery(function() {
     }
 
     jQuery('#esns_background_layer').css('height', jQuery(document).height()+'px');
-    jQuery('#esns_box_layer').css('margin-top', ((jQuery(window).height()-jQuery('#esns_box_layer').height()) /2)+'px');
     jQuery('#esns_submit').click(function(){
         var email = jQuery('#esns_email').val();
         jQuery.post(EsNewsSubscribers.getBaseUrl()+'newsletter/subscriber/newajax/', {'email':email}, function(resp) {
@@ -92,7 +91,10 @@ jQuery(function() {
     });
     jQuery('#esns_background_layer').click(function(event){
         var xCoor = event.clientX;     // Get the vertical coordinate
-        if((xCoor>((window.screen.width/2)+200))||(xCoor<((window.screen.width/2)-200))) EsNewsSubscribers.boxClose();
+        var yCoor = event.clientY;     // Get the horizontal coordinate
+        var popUpDivWidth = document.getElementById("esns_box_layer").offsetWidth;
+        var popUpDivHeight = document.getElementById("esns_box_layer").offsetHeight;
+        if(((xCoor>((window.screen.width/2)+(popUpDivWidth/2)))||(xCoor<((window.screen.width/2)-(popUpDivWidth/2))))||((yCoor>((window.screen.height/2)+(popUpDivHeight/2)))||(yCoor<((window.screen.height/2)-(popUpDivHeight/2))))) EsNewsSubscribers.boxClose();
     });
     }, 1000);
 });
