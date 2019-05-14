@@ -13,8 +13,8 @@ if ($this->isActivePopUp()):
 <div id="esns_background_layer">
     <?php if ($this->getTheme() == 'default'): ?>
     <div id="esns_box_layer">
-        <div id= "esns_header_image"><img src="skin/frontend/base/default/images/newssubscribers/main-imagenewslleter.png" /></div>
-        <div id= "esns_contact_image"><img src="skin/frontend/base/default/images/newssubscribers/contact-nl.png" /></div>
+        <div id= "esns_header_image"><img src="<?php echo $this->getSkinUrl('images/newssubscribers/main-imagenewslleter.png') ?>" /></div>
+        <div id= "esns_contact_image"><img src="<?php echo $this->getSkinUrl('images/newssubscribers/contact-nl.png') ?>" /></div>
         <div id="esns_box_close"></div>
         <div id="esns_box_title">
             <?php if ($this->getFirstTitle()): ?>
@@ -36,7 +36,7 @@ if ($this->isActivePopUp()):
             <div id="esns_box_subscribe_response_error"></div>
             <div id="esns_box_subscribe_response_success"></div>
             <div id="esns_box_subscribe_form">
-                <div id="esns_box_subscribe_input"><img src ="skin/frontend/base/default/images/newssubscribers/input-nl.png" /><input onclick="if(this.value=='<?php echo $this->__('Email'); ?>') this.value=''" onblur="if(this.value=='') this.value='<?php echo $this->__('Email'); ?>'" id="esns_email" name="subscribe_email" value="<?php echo $this->__('Email'); ?>" type="text"></div>
+                <div id="esns_box_subscribe_input"><img src ="<?php echo $this->getSkinUrl('images/newssubscribers/input-nl.png') ?>" /><input onclick="if(this.value=='<?php echo $this->__('Email'); ?>') this.value=''" onblur="if(this.value=='') this.value='<?php echo $this->__('Email'); ?>'" id="esns_email" name="subscribe_email" value="<?php echo $this->__('Email'); ?>" type="text"></div>
                 <?php if ($this->getSecondTitle()): ?>
                 <div id="esns_box_block_2">
                     <?php echo $this->getSecondTitle() ?>
