@@ -20,8 +20,8 @@
 #esns_box_layer {
     z-index: 9999;
     background-color: #ffffff;
-    max-width: 260px;
-	max-height: 99%;
+    max-width: 45vh;
+	max-height: 99vh;
     overflow: hidden;
     position: fixed;
     left: 50%;
