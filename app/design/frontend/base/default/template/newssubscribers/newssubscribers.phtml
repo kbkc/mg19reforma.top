@@ -36,19 +36,26 @@ if ($this->isActivePopUp()):
             <div id="esns_box_subscribe_response_error"></div>
             <div id="esns_box_subscribe_response_success"></div>
             <div id="esns_box_subscribe_form">
-                <div id="esns_box_subscribe_input"><img src ="<?php echo $this->getSkinUrl('images/newssubscribers/input-nl.png') ?>" /><input onclick="if(this.value=='<?php echo $this->__('Email'); ?>') this.value=''" onblur="if(this.value=='') this.value='<?php echo $this->__('Email'); ?>'" id="esns_email" name="subscribe_email" value="<?php echo $this->__('Email'); ?>" type="text"></div>
+            <script type="text/javascript">
+               
+               function myFunction(){
+                   var inputValue = document.getElementById('esns_email');
+                   if(inputValue.value == '';) inputValue.value = ' ';
+               }
+            </script>
+                <div id="esns_box_subscribe_input"><img src ="<?php echo $this->getSkinUrl('images/newssubscribers/input-nl.png') ?>" /><input onblur="if(this.value=='') this.value='<?php echo $this->__(' '); ?>'" onclick="this.value=''" id="esns_email" name="subscribe_email" value="<?php echo $this->__(''); ?>" placeholder="E-mail" type="text"></div>
                 <?php if ($this->getSecondTitle()): ?>
                 <div id="esns_box_block_2">
                     <?php echo $this->getSecondTitle() ?>
                 </div>
                 <?php endif; ?>
-                <div id="esns_box_subscribe_submit"><a href="javascript:void(0)" id="esns_submit" ><?php echo $this->__(''); ?></a></div>
+                <div id="esns_box_subscribe_submit"><a href="javascript:void(0)" id="esns_submit" onclick="myFunction()"><?php echo $this->__(''); ?></a></div>
             </div>
         </div>
         
         <div id= "esns_icons_images">
             <div class="newsletter_image1"><a href = "/"></a></div>
-            <div class="newsletter_image2"><a href = "/"></a></div>
+            <div class="newsletter_image2"><a href = "https://www.instagram.com/reformanails/" target="blank"></a></div>
         </div>
     </div>
     <?php elseif($this->getTheme() == 'label'): ?>

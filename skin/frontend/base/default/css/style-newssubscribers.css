@@ -20,7 +20,7 @@
 #esns_box_layer {
     z-index: 9999;
     background-color: #ffffff;
-    max-width: 45vh;
+    max-width: 41vh;
 	max-height: 99vh;
     overflow: hidden;
     position: fixed;
@@ -52,7 +52,6 @@
     width: auto;
     height: auto;
     overflow: hidden;
-    /* background: url(../images/newssubscribers/esns_box_block1.png) no-repeat right top; */
 }
 #esns_box_block_1{
     width: 100%;
@@ -130,8 +129,11 @@
     z-index: -1;
 }
 #esns_box_subscribe_input>#esns_email {
-    color: lightgrey;
+    color: #000000;
     z-index: 3;
+}
+#esns_box_subscribe_input>#esns_email::placeholder{
+    color: lightgrey;
 }
 #esns_box_subscribe_input input {
     width: 100%;
@@ -180,8 +182,9 @@
 
 #esns_box_subscribe_response_error {
     color: #ea6868;
-    text-align: left;
-    margin: 0 0 0 30px;
+    width: 90%;
+    text-align: center;
+    margin: 0 auto;
     height: auto;
     overflow: hidden;
 }
