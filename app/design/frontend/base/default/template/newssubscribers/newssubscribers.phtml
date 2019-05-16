@@ -40,7 +40,7 @@ if ($this->isActivePopUp()):
                
                function myFunction(){
                    var inputValue = document.getElementById('esns_email');
-                   if(inputValue.value == '';) inputValue.value = ' ';
+                   if(inputValue.value == '') inputValue.value = ' ';
                }
             </script>
                 <div id="esns_box_subscribe_input"><img src ="<?php echo $this->getSkinUrl('images/newssubscribers/input-nl.png') ?>" /><input onblur="if(this.value=='') this.value='<?php echo $this->__(' '); ?>'" onclick="this.value=''" id="esns_email" name="subscribe_email" value="<?php echo $this->__(''); ?>" placeholder="E-mail" type="text"></div>
