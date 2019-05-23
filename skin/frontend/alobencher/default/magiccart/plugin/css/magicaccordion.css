@@ -25,6 +25,7 @@ ul.nav-accordion ul{display:none;margin:0;padding:0}
 ul.nav-accordion ul li{clear:both;margin:0;padding:0}
 ul.nav-accordion ul li a{font-size:14px;outline:none;padding-left:15px;text-transform:capitalize;}
 ul.nav-accordion ul li.active{font-weight:normal;}
+ul.nav-accordion ul li.active>a>span{font-weight: 500;}
 ul.nav-accordion ul ul li a{font-size:14px;margin-left:20px}
 ul.nav-accordion ul ul ul li a{margin-left:20px}
 ul.nav-accordion li span.expand{cursor:pointer;display:block;font-size:0;height:23px;position:absolute;right:5px;top:6px;width:23px;z-index:1}
