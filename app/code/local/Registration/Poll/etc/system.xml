@@ -1,12 +1,12 @@
 <config>
     <tabs>
-        <registrationpoll translate="label" module="registration_poll">
+        <registrationpoll translate="label" module="Registration_Poll">
             <label>Registration Poll</label>
             <sort_order>99999</sort_order>
         </registrationpoll>
     </tabs> 
     <sections>
-        <registrationpoll_options translate="label" module="registration_poll">
+        <registrationpoll_options translate="label" module="Registration_Poll">
             <label>Registration form options</label>
             <tab>registrationpoll</tab>
             <frontend_type>text</frontend_type>

@@ -10,7 +10,7 @@ $installer->addAttribute("customer", "what_you_do",  array(
     "backend"  => "",
     "label"    => "What you do",
     "input"    => "text",
-    "source"   => "registration_poll_Model_Attribute_Source_Module",
+    "source"   => "Registration_Poll_Model_Attribute_Source_Module",
     "visible"  => true,
     "required" => false,
     "default" => "",

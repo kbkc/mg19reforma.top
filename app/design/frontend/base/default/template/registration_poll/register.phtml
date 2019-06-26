@@ -70,7 +70,7 @@
                             <input class ="inputPoll required-entry" type="checkbox" name="what_you_do" value='<?php echo $option['value']?>' <?php if($this->getFormData()->getWhatyoudo() == $option['value']){ echo 'selected="selected"';}?>> <?php echo $this->__($option['label'])?>
                             <br>
                             <?php } ?>
-                            <input type="text" name="what_you_do" id="what_you_do" value="<?php echo $this->escapeHtml($this->getFormData()->getWhatyoudo()) ?>" title="<?php echo $this->__('License Number') ?>" class="input-text" style="display: none;"  />
+                            <input type="text" name="what_you_do" id="what_you_do" value="<?php echo $this->escapeHtml($this->getFormData()->getWhatyoudo()) ?>" title="<?php echo $this->__('What you do') ?>" class="input-text" style="display: none;"  />
                             <script type="text/javaScript">
                                 var a = jQuery('input:checkbox');
                                 console.log(a.length);
