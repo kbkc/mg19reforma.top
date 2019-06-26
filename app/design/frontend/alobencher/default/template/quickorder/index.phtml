@@ -288,6 +288,7 @@
             var url = this.getMagicUrl('magicshop/ajax/reloadCart');
             jQuery.ajax({ url : url, type : "post", success : function (result){ elements.each(function() { jQuery(this).parent().html(result) }) } });
         }
+        window.location.href = '<?php echo $this->getUrl('checkout/cart')?>';
     }
 
 </script>
