@@ -1,0 +1,8 @@
+#promoted-product-list { height: auto; width: 100%; }
+#promoted-product-list img { margin: 0 auto; }
+#promoted-product-list a, #promoted-product-list span { color: #fff; }
+#promoted-product-list .block-content ul.promoted-products-list{ display: flex; justify-content: space-between; justify-items: center;list-style-type: none; }
+#promoted-product-list .block-content ul.promoted-products-list li.item { width: 22%; margin: 0 20px 0 20px; border: 1px solid #707173; }
+#promoted-product-list .block-content ul.promoted-products-list li.item .product .product-details { display: flex; justify-content: space-between; height: 40px; background-color: #232323; }
+#promoted-product-list .block-content ul.promoted-products-list li.item .product .product-details .product-name { float: left; margin: 0; line-height: 40px; padding-left: 10px; }
+#promoted-product-list .block-content ul.promoted-products-list li.item .product .product-details .price-box { float: right; margin: 0; line-height:  40px; padding-right: 10px; }
