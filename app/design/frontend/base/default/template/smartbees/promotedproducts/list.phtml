@@ -1,0 +1,19 @@
+<?php $_items = $this->getItems(); $index_count = 0;?>
+<div id="promoted-product-list">
+    <div class="block-content">
+        <ul class="promoted-products-list">
+        <?php foreach ($_items as $_item): ?>
+            <?php if ($index_count == 4) break; $index_count++;?>
+            <li class="item">
+                <div class="product">
+                    <a href="<?php echo $_item->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_item->getName()) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'small_image')->resize(450, 450) ?>" alt="<?php echo $this->htmlEscape($_item->getName()) ?>" /></a>
+                    <div class="product-details">
+                        <p class="product-name"><a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->htmlEscape($_item->getName()) ?></a></p>
+                        <?php echo $this->getPriceHtml($_item, true) ?>
+                    </div>
+                </div>
+            </li> 
+        <?php endforeach; ?>
+        </ul>
+    </div>
+</div>

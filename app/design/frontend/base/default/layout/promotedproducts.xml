@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+    <cms_index_index>
+        <reference name="head">
+            <action method="addCss"><stylesheet>css/promotedproducts.css</stylesheet></action>
+        </reference>
+        <reference name="content">
+           <block type="smartbees_promotedproducts/list" name="promotedproduct" template="smartbees/promotedproducts/list.phtml"/>
+        </reference>
+    </cms_index_index>
+</layout>

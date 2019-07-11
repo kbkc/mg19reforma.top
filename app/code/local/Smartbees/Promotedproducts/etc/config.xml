@@ -1,0 +1,28 @@
+<config>
+    <modules>
+        <Smartbees_Promotedproducts>
+            <version>0.1.0</version>
+        </Smartbees_Promotedproducts>
+    </modules>
+    <global>
+        <blocks>
+            <smartbees_promotedproducts>
+                <class>Smartbees_Promotedproducts_Block</class>
+            </smartbees_promotedproducts>
+        </blocks>
+        <models>
+            <smartbees_promotedproducts>
+                <class>Smartbees_Promotedproducts_Model</class>
+            </smartbees_promotedproducts>
+        </models>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <promotedproducts>
+                    <file>promotedproducts.xml</file>
+                </promotedproducts>
+            </updates>
+        </layout>
+    </frontend>
+</config>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Smartbees_Redirect>
+            <version>0.0.1</version>
+        </Smartbees_Redirect>
+    </modules>
+    <global>
+        <models>
+            <smartbeesredirect>
+                <class>Smartbees_Redirect_Model</class>
+            </smartbeesredirect>
+        </models>
+        <helpers>
+            <smartbeesredirect>
+                <class>Smartbees_Redirect_Helper</class>
+            </smartbeesredirect>
+        </helpers>
+    </global>
+    <frontend>
+        <events>
+            <controller_action_predispatch>
+                <observers>
+                    <Smartbees_Redirect_Model_Observer>
+                        <type>singleton</type>
+                        <class>smartbeesredirect/observer</class>
+                        <method>noRoutUrl</method>
+                    </Smartbees_Redirect_Model_Observer>
+                </observers>
+            </controller_action_predispatch>
+        </events>
+    </frontend>
+</config>

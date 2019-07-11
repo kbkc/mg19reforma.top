@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+    
+    <cms_index_index>
+        <reference name="head">
+            <action method="addCss"><stylesheet>css/smartbeesinstagramapi.css</stylesheet></action>
+        </reference>
+        <reference name="bottom_main_content">
+            <block type="smartbees_instagramapi/smartbeesinstagramapi" name="smartbeesinstagramapi" template="smartbees/instagramapi/smartbeesinstagramapi.phtml" before="-"/>
+        </reference>
+    </cms_index_index>
+</layout>
