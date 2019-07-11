@@ -1,0 +1,14 @@
+<?php $smartbeesblogdata = $this->getBlogs(); $count = 0; $mediaURL = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>
+<div id="hp-blog">
+    <div id="hp-blog-list-title-top"><?php echo $this->__('Are you looking for an inspiration?'); ?></div>
+    <div id="hp-blog-list-title-bottom"><?php echo $this->__('Check out our blog'); ?></div>
+    <div id="hp-blog-list">
+        <?php foreach($smartbeesblogdata as $key => $singleblogpos): ?>
+            <div class="single-post" id="blog-post-<?php echo $key; ?>">
+                <!-- <img src="" alt="alternative text" /> -->
+                <div class ="img" style="background-image: url('<?php  echo ($singleblogpos[0]==$singleblogpos[3]) ? $this->getSkinUrl('images/homepage-blog-posts/').$singleblogpos[0] : $mediaURL.$singleblogpos[0] ?>')"></div>
+                <div class="blog-title"><a href="blog/<?php echo $singleblogpos[1] ?>" target="blank"><?php echo $singleblogpos[2] ?></a></div>
+            </div>
+        <?php endforeach ?>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<?php
+	$standardImgInsta = $this->getInstagramPictures();
+	$imgNumToDisplay=5;
+?>
+<div id="instagram-custom-block">
+	<div class="block-title"><?php echo $this->__('Follow us'); ?></div>
+	<div class="block-title-hash"><?php echo $this->__('#reformanails'); ?></div>
+	<div id="instagram-posts">
+		<a class = "instaApi" href="https://www.instagram.com/reformanails" target="blank">
+		
+		<?php if(count($standardImgInsta)<5) $imgNumToDisplay = count($standardImgInsta); ?>
+		<?php for ( $x=0; $x < $imgNumToDisplay; $x++ ):?>
+			<img src="<?php echo $standardImgInsta[$x]; ?>" width="230px" height="230px" alt="aaa"/>
+		<?php endfor ?>
+		</a>
+	</div>
+</div>

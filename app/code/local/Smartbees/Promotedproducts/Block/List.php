@@ -5,7 +5,6 @@ class Smartbees_Promotedproducts_Block_List extends Mage_Catalog_Block_Product_A
     public function getItems()
     {
         
-        //var_dump($this->$_itemCollection);die;
         $catid = '252';
         if (!$catid)
             return false;

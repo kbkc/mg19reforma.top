@@ -1,0 +1,33 @@
+<config>
+    <modules>
+        <Smartbees_Instagramapi>
+            <version>0.1.0</version>
+        </Smartbees_Instagramapi>
+    </modules>
+    <global>
+        <helpers>
+            <Smartbees_Instagramapi>
+                <class>Smartbees_Instagramapi_Helper</class>
+            </Smartbees_Instagramapi>
+        </helpers>
+        <blocks>
+            <smartbees_instagramapi>
+                <class>Smartbees_Instagramapi_Block</class>
+            </smartbees_instagramapi>
+        </blocks>
+        <models>
+            <smartbees_instagramapi>
+                <class>Smartbees_Instagramapi_Model</class>
+            </smartbees_instagramapi>
+        </models>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <smartbeesinstagramapi>
+                    <file>smartbeesinstagramapi.xml</file>
+                </smartbeesinstagramapi>
+            </updates>
+        </layout>
+    </frontend>
+</config>

@@ -1,0 +1,41 @@
+#instagram-custom-block {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#instagram-custom-block #instagram-posts {
+    height: auto;
+    width: 100%;
+}
+#instagram-custom-block #instagram-posts .instaApi {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+#instagram-custom-block #instagram-posts .instaApi img {
+    margin-left: 2px;
+    margin-right: 2px;
+}
+#instagram-custom-block .block-title {
+    position: relative;
+    padding-bottom: 10px;
+    text-align: center;
+    font-size: 17px;
+    color: #46a324;
+    text-transform: uppercase;    
+}
+#instagram-custom-block .block-title-hash {
+    text-align: center;
+    font-size: 32px;
+    padding-bottom: 20px;
+}
+#instagram-custom-block .block-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%);
+    height: 2px;
+    width: 100px;
+    background-color: #d3d3d3;
+}
