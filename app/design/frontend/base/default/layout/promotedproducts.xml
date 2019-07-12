@@ -4,6 +4,9 @@
     <cms_index_index>
         <reference name="head">
             <action method="addCss"><stylesheet>css/promotedproducts.css</stylesheet></action>
+            <action method="addJs">
+                <script>homepage-youtube-video/youtubevideo.js</script>
+            </action>
         </reference>
         <reference name="content">
            <block type="smartbees_promotedproducts/list" name="promotedproduct" template="smartbees/promotedproducts/list.phtml"/>
