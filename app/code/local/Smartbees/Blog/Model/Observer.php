@@ -5,11 +5,7 @@ class Smartbees_Blog_Model_Observer
     protected $smartbeesblog1 = array();
     protected $smartbeesblog2 = array();
     protected $smartbeesblog3 = array();
-    // protected $blogcontent;
-    // $smartbeesblogdata = $this->getBlogs();
-    // var_dump($smartbeesblogdata);die; 
-    // $count = 0; 
-
+    
     public function adminSystemConfigChangedSectionHomepage_blog_options()
     {
         $smartbeesblog1[]=$firs_blog_url=Mage::getStoreConfig('homepage_blog_options/first_blog_article/first_blog_article_url'); //Get value from field in admin panel
