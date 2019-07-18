@@ -4,10 +4,10 @@ class Smartbees_Instagramapi_Model_Instagramapi{
     public function getImagesUrl()
     {
         $imagesURL = array();
-        define( 'IG_CLIENT_ID', '6748478748f24966ab12e66a90e0c97d' );
-        define( 'IG_CLIENT_SECRET', ' 47c1e2aee76044418f98e1600e3609d9' );
+        define( 'IG_CLIENT_ID', '8077fa35f8764e138a02918f1018e738' );
+        define( 'IG_CLIENT_SECRET', '6ebefccf1a53429db22f2dd17abc1ff9 ' );
         define( 'IG_REDIRECT_URI', 'https://reforma.dev.wdsdev.pl' );
-        define( 'IG_ACCESS_TOKEN', '16157986992.6748478.988eeeceb54942c380b20b655fea436e' );
+        define( 'IG_ACCESS_TOKEN', '4161518950.8077fa3.ee76a003bfc64b1f89ffad32e650be20' );
       
         $ch = curl_init( 'https://api.instagram.com/v1/users/self/media/recent/?access_token=' . IG_ACCESS_TOKEN );
         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
