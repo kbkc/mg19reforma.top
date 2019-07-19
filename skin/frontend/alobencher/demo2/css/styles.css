@@ -532,6 +532,39 @@ td .btn-remove2,td .btn-edit{color: #363636}
 .header-top .top-link {display: inline-block;}
 .top-link li a{font-size: 12px; color: #ababab; text-transform: uppercase; padding: 0 15px 0 13px; line-height: 40px; font-weight: 300; display: inline-block;}
 .top-link li a:hover{color: #ffffff; font-weight: 400}
+.top-left .top-form-language .website-switcher a {
+    position: relative;
+    font-size: 12px; 
+    color: #ababab; 
+    text-transform: uppercase; 
+    padding: 0 15px 0 13px; 
+    line-height: 40px;
+    font-weight: 300; 
+    display: inline-block;
+}
+.top-left .top-form-language .website-switcher a:hover {
+    color: #ffffff; 
+    font-weight: 400;
+}
+.top-left .top-form-language .website-switcher a.selected {
+    font-weight: 500;
+    text-decoration: underline;
+}
+.top-left .top-form-language .website-switcher a:focus {
+    text-decoration: none;
+}
+.top-left .top-form-language .website-switcher a:nth-child(1)::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 1px;
+    height: 10px;
+    background-color: #575757;
+    vertical-align: middle;
+    transform: translate(0, -50%);
+}
 .header-top .top-link li{display: inline-block; vertical-align: middle;}
 .header-top .top-link .links{margin: 0}
 .header-top .top-link li:after{content: ""; display: inline-block; width: 1px; height: 10px; background-color: #575757; vertical-align: middle;}

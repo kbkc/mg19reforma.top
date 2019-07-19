@@ -60,3 +60,19 @@
         <?php echo $html; ?>
     </div>
 <?php endif; ?>
+<?php
+$websites = Mage::app()->getWebsites();
+$count=0;
+if (count($websites) > 1): ?>
+<div class="website-switcher">
+   <?php foreach ($websites as $website): ?>
+		<?php if((($website->getDefaultStore()->getCode())=="pl")||(($website->getDefaultStore()->getCode())=="eu")): ?>
+			<?php $_selected = $website->getCode() == Mage::app()->getWebsite()->getCode() ? 'selected' : '' ?>
+			<a href="<?php echo $website->getDefaultStore()->getBaseUrl()?>" class="<?php echo $_selected; ?>"><?php echo $website->getDefaultStore()->getCode()=="pl" ? "PL" : "EN" ; ?></a>
+			<?php $count++; ?>
+		<?php else: continue; ?>
+		<?php endif ?>
+		<?php if($count==2) break;?>
+	<?php endforeach; ?>
+</div>
+<?php endif; ?>
