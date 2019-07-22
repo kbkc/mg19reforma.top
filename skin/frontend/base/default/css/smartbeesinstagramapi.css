@@ -18,7 +18,7 @@
 }
 #instagram-custom-block #instagram-posts .instaApi img {
     width: 20%;
-    height: auto;   
+    object-fit: cover;   
 }
 #instagram-custom-block .block-title {
     position: relative;
@@ -54,13 +54,25 @@
         margin-bottom: 25px;
     }
     #instagram-custom-block #instagram-posts .instaApi img {
-        width: 50%;
-        height: auto;   
+        width: 32%;
+        object-fit: cover;
+    }
+}
+@media (max-width: 600px) {
+    #instagram-custom-block #instagram-posts .instaApi img {
+        width: 40%;
+        object-fit: cover;
+    }
+}
+@media (max-width: 500px) {
+    #instagram-custom-block #instagram-posts .instaApi img {
+        width: 60%;
+        object-fit: cover; 
     }
 }
 @media (max-width: 400px) {
     #instagram-custom-block #instagram-posts .instaApi img {
-        width: 100%;
-        height: auto;   
+        width: 70%;
+        object-fit: cover; 
     }
 }
