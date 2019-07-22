@@ -673,6 +673,7 @@ transition: all 0.3s;
 .tool-header .icon:after{content: ""; display: inline-block; width: 1px; height: 10px; background-color: #575757;margin-left: 15px}
 
 .top-left .top-form-language, .top-left .currency_top{display: inline-block; vertical-align: middle; position: relative;margin-left: 10px;}
+.top-left .top-form-language { margin-left: 0;}
 .top-left .dropdown-switcher{position: absolute; background-color: #fff; margin: 0; opacity: 0; visibility: hidden; top: 100%; min-width: 120px; left: 0; padding: 10px 0; z-index: 19; -webkit-box-shadow: 0 2px 10px rgba(0,0,0,.09);
     -moz-box-shadow: 0 2px 10px rgba(0,0,0,.09);
     box-shadow: 0 2px 10px rgba(0,0,0,.09);
