@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Dialcom_ZenCard>
+            <active>true</active>
+            <codePool>local</codePool>
+            <version>0.1.2</version>
+        </Dialcom_ZenCard>
+    </modules>
+</config>

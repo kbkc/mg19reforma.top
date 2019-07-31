@@ -175,6 +175,11 @@ class Magiccart_Magicmenu_Block_Menu extends Mage_Catalog_Block_Navigation
             $currentUrl = $this->helper('core/url')->getCurrentUrl();
             foreach ($extMenu as $ext) { 
                 $link = $ext->getLink();
+                
+                if( (! Mage::getSingleton('customer/session')->isLoggedIn())&&($link=="quickorder")){
+                    continue;
+                }
+                
                 $extendedClass = str_replace('\/', '-', $link);
                 $url = (filter_var($link, FILTER_VALIDATE_URL)) ? $link : $this->getUrl($link);
                 $active = ( $link && $url == $currentUrl) ? ' active' : '';

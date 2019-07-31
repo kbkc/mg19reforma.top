@@ -1,0 +1,70 @@
+<?php
+$tr = Mage::helper("checkout");
+$order_id = (int) $this->getRequest()->getParam('order_id');
+$_order = Mage::getModel('sales/order')->loadByIncrementId($order_id);
+$_order_items = $_order->getItemsCollection()
+	->addAttributeToSelect('*')
+	->addAttributeToFilter('product_type', array('eq'=>'simple'))
+	->load();
+?>
+
+<div class="order-items order-details">
+	<h2 class="table-caption"><?php echo $tr->__('Order details') ?></h2>
+
+	<table class="data-table linearize-table-large" id="my-orders-table" summary="Items Ordered">
+		<thead>
+		<tr class="first last">
+			<th><?php echo $tr->__('Product') ?></th>
+			<th><?php echo $tr->__('SKU') ?></th>
+			<th class="a-right"><?php echo $tr->__('Price') ?></th>
+			<th class="a-center"><?php echo $tr->__('Qty') ?></th>
+			<th class="a-right"><?php echo $tr->__('Subtotal') ?></th>
+		</tr>
+		</thead>
+		<tfoot>
+		<tr class="subtotal first">
+			<td colspan="4" class="a-right"><?php echo $tr->__('Subtotal') ?></td>
+			<td class="last a-right"><span class="price"><?php echo $_order->formatPrice($_order->getSubtotal()*1) ?></span></td>
+		</tr>
+		<tr class="shipping">
+			<td colspan="4" class="a-right"><?php echo $tr->__('Shipping &amp; Handling') ?></td>
+			<td class="last a-right"><span class="price"><?php echo $_order->formatPrice($_order->getShippingAmount()*1) ?></span></td>
+		</tr>
+		<tr class="grand_total last">
+			<td colspan="4" class="a-right"><strong><?php echo $tr->__('Total') ?></strong></td>
+			<td class="last a-right"><strong><span class="price"><?php echo $_order->formatPrice($_order->getGrandTotal()*1) ?></span></strong></td>
+		</tr>
+		</tfoot>
+		<?php foreach ($_order_items as $_item) : ?>
+			<tbody>
+			<tr class="border" id="order-item-row-45">
+				<td><h3 class="product-name"><?php echo $this->escapeHtml($_item->getName()) ?></h3></td>
+				<td data-rwd-label="SKU"><?php echo $_item->getSku(); ?></td>
+				<td class="a-right" data-rwd-label="Price"><span class="price-excl-tax cart-price price"><?php echo $_order->formatPrice($_item->getPrice()*1) ?></span></td>
+				<td class="a-right" data-rwd-label="Qty"><?php echo $_item->getQtyOrdered(); ?></td>
+				<td class="a-right last" data-rwd-label="Subtotal"><span class="price-excl-tax cart-price price"><?php echo $_order->formatPrice($_item->getRowTotal()*1) ?></span></td>
+			</tr>
+			</tbody>
+		<?php endforeach ?>
+
+	</table>
+	<script type="text/javascript">decorateTable('my-orders-table', {'tbody' : ['odd', 'even'], 'tbody tr' : ['first', 'last']})</script>
+</div>
+<div style="text-align: right">
+	<?php
+
+	if ($_order->getStatus() == Mage_Sales_Model_Order::STATE_PENDING_PAYMENT) {
+		$przelewy = Mage::getSingleton("przelewy/payment_przelewy");
+		$form = new Varien_Data_Form();
+		$form->setAction($przelewy->getPaymentURI())->setId('przelewy_przelewy_checkout')->setName('przelewy_przelewy_checkout')->setMethod('POST')->setUseContainer(true);
+		foreach ($przelewy->getRedirectionFormData($order_id) as $field => $value) {
+			if (!in_array($field, array('p24_method'))) {
+				$form->addField($field, 'hidden', array('name' => $field, 'value' => $value));
+			}
+		}
+		$form->addField('submit', 'submit', array('name' => 'submit', 'class' => 'button', 'value' => $this->__('Pay with Przelewy24')));
+		echo $form->toHtml();
+	}
+
+	?>
+</div>

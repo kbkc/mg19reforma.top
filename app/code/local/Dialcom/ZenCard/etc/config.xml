@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Dialcom_ZenCard>
+            <version>0.1.2</version>
+            <depends>
+                <Mage_Sales/>
+                <Mage_Quote/>
+                <Mage_Checkout/>
+            </depends>
+        </Dialcom_ZenCard>
+    </modules>
+    <frontend>
+        <routers>
+            <zencard>
+                <use>standard</use>
+                <args>
+                    <module>Dialcom_ZenCard</module>
+                    <frontName>zencard</frontName>
+                </args>
+            </zencard>
+        </routers>
+        <layout>
+            <updates>
+                <dialcom_zencard>
+                    <file>dialcom_zencard.xml</file>
+                </dialcom_zencard>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Dialcom_ZenCard>
+                    <files>
+                        <default>Dialcom_ZenCard.csv</default>
+                    </files>
+                </Dialcom_ZenCard>
+            </modules>
+        </translate>
+    </frontend>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Dialcom_ZenCard>
+                    <files>
+                        <default>Dialcom_ZenCard.csv</default>
+                    </files>
+                </Dialcom_ZenCard>
+            </modules>
+        </translate>
+    </adminhtml>
+    <global>
+        <helpers>
+            <zencard>
+                <class>Dialcom_ZenCard_Helper</class>
+            </zencard>
+        </helpers>
+        <blocks>
+            <zencard>
+                <class>Dialcom_ZenCard_Block</class>
+            </zencard>
+            <adminhtml>
+                <rewrite>
+                    <sales_order_totals>Dialcom_ZenCard_Block_Adminhtml_Sales_Order_Discount</sales_order_totals>
+                    <sales_order_invoice_totals>Dialcom_ZenCard_Block_Adminhtml_Sales_Invoice_Discount</sales_order_invoice_totals>
+                    <sales_order_creditmemo_totals>Dialcom_ZenCard_Block_Adminhtml_Sales_Creditmemo_Discount</sales_order_creditmemo_totals>
+                </rewrite>
+            </adminhtml>
+            <sales>
+                <rewrite>
+                    <order_totals>Dialcom_ZenCard_Block_Sales_Order_Discount</order_totals>
+                    <order_invoice_totals>Dialcom_ZenCard_Block_Sales_Invoice_Discount</order_invoice_totals>
+                    <order_creditmemo_totals>Dialcom_ZenCard_Block_Sales_Creditmemo_Discount</order_creditmemo_totals>
+                </rewrite>
+            </sales>
+        </blocks>
+        <models>
+
+            <sales>
+                <rewrite>
+                    <order_pdf_invoice>Dialcom_ZenCard_Model_Order_Pdf_Invoice</order_pdf_invoice>
+                </rewrite>
+            </sales>
+            <zencard>
+                <class>Dialcom_ZenCard_Model</class>
+                <resourceModel>zencard_mysql4</resourceModel>
+            </zencard>
+        </models>
+        <resources>
+            <zencard_setup>
+                <setup>
+                    <module>Dialcom_ZenCard</module>
+                    <class>Mage_Sales_Model_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </zencard_setup>
+            <zencard_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </zencard_write>
+            <zencard_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </zencard_read>
+        </resources>
+        <events>
+            <checkout_type_onepage_save_order_after> <!-- identifier of the event we want to catch -->
+                <observers>
+                    <checkout_type_onepage_save_order_after_discount_handler> <!-- identifier of the event handler -->
+                        <type>model</type> <!-- class method call type; valid are model, object and singleton -->
+                        <class>zencard/newordertotalobserver</class> <!-- observers class alias -->
+                        <method>saveDiscountTotal</method>  <!-- observer's method to be called -->
+                        <args></args> <!-- additional arguments passed to observer -->
+                    </checkout_type_onepage_save_order_after_discount_handler>
+                </observers>
+            </checkout_type_onepage_save_order_after>
+            <checkout_type_multishipping_create_orders_single> <!-- identifier of the event we want to catch -->
+                <observers>
+                    <checkout_type_multishipping_create_orders_single_discount_handler> <!-- identifier of the event handler -->
+                        <type>model</type> <!-- class method call type; valid are model, object and singleton -->
+                        <class>zencard/newordertotalobserver</class> <!-- observers class alias -->
+                        <method>saveDiscountTotalForMultishipping</method>  <!-- observer's method to be called -->
+                        <args></args> <!-- additional arguments passed to observer -->
+                    </checkout_type_multishipping_create_orders_single_discount_handler>
+                </observers>
+            </checkout_type_multishipping_create_orders_single>
+        </events>
+        <sales>
+            <quote>
+                <totals>
+                    <discount_total>
+                        <class>zencard/quote_address_total_discount</class>
+                        <after>subtotal,freeshipping,tax_subtotal,shipping</after>
+                        <before>grand_total</before>
+                    </discount_total>
+                </totals>
+            </quote>
+            <order_invoice>
+                <totals>
+                    <discount_total>
+                        <class>zencard/order_invoice_total_discount</class>
+                        <after>subtotal,freeshipping,tax_subtotal,shipping</after>
+                        <before>grand_total</before>
+                    </discount_total>
+                </totals>
+            </order_invoice>
+            <order_creditmemo>
+                <totals>
+                    <discount_total>
+                        <class>zencard/order_creditmemo_total_discount</class>
+                        <after>subtotal,freeshipping,tax_subtotal,shipping</after>
+                        <before>grand_total</before>
+                    </discount_total>
+                </totals>
+            </order_creditmemo>
+        </sales>
+    </global>
+</config> 

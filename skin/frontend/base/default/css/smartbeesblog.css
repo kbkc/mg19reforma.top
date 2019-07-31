@@ -1,0 +1,24 @@
+#hp-blog { margin: 20px auto; padding: 0 0 20px 0; border: 1px solid #d3d3d3; border-left: none; border-right: none; }
+#hp-blog #hp-blog-list-title-top { position: relative; font-family: "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 45px; margin-bottom: 20px; text-align: center; font-size: 17px; color: #59b9bd; text-transform: uppercase; }
+#hp-blog #hp-blog-list-title-top::after { 
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%);
+    height: 2px;
+    width: 100px;
+    background-color: #d3d3d3; 
+}
+#hp-blog #hp-blog-list-title-bottom { position: relative; text-align: center; font-size: 17px; padding-bottom: 20px; }
+#hp-blog #hp-blog-list-title-bottom::after { content: ''; position: absolute; left: 50%; bottom: 15px; transform: translate(-50%); height: 2px; width: 100px; background-color: #d3d3d3; }
+#hp-blog #hp-blog-list { display: flex; flex-wrap: wrap; justify-content: space-between; justify-items: center;list-style-type: none; }
+#hp-blog #hp-blog-list .single-post {  max-width: 32%; width: 32%; margin: 0;}
+#hp-blog #hp-blog-list .single-post .img {  width: 100%; height: auto; background-position: center;}
+#hp-blog #hp-blog-list .single-post .blog-title { text-align: center; padding: 8px 15px 10px 15px; }
+#hp-blog #hp-blog-list .single-post .blog-title a { font-size: 14px; }
+#hp-blog #hp-blog-list .single-post .blog-content { font-size: 11px; text-align: center; padding: 0 15px 0 15px; }
+@media (max-width: 768px){
+    #hp-blog #hp-blog-list { display: flex; flex-wrap: wrap; justify-content: center; justify-items: center;list-style-type: none; }
+    #hp-blog #hp-blog-list .single-post {  max-width: 330px; width: 100%; margin: 0;}
+}

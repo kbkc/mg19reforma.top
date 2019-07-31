@@ -1,0 +1,8 @@
+<config>
+    <modules>
+        <Smartbees_Instagramapi>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Smartbees_Instagramapi>
+    </modules>
+</config>

@@ -1,0 +1,8 @@
+<config>
+    <modules>
+        <Smartbees_Blog>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Smartbees_Blog>
+    </modules>
+</config>

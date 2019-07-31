@@ -1,0 +1,111 @@
+<config>
+    <tabs>
+        <homepage_blog translate="label" module="Smartbees_Blog">
+            <label>Homepage Blog</label>
+            <sort_order>99999</sort_order>
+        </homepage_blog>
+    </tabs> 
+    <sections>
+        <homepage_blog_options translate="label" module="Smartbees_Blog">
+            <label>Homepage Blog Options</label>
+            <tab>homepage_blog</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>  
+            <groups>
+                <first_blog_article translate="label">
+                    <label>First Blog Article</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>   
+                    <fields>
+                        <first_blog_article_url>
+                            <label>First Blog Article URL key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                    
+                        </first_blog_article_url>
+                        <logo1 translate="label comment">
+                            <label>Image</label>
+                            <comment>Allowed file types: jpeg, gif, png.</comment>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_image</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">homepage-blog</upload_dir>
+                            <base_url type="media" scope_info="1">homepage-blog</base_url>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </logo1>
+                    </fields>                          
+                </first_blog_article>
+                <second_blog_article translate="label">
+                    <label>Second Blog Article</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>   
+                    <fields>
+                        <second_blog_article_url>
+                            <label>Second Blog Article URL key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                    
+                        </second_blog_article_url>
+                        <logo2 translate="label comment">
+                            <label>Image</label>
+                            <comment>Allowed file types: jpeg, gif, png.</comment>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_image</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">homepage-blog</upload_dir>
+                            <base_url type="media" scope_info="1">homepage-blog</base_url>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </logo2>
+                    </fields>                          
+                </second_blog_article>
+                <third_blog_article translate="label">
+                    <label>Third Blog Article</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>   
+                    <fields>
+                        <third_blog_article_url>
+                            <label>Third Blog Article URL key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                    
+                        </third_blog_article_url>
+                        <logo3 translate="label comment">
+                            <label>Image</label>
+                            <comment>Allowed file types: jpeg, gif, png.</comment>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_image</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">homepage-blog</upload_dir>
+                            <base_url type="media" scope_info="1">homepage-blog</base_url>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </logo3>
+                    </fields>                          
+                </third_blog_article>
+            </groups>                  
+        </homepage_blog_options>
+    </sections>
+</config> 

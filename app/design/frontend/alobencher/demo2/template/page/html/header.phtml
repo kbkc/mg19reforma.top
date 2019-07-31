@@ -70,7 +70,7 @@
 									</div>
 								</div>-->
 									<div class="show-popup-quick-order miniCartWrap">
-										<?php echo $this->__('Cart'); ?>
+									<a href="<?php echo $this->helper('checkout/cart')->getCartUrl(); ?>"><?php echo $this->__('Cart'); ?></a>
 									</div>
 							</div>
 						</div>
@@ -82,18 +82,18 @@
 					<!-- <div class="main"> -->
 						 <div class="row">
 							<div class="header-page clearfix">
-								<div class="col-xs-6 col-sm-6 col-md-12 col-lg-12 main-logo">
+								<div class="col-xs-12 col-sm-6 col-md-12 col-lg-12 main-logo">
 									<div class="header-logo">
 										 <?php if ($this->getIsHomePage()):?>
 											<h1 class="logo">
-												<span><?php echo $this->getLogoAlt() ?></span><a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo1"><img class="img-responsive" src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a>
+												<!--<span><?php //echo $this->getLogoAlt() ?></span>--><a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo1"><img class="img-responsive" src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a>
 											</h1>
 										<?php else:?>
 											<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><img class="img-responsive" src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a>
 										<?php endif?>
 									</div>
 								</div>
-								<div class="col-xs-6 col-sm-6 col-md-12 col-lg-12">
+								<div class="col-xs-12 col-sm-6 col-md-12 col-lg-12">
 									<div class="header-menu menu-mobile">
 										<div class="custom-menu">
 											<?php echo $this->getChildHtml('topMenu') ?>

@@ -1,0 +1,268 @@
+<?php
+require_once Mage::getBaseDir('code') . '/' . Mage::getConfig()->getNode('modules/Dialcom_Przelewy/codePool') . '/Dialcom/Przelewy/class_przelewy24.php';
+
+$storeID = Mage::helper("przelewy")->getStoreID();
+
+$gaBeforePayment = (int)Mage::getStoreConfig('przelewytab1/additionall/ga_before_payment', $storeID);
+$payInShopByCard = Mage::registry('payInShopByCard');
+
+if ($gaBeforePayment === 1 && !$payInShopByCard) {
+    $order_id = (int) Mage::getSingleton('checkout/session')->getLastRealOrderId();
+    ?>
+    <div class="page-title">
+        <h1><?php echo $this->__('Order payment') ?></h1>
+    </div>
+    <?php echo $this->getMessagesBlock()->toHtml() ?>
+    <h2 class="sub-title"><?php echo $this->__('To confirm your order make the payment by clicking on the link below') ?></h2>
+
+    <div class="buttons-set">
+        <button type="button" class="button"
+                title="<?php echo Mage::helper('core')->quoteEscape($this->__('Make a payment')) ?>"
+                onclick="window.location='<?php echo filter_var(Mage::getUrl('przelewy/przelewy/payment'), FILTER_SANITIZE_URL); ?>'">
+            <span>
+                <span><?php echo $this->__('Make a payment') ?></span>
+            </span>
+        </button>
+    </div>
+    <div class="buttons-set">
+        <button type="button" class="button"
+                title="<?php echo Mage::helper('core')->quoteEscape($this->__('Send email')) ?>"
+                onclick="window.location='<?php echo filte_var(Mage::getUrl('przelewy/przelewy/paymentlink',
+                    array('order_id' => $order_id)), FILTER_SANITIZE_URL); ?>'">
+            <span>
+                <span><?php echo $this->__('Send email') ?></span>
+            </span>
+        </button>
+    </div>
+    <?php
+
+    echo $this->getLayout()->createBlock('core/template')->setData('ga_order_id',
+        $order_id)->setTemplate('dialcom/przelewy/ga.phtml')->toHtml();
+
+} else {
+    $order_id = (int) Mage::getSingleton('checkout/session')->getLastRealOrderId();
+    $order = Mage::getModel('sales/order')->loadByIncrementId($order_id);
+    $paymentData = $order->getPayment()->getData();
+
+    $currency = filter_var(Mage::app()->getStore()->getCurrentCurrencyCode(),FILTER_SANITIZE_STRING);
+
+    $amount = (int)($order->getGrandTotal() * 100);
+
+    $session_id = $order_id . '|' . md5(uniqid(mt_rand(), true) . ':' . microtime(true)) . '|' . $storeID;
+
+    $fullConfig = Dialcom_Przelewy_Model_Config_Waluty::getFullConfig($currency);
+
+    $P24C = new Przelewy24Class($fullConfig['merchant_id'], $fullConfig['shop_id'], $fullConfig['salt'],
+        (Mage::getStoreConfig('payment/dialcom_przelewy/mode', $storeID) == '1'));
+    $post_data = array(
+        'p24_merchant_id' => (int)$fullConfig['merchant_id'],
+        'p24_pos_id' => (int)$fullConfig['shop_id'],
+        'p24_session_id' => $session_id,
+        'p24_amount' => $amount,
+        'p24_currency' => $currency,
+        'p24_description' => "Zamówienie: " . $order_id,
+        'p24_email' => filter_var($order->getCustomerEmail(), FILTER_SANITIZE_EMAIL),
+
+        'p24_client' => addslashes($order->getBillingAddress()->getData('firstname') . ' ' . $order->getBillingAddress()->getData('lastname')),
+        'p24_address' => addslashes($order->getBillingAddress()->getData('street')),
+        'p24_city' => addslashes($order->getBillingAddress()->getData('city')),
+        'p24_zip' => addslashes($order->getBillingAddress()->getData('postcode')),
+
+        'p24_country' => 'PL',
+        'p24_language' => strtolower(substr(Mage::app()->getLocale()->getLocaleCode(), 0, 2)),
+
+        'p24_url_status' => filter_var(Mage::getUrl('przelewy/przelewy/status'), FILTER_SANITIZE_URL),
+        'p24_url_return' => filter_var(Mage::getUrl('przelewy/przelewy/success', array('ga_order_id' => $order_id)), FILTER_SANITIZE_URL),
+        'p24_api_version' => P24_VERSION,
+        'p24_ecommerce' => 'magento_' . Mage::getVersion(),
+        'p24_ecommerce2' => (string)Mage::getConfig()->getNode()->modules->Dialcom_Przelewy->version,
+        'p24_wait_for_result' => $this->getWaitForResult() ? '1' : '0',
+        'p24_shipping' => number_format($order->getShippingAmount() * 100, 0, "", ""),
+    );
+
+    $productsInfo = array();
+    $lp = 0;
+    foreach ($order->getAllVisibleItems() as $item) {
+        $productId = $item->getProductId();
+        $product = Mage::getModel('catalog/product')->load($productId);
+
+        $productsInfo[] = array(
+            'name' => $product->getName(),
+            'description' => $product->getDescription(),
+            'quantity' => (int)$item->getQtyOrdered(),
+            'price' => (int)number_format($item->getPrice() * 100, 0, "", ""),
+            'number' => $productId,
+        );
+    }
+
+    $translations = array(
+        'virtual_product_name' => Mage::helper('przelewy')->__('Extra charge [VAT and discounts]'),
+        'cart_as_product' => Mage::helper('przelewy')->__('Your order'),
+    );
+
+    $shipping = (int)number_format($order->getShippingAmount() * 100, 0, "", "");
+    $p24Product = new Przelewy24Product($translations);
+    $p24ProductItems = $p24Product->prepareCartItems($amount, $productsInfo, $shipping);
+
+    $post_data = array_merge($post_data, $p24ProductItems);
+
+    foreach ($post_data as $k => $v) {
+        $P24C->addValue($k, $v);
+    }
+    $p24sign = $P24C->trnDirectSign($post_data);
+    $token = $P24C->trnRegister();
+    if (is_array($token)) {
+        if (isset($token['token'])) {
+            $token = $token['token'];
+        } else {
+            $akeys = array_keys($token);
+            $token = array_shift($akeys);
+        }
+
+        $p24jsURL = filter_var($P24C->getHost() . 'inchtml/ajaxPayment/ajax.js?token=' . $token, FILTER_SANITIZE_URL);
+        $p24cssURL = filter_var($P24C->getHost() . 'inchtml/ajaxPayment/ajax.css', FILTER_SANITIZE_URL);
+    }
+
+    $order->setData('p24_session_id', $session_id);
+    $order->save();
+    ?>
+    <h1><?php echo $this->__('Payment by card') ?></h1>
+
+    <div id="P24FormArea">
+        <div id="P24FormContainer"
+             data-sign="<?php echo $p24sign; ?>"
+             data-successCallback="finishPaymentFunction"
+             data-failureCallback="paymentErrorFunction"
+             data-dictionary='{"cardHolderLabel":"<?php echo $this->__('Cardholder name') ?>","cardNumberLabel":"<?php echo $this->__('Card number') ?>","cvvLabel":"<?php echo $this->__('cvv') ?>","expDateLabel":"<?php echo $this->__('Expiry date') ?>","payButtonCaption":"<?php echo $this->__('Confirm') ?>","threeDSAuthMessage":"<?php echo $this->__('Click here to continue shopping') ?>"}'
+        ></div>
+    </div>
+
+
+    <style>
+        #P24FormAreaHolder {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+        }
+
+        #P24FormArea {
+            background: lightgray;
+            background: linear-gradient(to bottom, #ddd 0%, #bbb 100%);
+            border-radius: 10px;
+            padding: 1em;
+            margin-bottom: 0.5em;
+            width: 350px;
+            height: 200px;
+        }
+
+        .loading {
+            background: transparent url(/img/loadingAnimation.gif) center center no-repeat;
+            min-height: 60px;
+        }
+
+        #P24_cardHolder, #P24_cardNumber {
+            padding-left: 0.3em;
+        }
+
+        #P24FormContainer {
+            min-height: 170px;
+        }
+
+        #P24FormContainer button:hover {
+            background: #3aa04c;
+            background: linear-gradient(to bottom, #3aa04c 0%, #3aa04a 100%);
+        }
+
+        #P24FormContainer p {
+            margin-bottom: 0.5em;
+        }
+
+        #P24FormContainer button {
+            border-radius: 4px;
+            font-size: 20px;
+            line-height: 24px;
+            color: #fff;
+            padding: 0;
+            font-weight: bold;
+            background: #43b754;
+            background: linear-gradient(to bottom, #43b754 0%, #41b757 2%, #41b854 4%, #43b756 6%, #41b354 38%, #44b355 40%, #45af55 66%, #41ae53 74%, #42ac52 91%, #41ae55 94%, #43ab54 96%, #42ac52 100%);
+            border: 1px solid;
+            border-color: #399a49 #247f32 #1a6d27 #399a49;
+            padding: 11px 15px 10px 15px;
+            margin: 10px 0 0 100px;
+        }
+
+        #P24FormContainer button:hover {
+            background: #e94a59;
+            background: linear-gradient(to bottom, #f87582 0%, #e94a59 100%);
+        }
+
+        #P24FormContainer button {
+            border-radius: 4px;
+            font-size: 20px;
+            line-height: 24px;
+            color: #fff;
+            padding: 0;
+            font-weight: bold;
+            background: #db2032;
+            background: linear-gradient(to bottom, #e94a59 0%, #db2032 100%);
+            border: 1px solid;
+            border-color: #af0d1d #e94a59 #89000d #af0d1d;
+            padding: 11px 15px 10px 15px;
+            margin: 10px auto 0 auto;
+            display: block;
+        }
+
+        #P24FormContainer input {
+            border: none;
+            border-radius: 4px;
+            height: 23px;
+        }
+
+        #P24FormArea span.info {
+            margin: 3em 0;
+            display: block;
+            text-align: center;
+        }
+
+        .inactive {
+            opacity: 0.3;
+            -webkit-filter: grayscale(1);
+            -moz-filter: grayscale(1);
+            -ms-filter: grayscale(1);
+            -o-filter: grayscale(1);
+            filter: grayscale(1);
+            filter: gray;
+        }
+    </style>
+
+
+    <script>
+        $j(document).ready(function () {
+            $j('head').append('<link rel="stylesheet" type="text/css" href="<?php echo $p24cssURL; ?>" />');
+            $j.getScript('<?php echo $p24jsURL; ?>', function () {
+                window.setTimeout(function () {
+                    $j('#P24FormContainer button').on('click', function () {
+                        window.setTimeout(function () {
+                            if ($j('#P24FormContainer .P24_input_error').length == 0) {
+                                $j('#P24FormContainer button').attr('disabled', true).addClass('inactive');
+                            }
+                        }, 100);
+                    });
+                }, 1000);
+            });
+        });
+
+        function paymentErrorFunction() {
+            window.location = '<?php echo filter_var(Mage::getUrl('przelewy/przelewy/failure'), FILTER_SANITIZE_URL); ?>';
+        }
+        function finishPaymentFunction() {
+            window.location = '<?php echo filter_var(Mage::getUrl('przelewy/przelewy/success',
+                array('ga_order_id' => (int) $order_id)), FILTER_SANITIZE_URL) ?>';
+        }
+    </script>
+<?php } ?>

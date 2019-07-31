@@ -93,7 +93,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
                 $lin3 = '<a href="#"onclick="popWin(';
                 $lin4 = "'".Mage::getUrl('catalog/product_compare/index');
                 $lin5 = "','compare','top:0,left:0,width=820,height=600,resizable=yes,scrollbars=yes')";
-                $lin6 = '" >View compared products. </a>';
+                $lin6 = '" >'.$this->__('View compared products.').'</a>';
                 $house = $lin1.$lin2.$lin3.$lin4.$lin5.$lin6;
                 Mage::getSingleton('catalog/product_compare_list')->addProduct($product);
                 Mage::getSingleton('catalog/session')->addSuccess(

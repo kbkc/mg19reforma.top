@@ -52,4 +52,12 @@
 <?php echo $this->getCssJsHtml() ?>
 <?php echo $this->getChildHtml() ?>
 <?php echo $this->helper('core/js')->getTranslatorScript() ?>
+<script type="text/javascript">
+  Translator.add('Search:','<?php echo Mage::helper('core')->__('Search:')?>');
+  Translator.add('Previous','<?php echo Mage::helper('core')->__('Previous')?>');
+  Translator.add('Next','<?php echo Mage::helper('core')->__('Next')?>');
+  Translator.add('Show _MENU_ entries','<?php echo Mage::helper('core')->__('Show _MENU_ entries')?>');
+  Translator.add('Processing...','<?php echo Mage::helper('core')->__('Processing...')?>');
+  Translator.add('Showing _START_ to _END_ of _TOTAL_ entries','<?php echo Mage::helper('core')->__('Showing _START_ to _END_ of _TOTAL_ entries')?>');
+</script>
 <?php echo $this->getIncludes() ?>

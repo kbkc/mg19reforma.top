@@ -1,0 +1,26 @@
+<layout>
+	<default>
+		<reference name="head">
+			<action method="addLinkRel">
+				<rel>stylesheet</rel>
+				<href>https://secure.przelewy24.pl/skrypty/ecommerce_plugin.css.php</href>
+			</action>
+			<action method="addCss"><style>../../../../js/dialcom/przelewy/jquery-ui-1.11.4/jquery-ui.min.css</style></action>
+			<action method="addJs"><script>dialcom/przelewy/jquery-1.11.3.min.js</script></action>
+			<action method="addJs"><script>dialcom/przelewy/jquery-ui-1.11.4/jquery-ui.min.js</script></action>
+			<action method="addJs"><script>dialcom/przelewy/noconflict.js</script></action>
+			<action method="addJs"><script>dialcom/przelewy/config.js</script></action>
+		</reference>
+		<reference name="before_body_end">
+			<block type="adminhtml/template" template="main.phtml" name="admin_przelewy_main" as="admin_przelewy_main" />
+		</reference>
+	</default>
+	<adminhtml_sales_order_view>
+		<reference name="sales_order_tabs">
+			<action method="addTab">
+				<name>order_view_tab_refunds</name>
+				<block>przelewy/adminhtml_order_view_tab_refunds</block>
+			</action>
+		</reference>
+	</adminhtml_sales_order_view>
+</layout>

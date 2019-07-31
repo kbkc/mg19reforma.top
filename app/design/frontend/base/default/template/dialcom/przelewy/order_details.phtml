@@ -1,0 +1,24 @@
+<?php
+$order_id = (int) $this->getRequest()->getParam('order_id');
+$order = Mage::getModel('sales/order')->load($order_id);
+if ($order && $order->getBaseTotalDue() > 0) { // jeśli jest coś jeszcze do zapłacenia to pokaż przyciski
+    $incrementid = $order->getIncrementId();
+    $przelewy = Mage::getSingleton("przelewy/payment_przelewy");
+    $form = new Varien_Data_Form();
+    $form->setAction($przelewy->getPaymentURI())->setId('przelewy_przelewy_checkout')->setName('przelewy_przelewy_checkout')->setMethod('POST')->setUseContainer(true);
+    foreach ($przelewy->getRedirectionFormData($incrementid) as $field => $value) {
+        if (!in_array($field, array('p24_method'))) {
+            $form->addField($field, 'hidden', array('name' => $field, 'value' => $value));
+        }
+    }
+
+    if ($order->getPayment()) {
+        $payment = $order->getPayment()->getMethodInstance()->getCode();
+        $model = new Dialcom_Przelewy_Model_Payment_Przelewy();
+
+        if ($payment === $model->getPaymentMethodCode()) { // only with payment method Przelewy24
+            $form->addField('submit', 'submit', array('name' => 'submit', 'class' => 'button', 'value' => $this->__('Pay with Przelewy24')));
+            echo '<div style="text-align: right">', $form->toHtml(), '</div>';
+        }
+    }
+}

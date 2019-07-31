@@ -78,7 +78,7 @@
     <?php foreach ($_productCollection as $_product): ?>
         <li class="item<?php if( ++$_iterator == sizeof($_productCollection) ): ?> last<?php endif; ?>">
 		    <div class="row">
-		    <div class="col-mobile-12 col-xs-5 col-md-4 col-sm-4 col-lg-4">
+		    <div class="col-mobile-12 col-xs-5 col-md-3 col-sm-3 col-lg-3">
 			   <div class="products-list-container">
 				    <div class="images-container">
 						<div class="product-hover">
@@ -178,9 +178,14 @@
 											class="filter-link link-compare">
 										<i class="fa fa-retweet"></i><?php echo $this->__('Add to Compare') ?></span>
 								</li>
-							<?php endif; ?>
+							<?php endif; ?><!--
 							 <li class="link-view"> 
 								<span title="<?php echo $this->__('Quick View') ?>" class="link-quickview"><i class="fa fa-search"></i><?php echo $this->__('Quick View') ?></span>
+							</li>-->
+							<li>
+							<span title="<?php echo $this->__('Quick View') ?>" href="<?php echo $this->getUrl('magicshop/quickview/view') .'id/'.$_product->getId()?>" class="link-quickview">
+								<i class="fa fa-search"></i>
+							</span>
 							</li>
 						</ul>
 					</div>
@@ -205,6 +210,12 @@
 			    <div class="category-products-grid per-product">
 				    <div class="images-container">
 					    <div class="product-hover">
+						<?php if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
+								<span rel="tooltip" data-link="<?php echo $_compareUrl ?>"
+									  title="<?php echo $this->__('Add to Compare') ?>"
+									  class="filter-link link-compare">
+								  <i class="fa fa-retweet"></i></span>
+					  <?php endif; ?>
 							<span title="<?php echo $this->__('Quick View') ?>" href="<?php echo $this->getUrl('magicshop/quickview/view') .'id/'.$_product->getId()?>" class="link-quickview">
 								<i class="fa fa-search"></i>
 							</span>
