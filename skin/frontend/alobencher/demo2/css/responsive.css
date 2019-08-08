@@ -192,6 +192,10 @@
 	table#my-orders-table th, 
 	table#my-orders-table td {display: block;float: none;text-align: center !important;}
 	.data-table td.last { border-bottom: 1px solid #dddddd !important;}
+	#shopping-cart-table tfoot { border-bottom: none;}
+	#shopping-cart-table tfoot tr.first.last td.a-right.last { padding-bottom: auto;}
+	#shopping-cart-table tfoot tr.first.last td.a-right.last button { float: none;}
+	#shopping-cart-table tfoot tr.first.last td.a-right.last button.btn-update { margin-left: 0;}
 	.data-table tfoot {border-bottom: none;}
 	.data-table thead th{border-left: 1px solid #dddddd;border-bottom: 0 none;}
 	.data-table thead.hidden-phone{display:none;}
