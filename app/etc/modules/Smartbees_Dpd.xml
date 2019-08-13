@@ -1,0 +1,11 @@
+<config>
+    <modules>
+        <Smartbees_Dpd>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Mage_Shipping />
+            </depends>
+        </Smartbees_Dpd>
+    </modules>
+</config>

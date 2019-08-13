@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Smartbees_Dpd>
+      <version>1.0</version>
+    </Smartbees_Dpd>
+  </modules>
+  <global>
+    <models>
+      <smartbees_dpd>
+        <class>Smartbees_Dpd_Model</class>
+      </smartbees_dpd>
+      <smartbees_dpd>
+        <class>Smartbees_Dpd_Model</class>
+      </smartbees_dpd>
+    </models>
+    <helpers>
+      <smartbees_dpd>
+        <class>Smartbees_Dpd_Helper</class>
+      </smartbees_dpd>
+    </helpers>
+  </global>
+  <default>
+    <carriers>
+      <smartbees_dpd>
+        <active>1</active>
+        <sallowspecific>1</sallowspecific>
+        <model>smartbees_dpd/carrierdpd</model>
+        <name>DPD</name>
+        <price>10.00</price>
+        <title>DPD</title>
+      </smartbees_dpd>
+    </carriers>
+  </default>
+</config>
