@@ -211,7 +211,8 @@
                 </li>
                 <?php echo $this->getChildHtml('form.additional.info'); ?>
             </ul>
-            <?php echo $this->__('I have read and agreed to the ') ?><a href="<?php echo $this->getUrl('terms'); ?>"><?php echo $this->__('Terms and Conditions') ?></a>
+            <?php $termsKyeUrl = (Mage::app()->getWebsite()->getCode()=="pl"? 'terms_pl' : 'terms_eu'); ?>
+            <?php echo $this->__('I have read and agreed to the ') ?><a href="<?php echo $this->getBaseUrl().$termsKyeUrl ?>"><?php echo $this->__('Terms and Conditions') ?></a>
             <input type="checkbox" name="terms" title="<?php echo $this->__('Terms and Conditions') ?>" value="1" id="terms" class="checkbox required-entry" />
         </div>
         <div class="buttons-set">

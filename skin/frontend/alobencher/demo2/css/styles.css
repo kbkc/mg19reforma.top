@@ -2061,6 +2061,11 @@ ul.magictabs{padding:0; margin-bottom: 40px}
 .box-account .box-head{margin:0 0 20px;text-align:right}
 .box-account .box-head h2{float:left;margin:0;font-size:14px;font-weight:normal;text-transform:uppercase;background-position:0 0;background-repeat:no-repeat;padding-left:21px;color:#444}
 .dashboard .box .box-title{padding:0 0 5px;margin:0 0 10px;text-align:right;border-bottom: 1px solid #eeeeee;}
+@media (max-width: 500px){
+    .dashboard .box .box-title {display: flex; flex-direction: column; text-align: left;}
+    .dashboard .box .box-content p {overflow-wrap: break-word;}
+
+}
 .dashboard .box .box-title h3,.dashboard .box .box-title h4{float:left;font-size:13px;font-weight:normal;margin:0;color:#333;text-transform: uppercase;}
 /* Block:Recent Orders */
 .dashboard .box-recent .box-head h2{background-image:url(../images/i_folder-table.gif)}
