@@ -4,9 +4,9 @@ class Smartbees_Inpost_Model_Sales_Order extends Mage_Sales_Model_Order{
 		$desc = parent::getShippingDescription();
 		$pickupObject = $this->getPickupObject();
 		if($pickupObject){
-			$desc .= '<br/><b>Store</b>: '.$pickupObject->getStore();
-			$desc .= '<br/><b>Name</b>: '.$pickupObject->getName();
-			$desc .= '<br/>';
+			$desc .= ' Store: '.$pickupObject->getStore();
+			$desc .= ' Name: '.$pickupObject->getName();
+			$desc .= '';
 		}
 		return $desc;
 	}
