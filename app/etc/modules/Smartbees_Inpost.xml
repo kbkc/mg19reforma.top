@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Smartbees_Inpost>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Smartbees_Inpost>
+    </modules>
+</config> 
