@@ -1,0 +1,11 @@
+
+#inpost_input{
+    height: 40px;
+}
+
+@media (max-width: 600px) {
+    #widget-modal {
+        width: 300px !important;
+        height: 500px !important;
+    }
+}
