@@ -97,7 +97,7 @@ $shipping_images = [
 		        button.onclick = function() {
             easyPack.modalMap(function(point) {
                 this.close();   // Close modal with map, must be called from inside modalMap() callback.
-				var dest_ship = point.address.line1 + ", " + point.address.line2 +" - "+point.name;
+				var dest_ship = "Paczkomat " +/* point.address.line1 + ", " + point.address.line2 +" - "*/point.name;
 				var els=document.getElementsByName("shipping_pickup[store]");
 				var elem = document.getElementById("inpost_input");
 				for (var i=0;i<els.length;i++) {
