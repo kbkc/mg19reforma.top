@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <checkout_onepage_index>
+	    	<reference name='head'>
+    		<reference name="head">
+			<block type="core/text" name="google.cdn.jquery">
+				<action method="setText">
+					<text>
+					<![CDATA[ <script  type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script><script type="text/javascript">jQuery.noConflict();</script><script type="text/javascript" src="https://sandbox-geowidget.easypack24.net/js/sdk-for-javascript.js"></script>]]>
+					</text>
+				</action>
+			</block>
+            <action method="addCss"><stylesheet>css/smartbeesinpost.css</stylesheet></action>
+			<action method="addLinkRel">
+            <rel>stylesheet</rel>
+            <href>https://sandbox-geowidget.easypack24.net/css/easypack.css</href>
+        	</action>
+        	</reference>
+    		</reference>
+		<reference name='checkout.onepage.shipping_method.available'>
+    		<action method='setTemplate'><template>pickup/checkout/onepage/shipping_method/available.phtml</template></action>
+    	</reference>
+    </checkout_onepage_index>
+    <checkout_onepage_shippingmethod>
+    	<reference name='root'>
+    		<action method='setTemplate'><template>pickup/checkout/onepage/shipping_method/available.phtml</template></action>
+    	</reference>
+    </checkout_onepage_shippingmethod>
+</layout> 
+

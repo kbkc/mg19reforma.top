@@ -1,0 +1,170 @@
+<?php if (!($_shippingRateGroups = $this->getShippingRates())): ?>
+    <p><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></p>
+<?php else: ?>
+ <?php
+    if ( array_key_exists('freeshipping', $_shippingRateGroups )) {
+		unset($_shippingRateGroups["flatrate"]);
+    $_shippingRateGroups = array('freeshipping' => $_shippingRateGroups['freeshipping']);
+    }?>
+<?php
+$shipping_images = [
+    "shippingrates_dpd" => "dpd.png",
+	"shippingrates_dpd-pobranie" => "dpd.png",
+    "pickup_pickup" => "inpost.jpg",
+	"shippingrates_poczta polska" => "poczta_100x53.png",
+	"shippingrates_poczta polska pobranie" => "poczta_100x53.png",
+	"freeshipping_freeshipping" => "free2.png",
+];
+?>
+    <dl class="sp-methods">
+    <?php $shippingCodePrice = array(); ?>
+        <dd>
+            <ul>
+    <?php $_sole = count($_shippingRateGroups) == 1; foreach ($_shippingRateGroups as $code => $_rates): ?>
+            <?php $_sole = $_sole && count($_rates) == 1; foreach ($_rates as $_rate): ?>
+                <?php $shippingCodePrice[] = "'".$_rate->getCode()."':".(float)$_rate->getPrice(); ?>
+                <li>
+                   <?php if ($_rate->getErrorMessage()): ?>
+                    <ul class="messages"><li class="error-msg"><ul><li><?php echo $_rate->getErrorMessage() ?></li></ul></li></ul>
+                   <?php else: ?>
+                        <?php if ($_sole) : ?>
+                        <?php else: ?>
+                      
+						
+                        <?php if ($_rate->getCode() === $this->getAddressShippingMethod()): ?>
+                        <script type="text/javascript">
+                            //<![CDATA[
+                                lastPrice = <?php echo (float)$_rate->getPrice(); ?>;
+                            //]]>
+                        </script>
+                        <?php endif; ?>
+
+                        <?php endif; ?>
+						
+                        <label for="s_method_<?php echo $_rate->getCode() ?>">
+
+                        
+						<div class="stitle"><p><?php echo $_rate->getMethodTitle() ?></p></div>
+						<!-- <span class="shipping_img"><img src="<?php //echo $this->getSkinUrl('images/'.$shipping_images[$_rate->getCode()]) ?>"></span> -->
+                        <input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" id="s_method_<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod()) echo ' checked="checked"' ?> class="radio"/>
+
+                        
+                        
+                        
+                        <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
+                        <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
+                        <?php echo $_excl; ?>
+                        <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                            (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                        <?php endif; ?>
+                        </label>
+                   <?php endif ?>
+                </li>
+            <?php endforeach; ?>
+
+    <?php endforeach; ?>
+            </ul>
+        </dd>
+		<?php $_shippingRateGroups = $this->getShippingRates(); ?>
+		 <?php $_sole = count($_shippingRateGroups) == 1; foreach ($_shippingRateGroups as $code => $_rates): ?>
+		 <?php $_sole = $_sole && count($_rates) == 1; foreach ($_rates as $_rate): ?>
+					                        <?php
+                        	$carrier = Mage::getModel('shipping/config')->getCarrierInstance($code);
+                        	if($carrier->getFormBlock()){
+                        		$block = $this->getLayout()->createBlock($carrier->getFormBlock());
+                        		$block->setMethodCode($code);
+                        		$block->setRate($_rate);
+                        		$block->setMethodInstance($carrier);
+                        		echo $block->_toHtml();
+                        	} 
+                        ?>
+						 <?php endforeach; ?>
+						 <?php endforeach; ?>
+    </dl>
+	<script type="text/javascript">
+	var wwidth = window.innerWidth;
+	var wheight = window.innerHeight;
+	if(wwidth > 500){
+		wwidth = 500;
+	}
+	if(wheight > 600){
+		wheight = 600;
+	}
+	window.easyPackAsyncInit = function () {
+    easyPack.init({});
+	};
+	        var button = document.getElementById('popup-btn');
+		        button.onclick = function() {
+            easyPack.modalMap(function(point) {
+                this.close();   // Close modal with map, must be called from inside modalMap() callback.
+				var dest_ship = "Paczkomat " +/* point.address.line1 + ", " + point.address.line2 +" - "*/point.name;
+				var els=document.getElementsByName("shipping_pickup[store]");
+				var elem = document.getElementById("inpost_input");
+				for (var i=0;i<els.length;i++) {
+				els[i].value = dest_ship;
+				elem.style.display = "block";
+				}
+            }, {width: wwidth, height: wheight });
+        }
+//};
+</script>
+<script type="text/javascript">
+//<![CDATA[
+    <?php if (!empty($shippingCodePrice)): ?>
+        var shippingCodePrice = {<?php echo implode(',',$shippingCodePrice); ?>};
+    <?php endif; ?>
+    
+    $$('input[type="radio"][name="shipping_method"]').each(function(el){
+        Event.observe(el, 'click', function(){
+            if (el.checked == true) {
+                var getShippingCode = el.getValue();
+                <?php if (!empty($shippingCodePrice)): ?>
+                    var newPrice = shippingCodePrice[getShippingCode];
+                    if (!lastPrice) {
+                        lastPrice = newPrice;
+                        quoteBaseGrandTotal += newPrice;
+                    }
+                    if (newPrice != lastPrice) {
+                        quoteBaseGrandTotal += (newPrice-lastPrice);
+                        lastPrice = newPrice;
+                    }
+                <?php endif; ?>
+                checkQuoteBaseGrandTotal = quoteBaseGrandTotal;
+                return false;
+            }
+       });
+    });
+//]]>
+jQuery(document).ready(function(){
+	hideShippingAll();
+    jQuery('input[type="radio"][name="shipping_method"]').click(function(){
+			hideShippingAll();
+			var code = jQuery(this).val();
+			if(jQuery(this).is(':checked')){
+				showShipping(code);
+				jQuery(this).parent().addClass('schecked');
+			}
+	});
+  jQuery('input[type="radio"][name="shipping_method"]').each(function(){
+		var code = jQuery(this).val();
+		if(jQuery(this).is(":checked")){
+			showShipping(code);
+		}		
+	});
+ });
+function showShipping(code){
+	if(jQuery('#'+'shipping_form_'+code).length != 0){
+		jQuery('#'+'shipping_form_'+code).show();
+		jQuery(this).find('.required-entry').attr('disabled','false');
+	}
+}
+function hideShippingAll(){
+	jQuery('input[type="radio"][name="shipping_method"]').each(function(){
+		var code = jQuery(this).val();
+		jQuery(this).parent().removeClass('schecked');
+		jQuery('#'+'shipping_form_'+code).hide();
+		jQuery(this).find('.required-entry').attr('disabled','true');	
+	});
+}
+</script>
+<?php endif; ?>

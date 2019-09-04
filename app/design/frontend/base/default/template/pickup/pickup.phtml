@@ -1,0 +1,17 @@
+<?php 
+	$_code=$this->getMethodCode();
+	$carrier = $this->getMethodInstance();
+	$pickupData = $this->getQuote()->getPickupData();
+	$_rate = $this->getRate();
+	if(!isset($pickupData['store']))
+	{
+		$pickupData['store'] = -1;
+	}
+?>
+<ul class="form-list" id="shipping_form_<?php echo $_rate->getCode() ?>" style="display:none;">
+    <li>
+       <label id="popup-btn" for="<?php echo $_code ?>_store" class="required"><button type="button" name="update_cart_action" value="update_qty" title="Wybierz Paczkomat" class="paczkomaty button btn-update"><span><span>Wybierz Paczkomat</span></span></button></label>
+       <!--a id="popup-btn">Select pickup</a-->
+	   <input id="inpost_input" class="required required-entry inpost-hidden" type="text" name="shipping_pickup[store]" value="" readonly><br>
+    </li>
+</ul>
