@@ -30,15 +30,15 @@ body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;
             <!-- [ header starts here] -->
             <tr>
                 <td valign="top"><a href="{{store url=""}}"><img src="{{skin url="images/send_image_email.png" _area='frontend'}}" alt="bg-image" style="width: 100%;"/></a></td>
-                <span class="my_order">My order</span>
+                <span class="my_order">Moje zamówienie</span>
             </tr>
             <!-- [ middle starts here] -->
             <tr>
                 <td id="main_row" valign="top" style="padding-top: 43px; padding-bottom: 60px;">
-                    <h1 style=" font-weight:normal; ">Your order is on the way! {{htmlescape var=$order.getCustomerName()}}</h1>
-                    <p>Your oder gonna be delivered via DPD. </p>
-                    <p>Your order number is: #{{var order.increment_id}}</p> 
-                    <a href="{{store url=""}}"><div class="track_your_package">TRACK YOUR PACKAGE</div></a>
+                    <h1 style=" font-weight:normal; ">Zamówienie zostało przyjęte {{htmlescape var=$order.getCustomerName()}}</h1>
+                    <p>Twoje zamówienie zostanie dostarczona za pomocą {{var shippingMethod}}. </p>
+                    <p>Numer twojego zamówienia: {{var order.increment_id}}</p> 
+                    <a href="{{store url=""}}"><div class="track_your_package">Śledź przesyłkę</div></a>
                 </td>
             </tr>
             <tr>
@@ -49,18 +49,18 @@ body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;
                                 <div class="two-columns-one-row">
                                     <div class="first-tile-container">
                                         <div class="first-tile">
-                                            <p>ORDER DETAILS</p>
-                                            <p>Order ID</p>
-                                            <p><span class="no-link">#{{var order.increment_id}}</span></p>
-                                            <p>Placed on</p>
-                                            <p>#{{var order.getCreatedAtFormated('short')}}</p>
+                                            <p>Szczegóły zamówienia</p>
+                                            <p>Numer zamówienia</p>
+                                            <p><span class="no-link">{{var order.increment_id}}</span></p>
+                                            <p>Złożone:</p>
+                                            <p>{{var order.getCreatedAtFormated('short')}}</p>
                                         </div>  
                                     </div>
                                     <div class="second-tile-container">
                                         <div class="second-tile">
-                                            <p>ORDER REVIEW</p>
-                                            <p>Order Address</p>
-                                            <p>#{{var order.getShippingAddress().format('html')}}</p>
+                                            <p>Przegląd zamówienia</p>
+                                            <p>Adres:</p>
+                                            <p>{{var order.getShippingAddress().format('html')}}</p>
                                         </div> 
                                     </div> 
                                 </div>

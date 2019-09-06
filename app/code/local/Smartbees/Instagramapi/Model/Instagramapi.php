@@ -21,5 +21,27 @@ class Smartbees_Instagramapi_Model_Instagramapi{
         }
         return $imagesURL;
     }
+    public function getImagesUrlEu()
+    {
+        $imagesURL = array();
+        define( 'IG_CLIENT_ID', '1fde3d6e6a074908bb7e19bb270ec04f' );
+        define( 'IG_CLIENT_SECRET', ' c031afd25d134f27a78139e0fed86831' );
+        define( 'IG_REDIRECT_URI', 'http://reforma.loc' );
+        define( 'IG_ACCESS_TOKEN', '1499217034.1fde3d6.253f1641be6e47888fc9a6197457dbc8' );
+      
+        $ch = curl_init( 'https://api.instagram.com/v1/users/self/media/recent/?access_token=' . IG_ACCESS_TOKEN );
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+        curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, FALSE );
+        $response_raw = curl_exec( $ch );
+        $response = json_decode( $response_raw, true );
+        curl_close( $ch );
+        // var_dump($response);die;
+        if(isset($response['data']))
+        {$imagesNumber = count($response['data']);
+        for( $x = 0; $x < $imagesNumber; $x++ ){
+            $imagesURL[]=$response['data'][$x]['images']['low_resolution']['url'];
+        }}
+        return $imagesURL;
+    }
 }
 ?>
