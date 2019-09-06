@@ -350,7 +350,7 @@ Compare products page
                 <action method="unsetCallChild"><child>container1</child><call>ifEquals</call><if>0</if><key>alias_in_layout</key><key>options_container</key></action>
                 <action method="unsetCallChild"><child>container2</child><call>ifEquals</call><if>0</if><key>alias_in_layout</key><key>options_container</key></action>
             </block>
-            <!-- <block type="catalog/product_list_related" name="catalog.product.related" template="catalog/product/list/related.phtml"/> -->
+            <block type="catalog/product_list_related" name="catalog.product.related" template="catalog/product/list/related.phtml"/>
         </reference>
 		
 		
