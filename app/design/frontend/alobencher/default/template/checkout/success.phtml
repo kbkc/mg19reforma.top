@@ -33,9 +33,9 @@
     <?php echo $this->__('You can immediately pay for the order'); ?>
 </p>
 
-<button type="button" class="button pay-btn" title="<?php echo $this->__('Paypal Payment') ?>"
-        onclick="window.location='<?php echo $this->getUrl('liqpay/payment/specialredirect') ?>'">
-    <span><span><?php echo $this->__('Paypal Payment') ?></span></span></button>
+<!-- <button type="button" class="button pay-btn" title="<?php //echo $this->__('Paypal Payment') ?>"
+        onclick="window.location='<?php //echo $this->getUrl('liqpay/payment/specialredirect') ?>'">
+    <span><span><?php// echo $this->__('Paypal Payment') ?></span></span></button> -->
 
 <?php if (Mage::getSingleton('core/session')->getLastRealOrderId()): ?>
     <?php if ($this->getCanViewOrder()) : ?>
