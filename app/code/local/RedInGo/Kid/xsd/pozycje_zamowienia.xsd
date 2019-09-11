@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="pozycje_zamowienia">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="pozycja"  minOccurs="0">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="id_zam" type="xs:unsignedLong"  minOccurs="1" />
+              <xs:element name="towar" minOccurs="1">
+                <xs:complexType>
+                  <xs:attribute name="id_cs" type="xs:unsignedLong" use="required" />
+                  <xs:attribute name="id_wf" type="xs:unsignedLong" use="required" />
+				  <xs:attribute name="idw" type="xs:unsignedLong" use="optional" />
+				  <xs:attribute name="kat" use="optional">
+				  <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="20"/>
+                  </xs:restriction>
+				  </xs:simpleType>
+				  </xs:attribute>
+				  <xs:attribute name="kk" use="optional">
+				  <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="20"/>
+                  </xs:restriction>
+				  </xs:simpleType>
+				  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ilosc" type="xs:unsignedInt" minOccurs="1" />
+              <xs:element name="cena_netto" type="xs:decimal"  minOccurs="1"  />
+              <xs:element name="cena_brutto" type="xs:decimal" minOccurs="1"  />
+              <xs:element minOccurs="0" name="jedn">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="10"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+			  <xs:element name="rn" minOccurs="0">
+			  <xs:simpleType>
+				<xs:restriction base="xs:decimal">
+				  <xs:minInclusive value="-100"/>
+				  <xs:maxInclusive value="999.99"/>
+				  <xs:fractionDigits value="2"/> 
+                </xs:restriction>
+              </xs:simpleType>
+			  </xs:element>
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <RedInGo_Base>
+      <version>0.1.0</version>
+    </RedInGo_Base>
+  </modules>
+  <global>
+    <helpers>
+      <base>
+        <class>RedInGo_Base_Helper</class>
+      </base>
+    </helpers>
+  </global>
+</config>

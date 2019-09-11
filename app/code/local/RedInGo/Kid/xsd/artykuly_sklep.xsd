@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="artykuly_sklep">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded"  minOccurs="0" name="art">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="n">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="40"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="0" name="ncd">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="40"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="0" name="norg">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:maxLength value="100"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+              <xs:element minOccurs="0" name="han">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:maxLength value="20"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+              <xs:element minOccurs="0" name="kat">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="20"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="vat">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="3"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="cn" type="xs:decimal" />
+              <xs:element name="cb" type="xs:decimal" />
+              <xs:element minOccurs="0" name="id_kat" type="xs:unsignedLong"/>
+              <xs:element minOccurs="0" name="id_kat_tree" type="xs:unsignedLong"/>
+              <xs:element minOccurs="0" name="p1">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+			  <xs:element minOccurs="0" name="symwal" >
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="0" name="p2" >
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="0" name="p3" >
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="0" name="p4" >
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="0" name="p5" >
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="0" name="p6" >
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="0" name="p7" >
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="0" name="p8" >
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="0" name="p9" >
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="0" name="p10" >
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="0" name="prod" >
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="0" name="uwagi">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1000"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="0" name="opis">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="500"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="0" name="waga" type="xs:decimal" />
+			  <xs:element minOccurs="0" name="waga_jed">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="0" name="wys" type="xs:decimal" />
+              <xs:element minOccurs="0" name="szer" type="xs:decimal" />
+              <xs:element minOccurs="0" name="gleb" type="xs:decimal" />
+			  <xs:element minOccurs="0" name="wymiar_jed">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="0" name="kod_kres">
+				<xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20"/>
+                  </xs:restriction>
+				</xs:simpleType>
+			  </xs:element>
+			  <xs:element minOccurs="0" name="cnpromo" type="xs:decimal" />
+              <xs:element minOccurs="0" name="cbpromo" type="xs:decimal" />
+			  <xs:element minOccurs="0" name="promo_od" type="xs:date" />
+              <xs:element minOccurs="0" name="promo_do" type="xs:date" />
+			  <xs:element minOccurs="0" name="wyroz">
+			  	<xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50"/>
+                  </xs:restriction>
+				</xs:simpleType>
+			  </xs:element>
+            </xs:all>
+            <xs:attribute name="id"  type="xs:unsignedLong" use="required" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

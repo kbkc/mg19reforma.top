@@ -1,0 +1,419 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+      <redingo translate="label" module="kid">
+          <label>Red InGo</label>
+          <sort_order>400</sort_order>
+      </redingo>
+    </tabs>
+    <sections>
+    <kid  translate="label" module="kid">
+    <label>WF mag / Iluo </label>
+    <tab>redingo</tab>
+    <frontend_type>text</frontend_type>
+    <sort_order>0</sort_order>
+    <show_in_default>1</show_in_default>
+    <show_in_website>1</show_in_website>
+    <show_in_store>1</show_in_store>
+      <groups>
+          <kid translate="label">
+            <label> Integrator </label>
+            <frontend_type>text</frontend_type>
+            <sort_order>0</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <fields>
+            <wylocz translate="wysłać nie aktualizowanie">
+                    <label>Wyłacz nie zaktualizowane</label>
+                    <frontend_type>select</frontend_type>
+                    <source_model>adminhtml/system_config_source_yesno</source_model>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+            </wylocz>
+            <sku translate="wysłać nie aktualizowanie">
+                    <label>SKU</label>
+                    <frontend_type>select</frontend_type>
+                    <source_model>kid/select_sku</source_model>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+            </sku>
+            <cena translate="Typ ceny">
+                    <label>Typ ceny</label>
+                    <frontend_type>select</frontend_type>
+                    <source_model>kid/select_cena</source_model>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+            </cena>
+            <name2 translate="wysłać nie aktualizowanie">
+                    <label>dodaj do nazwy nazwe 2</label>
+                    <frontend_type>select</frontend_type>
+                    <source_model>adminhtml/system_config_source_yesno</source_model>
+                    <sort_order>9</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+            </name2>
+            </fields>
+          </kid>
+          <produkt translate="label">
+            <label>produkt</label>
+            <frontend_type>text</frontend_type>
+            <sort_order>0</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <fields>
+            <aktywny translate="wysłać nie aktualizowanie">
+                    <label>Aktywny</label>
+                    <frontend_type>select</frontend_type>
+                    <source_model>kid/select_status</source_model>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+            </aktywny>
+            <description translate="wysłać nie aktualizowanie">
+                    <label>opid</label>
+                    <frontend_type>select</frontend_type>
+                    <source_model>kid/select_art</source_model>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+            </description>
+            <short_description translate="wysłać nie aktualizowanie">
+                    <label>uwagi</label>
+                    <frontend_type>select</frontend_type>
+                    <source_model>kid/select_art</source_model>
+                    <sort_order>3</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+            </short_description>
+            </fields>
+          </produkt>
+          <aktualizacja translate="label">
+            <label>Aktualizacja</label>
+            <frontend_type>text</frontend_type>
+            <sort_order>0</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <fields>
+            <name translate="wysłać nie aktualizowanie">
+                    <label>Aktualizacja nazwy</label>
+                    <frontend_type>select</frontend_type>
+                    <source_model>adminhtml/system_config_source_yesno</source_model>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+            </name>
+            <description translate="wysłać nie aktualizowanie">
+                    <label>Aktualizacja opisu</label>
+                    <frontend_type>select</frontend_type>
+                    <source_model>adminhtml/system_config_source_yesno</source_model>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+            </description>
+            <short_description translate="wysłać nie aktualizowanie">
+                    <label>Aktualizacja opisu krutki</label>
+                    <frontend_type>select</frontend_type>
+                    <source_model>adminhtml/system_config_source_yesno</source_model>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+            </short_description>
+            </fields>
+          </aktualizacja>
+          <import translate="label">
+            <label>Import</label>
+            <frontend_type>text</frontend_type>
+            <sort_order>0</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <fields>
+              <price translate="Typ ceny">
+                      <label>Ceny</label>
+                      <frontend_type>select</frontend_type>
+                      <source_model>adminhtml/system_config_source_yesno</source_model>
+                      <sort_order>1</sort_order>
+                      <show_in_default>1</show_in_default>
+                      <show_in_website>1</show_in_website>
+                      <show_in_store>1</show_in_store>
+              </price>
+              <qty translate="Typ ceny">
+                      <label>Qty</label>
+                      <frontend_type>select</frontend_type>
+                      <source_model>adminhtml/system_config_source_yesno</source_model>
+                      <sort_order>2</sort_order>
+                      <show_in_default>1</show_in_default>
+                      <show_in_website>1</show_in_website>
+                      <show_in_store>1</show_in_store>
+              </qty>
+              <manufacturer translate="Typ ceny">
+                      <label>manufacturer</label>
+                      <frontend_type>select</frontend_type>
+                      <source_model>adminhtml/system_config_source_yesno</source_model>
+                      <sort_order>3</sort_order>
+                      <show_in_default>1</show_in_default>
+                      <show_in_website>1</show_in_website>
+                      <show_in_store>1</show_in_store>
+              </manufacturer>
+
+              <manufacturer_attribute translate="label comment">
+                <label>manufacturer</label>
+                <frontend_type>text</frontend_type>
+                <sort_order>50</sort_order>
+                <show_in_default>1</show_in_default>
+                <show_in_website>1</show_in_website>
+                <shared>1</shared>
+                <depends><manufacturer>1</manufacturer></depends>
+              </manufacturer_attribute>
+
+            </fields>
+          </import>
+          <tax translate="label">
+            <label> Integrator-Mag stawki podatku</label>
+            <frontend_type>text</frontend_type>
+            <sort_order>2</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <fields>
+              <tax1 translate="label">
+                              <label>0 %</label>
+                              <frontend_type>select</frontend_type>
+                              <source_model>kid/select_tax</source_model>
+                              <sort_order>1</sort_order>
+                              <show_in_default>1</show_in_default>
+                              <show_in_website>1</show_in_website>
+                              <show_in_store>1</show_in_store>
+                              <comment></comment>
+              </tax1>
+
+              <tax2 translate="label">
+                              <label>5 %</label>
+                              <frontend_type>select</frontend_type>
+                              <source_model>kid/select_tax</source_model>
+                              <sort_order>2</sort_order>
+                              <show_in_default>1</show_in_default>
+                              <show_in_website>1</show_in_website>
+                              <show_in_store>1</show_in_store>
+                              <comment></comment>
+              </tax2>
+
+              <tax3 translate="label">
+                              <label>8 %</label>
+                              <frontend_type>select</frontend_type>
+                              <source_model>kid/select_tax</source_model>
+                              <sort_order>3</sort_order>
+                              <show_in_default>1</show_in_default>
+                              <show_in_website>1</show_in_website>
+                              <show_in_store>1</show_in_store>
+                              <comment></comment>
+              </tax3>
+
+              <tax4 translate="label">
+                              <label>23 %</label>
+                              <frontend_type>select</frontend_type>
+                              <source_model>kid/select_tax</source_model>
+                              <sort_order>4</sort_order>
+                              <show_in_default>1</show_in_default>
+                              <show_in_website>1</show_in_website>
+                              <show_in_store>1</show_in_store>
+                              <comment></comment>
+              </tax4>
+            </fields>
+          </tax>
+          <pole translate="label">
+            <label>Pole dodatkowe</label>
+            <frontend_type>text</frontend_type>
+            <sort_order>3</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <fields>
+
+              <p1 translate="label">
+                              <label>Pole 1</label>
+                              <frontend_type>select</frontend_type>
+                              <source_model>kid/select_art</source_model>
+                              <sort_order>0</sort_order>
+                              <show_in_default>1</show_in_default>
+                              <show_in_website>1</show_in_website>
+                              <show_in_store>1</show_in_store>
+                              <comment></comment>
+              </p1>
+
+              <p2 translate="label">
+                              <label>Pole 2</label>
+                              <frontend_type>select</frontend_type>
+                              <source_model>kid/select_art</source_model>
+                              <sort_order>1</sort_order>
+                              <show_in_default>1</show_in_default>
+                              <show_in_website>1</show_in_website>
+                              <show_in_store>1</show_in_store>
+                              <comment></comment>
+              </p2>
+
+              <p3 translate="label">
+                              <label>Pole 3</label>
+                              <frontend_type>select</frontend_type>
+                              <source_model>kid/select_art</source_model>
+                              <sort_order>2</sort_order>
+                              <show_in_default>1</show_in_default>
+                              <show_in_website>1</show_in_website>
+                              <show_in_store>1</show_in_store>
+                              <comment></comment>
+              </p3>
+
+              <p4 translate="label">
+                              <label>Pole 4</label>
+                              <frontend_type>select</frontend_type>
+                              <source_model>kid/select_art</source_model>
+                              <sort_order>3</sort_order>
+                              <show_in_default>1</show_in_default>
+                              <show_in_website>1</show_in_website>
+                              <show_in_store>1</show_in_store>
+                              <comment></comment>
+              </p4>
+
+              <p5 translate="label">
+                              <label>Pole 5</label>
+                              <frontend_type>select</frontend_type>
+                              <source_model>kid/select_art</source_model>
+                              <sort_order>4</sort_order>
+                              <show_in_default>1</show_in_default>
+                              <show_in_website>1</show_in_website>
+                              <show_in_store>1</show_in_store>
+                              <comment></comment>
+              </p5>
+
+              <p6 translate="label">
+                              <label>Pole 6</label>
+                              <frontend_type>select</frontend_type>
+                              <source_model>kid/select_art</source_model>
+                              <sort_order>5</sort_order>
+                              <show_in_default>1</show_in_default>
+                              <show_in_website>1</show_in_website>
+                              <show_in_store>1</show_in_store>
+                              <comment></comment>
+              </p6>
+
+              <p7 translate="label">
+                              <label>Pole 7</label>
+                              <frontend_type>select</frontend_type>
+                              <source_model>kid/select_art</source_model>
+                              <sort_order>6</sort_order>
+                              <show_in_default>1</show_in_default>
+                              <show_in_website>1</show_in_website>
+                              <show_in_store>1</show_in_store>
+                              <comment></comment>
+              </p7>
+
+              <p8 translate="label">
+                              <label>Pole 8</label>
+                              <frontend_type>select</frontend_type>
+                              <source_model>kid/select_art</source_model>
+                              <sort_order>7</sort_order>
+                              <show_in_default>1</show_in_default>
+                              <show_in_website>1</show_in_website>
+                              <show_in_store>1</show_in_store>
+                              <comment></comment>
+              </p8>
+
+              <p9 translate="label">
+                              <label>Pole 9</label>
+                              <frontend_type>select</frontend_type>
+                              <source_model>kid/select_art</source_model>
+                              <sort_order>8</sort_order>
+                              <show_in_default>1</show_in_default>
+                              <show_in_website>1</show_in_website>
+                              <show_in_store>1</show_in_store>
+                              <comment></comment>
+              </p9>
+
+              <p10 translate="label">
+                              <label>Pole 10</label>
+                              <frontend_type>select</frontend_type>
+                              <source_model>kid/select_art</source_model>
+                              <sort_order>9</sort_order>
+                              <show_in_default>1</show_in_default>
+                              <show_in_website>1</show_in_website>
+                              <show_in_store>1</show_in_store>
+                              <comment></comment>
+              </p10>
+            </fields>
+          </pole>
+
+          <reindex translate="label">
+            <label> reindex </label>
+            <frontend_type>text</frontend_type>
+            <sort_order>4</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <fields>
+            <wlac translate="wysłać nie aktualizowanie">
+                    <label>wlac</label>
+                    <frontend_type>select</frontend_type>
+                    <source_model>adminhtml/system_config_source_yesno</source_model>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+            </wlac>
+            <reindex translate="wysłać nie aktualizowanie">
+                    <label>reindex</label>
+                    <frontend_type>multiselect</frontend_type>
+                    <source_model>kid/select_reindex</source_model>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+            </reindex>
+            <import_szybki translate="wysłać nie aktualizowanie">
+                    <label>import_szybki</label>
+                    <frontend_type>select</frontend_type>
+                    <source_model>adminhtml/system_config_source_yesno</source_model>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+            </import_szybki>
+            </fields>
+          </reindex>
+
+          <zamowienie translate="label">
+            <label> Zamówienie </label>
+            <frontend_type>text</frontend_type>
+            <sort_order>5</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <fields>
+                    <wyslij translate="label">
+                            <label>Wyslij</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <sort_order>40</sort_order>
+                            <source_model>kid/select_zam</source_model>
+                            <show_in_default>1</show_in_default>
+                    </wyslij>
+            </fields>
+          </zamowienie>
+      </groups>
+    </kid>
+  </sections>
+</config>

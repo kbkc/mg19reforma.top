@@ -1,0 +1,80 @@
+<?php
+function write_ini_file($assoc_arr, $path, $has_sections=FALSE) {
+    $content = ""; 
+    if ($has_sections) { 
+        foreach ($assoc_arr as $key=>$elem) { 
+            $content .= "[".$key."]\n"; 
+            foreach ($elem as $key2=>$elem2) { 
+                if(is_array($elem2)) 
+                { 
+                    for($i=0;$i<count($elem2);$i++) 
+                    { 
+                        $content .= $key2."[] = \"".$elem2[$i]."\"\n"; 
+                    } 
+                } 
+                else if($elem2=="") $content .= $key2." = \n"; 
+                else $content .= $key2." = \"".$elem2."\"\n"; 
+            } 
+        } 
+    } 
+    else { 
+        foreach ($assoc_arr as $key=>$elem) { 
+            if(is_array($elem)) 
+            { 
+                for($i=0;$i<count($elem);$i++) 
+                { 
+                    $content .= $key."[] = \"".$elem[$i]."\"\n"; 
+                } 
+            } 
+            else if($elem=="") $content .= $key." = \n"; 
+            else $content .= $key." = \"".$elem."\"\n"; 
+        } 
+    } 
+    if (!$handle = fopen($path, 'w')) { 
+        return false; 
+    }
+    $success = fwrite($handle, $content);
+    fclose($handle); 
+    return $success; 
+}
+
+$xml=simplexml_load_file("app".DS."etc".DS."local.xml");
+
+$conf = $xml->global->resources->default_setup->connection;
+$prefix = (string)$xml->global->resources->db->table_prefix;
+
+$tmp = array();
+foreach($conf->children() as $child)  {
+  $tmp[ $child->getName()] = (string)$child;
+}
+
+$sampleData = array(
+    'DATABASE' => array(
+        'connectivity' => "net",
+        'host' => $tmp['host'],
+        'port' => 3306,
+        'unix_socket' => '',
+        'dbname' => $tmp['dbname'],
+        'user' => $tmp['username'],
+        'password' => $tmp['password'],
+        'table_prefix' => $prefix,
+    ),
+    'MAGENTO' => array(
+        'version' => "1.9.x",
+        'basedir' => "../..",
+    ),
+    'GLOBAL' => array(
+        'step' => 100,
+        'dirmask' => 755,
+        'filemask' => 644,
+    ),
+);
+
+echo 'host: '.$tmp['host'].'<br>';
+echo 'dbname: '.$tmp['dbname'].'<br>';
+echo 'username: '.$tmp['username'].'<br>';
+echo 'password: '.$tmp['password'].'<br>';
+
+write_ini_file($sampleData, 'lib'.DS.'magmi'.DS.'conf'.DS.'magmi.ini', true);
+
+?>

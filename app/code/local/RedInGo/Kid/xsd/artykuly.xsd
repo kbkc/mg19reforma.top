@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="artykuly">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="art" minOccurs="0">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="nazwa" type="xs:string" />
+              <xs:element minOccurs="0" name="nazwa2" type="xs:string" />
+              <xs:element minOccurs="0" name="nazwa_oryg" type="xs:string" />
+              <xs:element name="han" type="xs:string" />
+              <xs:element name="kat" type="xs:string" />
+              <xs:element name="stan" type="xs:decimal" />
+              <xs:element minOccurs="0" name="min" type="xs:decimal" />
+              <xs:element minOccurs="0" name="max" type="xs:decimal" />
+              <xs:element name="vat" type="xs:string" />
+			  <xs:element name="vat_zak" type="xs:string" minOccurs="0"/>
+              <xs:element name="cena_n" type="xs:decimal" />
+              <xs:element name="cena_b" type="xs:decimal" />
+              <xs:element minOccurs="0" name="sym_wal" type="xs:string" />
+              <xs:element name="id_kat_tree" type="xs:unsignedLong"/>
+			  <xs:element name="id_kat" type="xs:unsignedLong"  minOccurs="0"/>
+              <xs:element minOccurs="0" name="p1" type="xs:string" />
+              <xs:element minOccurs="0" name="p2" type="xs:string" />
+              <xs:element minOccurs="0" name="p3" type="xs:string" />
+              <xs:element minOccurs="0" name="p4" type="xs:string" />
+              <xs:element minOccurs="0" name="p5" type="xs:string" />
+              <xs:element minOccurs="0" name="p6" type="xs:string" />
+              <xs:element minOccurs="0" name="p7" type="xs:string" />
+              <xs:element minOccurs="0" name="p8" type="xs:string" />
+              <xs:element minOccurs="0" name="p9" type="xs:string" />
+              <xs:element minOccurs="0" name="p10" type="xs:string" />
+              <xs:element minOccurs="0" name="prod" type="xs:string" />
+              <xs:element minOccurs="0" name="uwagi" type="xs:string" />
+              <xs:element minOccurs="0" name="opis" type="xs:string" />
+              <xs:element minOccurs="0" name="waga" type="xs:decimal" />
+              <xs:element minOccurs="0" name="wys" type="xs:decimal" />
+              <xs:element minOccurs="0" name="szer" type="xs:decimal" />
+              <xs:element minOccurs="0" name="gleb" type="xs:decimal" />
+              <xs:element minOccurs="0" name="cena_prom_n" type="xs:decimal" />
+              <xs:element minOccurs="0" name="cena_prom_b" type="xs:decimal" />
+              <xs:element minOccurs="0" name="prom_od" type="xs:date" />
+              <xs:element minOccurs="0" name="prom_do" type="xs:date" />
+              <xs:element minOccurs="0" name="kod_kres" type="xs:string" />
+              <xs:element minOccurs="0" name="wyroz" type="xs:string" />
+              <xs:element minOccurs="0" name="id_art_sklep" type="xs:unsignedLong" />
+			  <xs:element minOccurs="0" name="cr" type="xs:unsignedLong" />
+			  <xs:element minOccurs="0" name="war" type="xs:unsignedLong" />
+              <xs:element minOccurs="0" name="jed" type="xs:string" />
+			  <xs:element minOccurs="0" name="dom_jed" type="xs:string" />
+			  <xs:element minOccurs="0" name="cn_dom_jed" type="xs:decimal" />
+			  <xs:element minOccurs="0" name="cb_dom_jed" type="xs:decimal" />
+			  <xs:element minOccurs="0" name="stan_dom_jed" type="xs:decimal" />			  
+			  <xs:element minOccurs="0" name="pkwiu" type="xs:string" />
+              <xs:element minOccurs="0" name="jed_inne">
+                <xs:complexType>
+                  <xs:sequence>
+
+                    <xs:element name="j" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="n" use="required">
+                              <xs:simpleType>
+                                <xs:restriction base='xs:string'>
+                                  <xs:minLength value='1'/>
+                                  <xs:maxLength value='20'/>
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:attribute>
+                            <xs:attribute name="s" use="required">
+                              <xs:simpleType>
+                                <xs:restriction base='xs:string'>
+                                  <xs:minLength value='1'/>
+                                  <xs:maxLength value='10'/>
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:attribute>
+                            <xs:attribute type="xs:decimal" name="p" use="required"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:all>
+            <xs:attribute name="id" type="xs:unsignedLong" use="required" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="p1" type="xs:string" use="optional" />
+      <xs:attribute name="p2" type="xs:string" use="optional" />
+      <xs:attribute name="p3" type="xs:string" use="optional" />
+      <xs:attribute name="p4" type="xs:string" use="optional" />
+      <xs:attribute name="p5" type="xs:string" use="optional" />
+      <xs:attribute name="p6" type="xs:string" use="optional" />
+      <xs:attribute name="p7" type="xs:string" use="optional" />
+      <xs:attribute name="p8" type="xs:string" use="optional" />
+      <xs:attribute name="p9" type="xs:string" use="optional" />
+      <xs:attribute name="p10" type="xs:string" use="optional" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
