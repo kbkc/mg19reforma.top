@@ -17,62 +17,61 @@
 <!--@styles
 body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
 @-->
-    <head>
-    </head>
-    <body style="background:#F6F6F6; font-size:12px; margin:0; padding:0;">
-    {{template config_path="design/email/header"}}
-    {{inlinecss file="email-inline.css"}}
-    <div style="background:#F6F6F6; font-size:12px; margin:0; padding:0;">
-    <table cellspacing="0" cellpadding="0" border="0" width="100%">
-    <tr>
-        <td align="center" valign="top" style="">
-            <table bgcolor="#FFFFFF" cellspacing="0" cellpadding="10" border="0" width="650" style="border:1px solid #E0E0E0; border:none;">
-                <!-- [ header starts here] -->
-                <tr>
-                    <td valign="top"><a href="{{store url=""}}"><img src="{{skin url="images/thank_you_image_email.png" _area='frontend'}}" alt="bg-image" style="width: 100%;"/></a></td>
-                    <span class="my_order">My order</span>
-                </tr>
-                <!-- [ middle starts here] -->
-                <tr>
-                    <td id="main_row" valign="top" style="padding-top: 43px; padding-bottom: 60px;">
-                        <h1 style=" font-weight:normal; font-family: 'Rochester', cursive;">Thank you for your order! {{htmlescape var=$order.getCustomerName()}}</h1>
-                        <p>Your oder gonna be delivered via DPD. </p>
-                        <p>Your order number is: #{{var order.increment_id}}</p> 
-                        <a href="{{store url=""}}"><div class="track_your_package">TRACK YOUR PACKAGE</div></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <table cellspacing="0" cellpadding="0" border="0" width="650">
-                            <thead>
-                                <tr>
-                                    <div class="two-columns-one-row">
-                                        <div class="first-tile-container">
-                                            <div class="first-tile">
-                                                <p>ORDER DETAILS</p>
-                                                <p>Order ID</p>
-                                                <p><span class="no-link">#{{var order.increment_id}}</span></p>
-                                                <p>Placed on</p>
-                                                <p>#{{var order.getCreatedAtFormated('short')}}</p>
-                                            </div>  
-                                        </div>
-                                        <div class="second-tile-container">
-                                            <div class="second-tile">
-                                                <p>ORDER REVIEW</p>
-                                                <p>Order Address</p>
-                                                <p>#{{var order.getShippingAddress().format('html')}}</p>
-                                            </div> 
-                                        </div> 
+<head>
+</head>
+<body style="background:#F6F6F6; font-size:12px; margin:0; padding:0;">
+{{template config_path="design/email/header"}}
+{{inlinecss file="email-inline.css"}}
+<div style="background:#F6F6F6; font-size:12px; margin:0; padding:0;">
+<table cellspacing="0" cellpadding="0" border="0" width="100%">
+<tr>
+    <td align="center" valign="top" style="">
+        <table bgcolor="#FFFFFF" cellspacing="0" cellpadding="10" border="0" width="650" style="border:1px solid #E0E0E0; border:none;">
+            <!-- [ header starts here] -->
+            <tr>
+                <td valign="top"><a href="{{store url=""}}"><img src="{{skin url="images/send_image_email.png" _area='frontend'}}" alt="bg-image" style="width: 100%;"/></a></td>
+                <span class="my_order">Moje zamówienie</span>
+            </tr>
+            <!-- [ middle starts here] -->
+            <tr>
+                <td id="main_row" valign="top" style="padding-top: 43px; padding-bottom: 60px;">
+                    <h1 style=" font-weight:normal; ">Zamówienie zostało przyjęte {{htmlescape var=$order.getCustomerName()}}</h1>
+                    <p>Twoje zamówienie zostanie dostarczona za pomocą {{var shippingMethod}}. </p>
+                    <p>Numer twojego zamówienia: {{var order.increment_id}}</p> 
+                    <a href="{{store url=""}}"><div class="track_your_package">Śledź przesyłkę</div></a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table cellspacing="0" cellpadding="0" border="0" width="650">
+                        <thead>
+                            <tr>
+                                <div class="two-columns-one-row">
+                                    <div class="first-tile-container">
+                                        <div class="first-tile">
+                                            <p>Szczegóły zamówienia</p>
+                                            <p>Numer zamówienia</p>
+                                            <p><span class="no-link">{{var order.increment_id}}</span></p>
+                                            <p>Złożone:</p>
+                                            <p>{{var order.getCreatedAtFormated('short')}}</p>
+                                        </div>  
                                     </div>
-                                </tr>
-                            </thead>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    </table>
-    </div>
-    </body>
-    
+                                    <div class="second-tile-container">
+                                        <div class="second-tile">
+                                            <p>Przegląd zamówienia</p>
+                                            <p>Adres:</p>
+                                            <p>{{var order.getShippingAddress().format('html')}}</p>
+                                        </div> 
+                                    </div> 
+                                </div>
+                            </tr>
+                        </thead>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+</table>
+</div>
+</body>

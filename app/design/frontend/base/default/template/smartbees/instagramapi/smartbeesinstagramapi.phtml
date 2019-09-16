@@ -1,16 +1,27 @@
 <?php
-	$standardImgInsta = $this->getInstagramPictures();
 	$imgNumToDisplay=5;
+	$websiteCode = Mage::app()->getWebsite()->getCode();
+	if($websiteCode=='pl')
+	{$standardImgInsta = $this->getInstagramPictures();}else
+	{
+		$standardImgInsta = $this->getInstagramPicturesEu();
+	}
 ?>
-<div id="instagram-custom-block">
-	<div class="block-title"><?php echo $this->__('Follow us'); ?></div>
-	<div class="block-title-hash"><?php echo $this->__('@reformanails'); ?></div>
-	<div id="instagram-posts">
-		<a class = "instaApi" href="https://www.instagram.com/reformanails" target="blank">
-		<?php if(count($standardImgInsta)<5) $imgNumToDisplay = count($standardImgInsta); ?>
-		<?php for ( $x=0; $x < $imgNumToDisplay; $x++ ):?>
-			<img src="<?php echo $standardImgInsta[$x]; ?>" width="230px" height="230px" alt="aaa"/>
-		<?php endfor ?>
-		</a>
+<?php if($standardImgInsta):?>
+	<div id="instagram-custom-block">
+		<div class="block-title"><?php echo $this->__('Follow us'); ?></div>
+		<div class="block-title-hash"><?php echo $this->__('@reformanails'); ?></div>
+		<div id="instagram-posts">
+			<?php if($websiteCode=='pl'): ?>
+			<a class = "instaApi" href="https://www.instagram.com/reformanails" target="blank">
+			<?php else: ?>
+			<a class = "instaApi" href="https://www.instagram.com/reformabeauty.official/" target="blank">
+			<?php endif; ?>
+			<?php if(count($standardImgInsta)<5) $imgNumToDisplay = count($standardImgInsta); ?>
+			<?php for ( $x=0; $x < $imgNumToDisplay; $x++ ):?>
+				<img src="<?php echo $standardImgInsta[$x]; ?>" width="230px" height="230px" alt="aaa"/>
+			<?php endfor; ?>
+			</a>
+		</div>
 	</div>
-</div>
+<?php endif; ?>
