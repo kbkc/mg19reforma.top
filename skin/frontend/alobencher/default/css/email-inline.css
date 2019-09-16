@@ -143,26 +143,37 @@ div.track_your_package{
 
 @media (min-width: 769px){
   div.two-columns-one-row{
-    display: grid;
-    grid-template-rows: 426px;
-    grid-template-columns: auto auto;
-    grid-column-gap: 38px;
+    display: block;
     margin: 60px auto;
   }
 }
 @media (max-width: 768px){
     div.two-columns-one-row{
-      display: grid;
-      grid-template-rows: auto auto;
-      grid-template-columns: auto;
-      grid-row-gap: 38px;
+      display: block;
       margin: 60px auto;
     }
 }
 
-div.two-columns-one-row .first-tile-container, div.two-columns-one-row .second-tile-container{
+
+@media (min-width: 769px){
+  div.two-columns-one-row .first-tile-container, div.two-columns-one-row .second-tile-container{
+      background-color: #bfd9d9;
+      width: 48%;
+      height: 450px;
+      float: left;
+  }
+  div.two-columns-one-row .second-tile-container{
+    background-color: #bfd9d9;
+    width: 48%;
+    float: right;
+  }
+}
+@media (max-width: 768px){
+  div.two-columns-one-row .first-tile-container, div.two-columns-one-row .second-tile-container{
     background-color: #bfd9d9;
     width: 100%;
+    height: auto;
+    float: none;
 }
 div.two-columns-one-row .first-tile, div.two-columns-one-row .second-tile{
     background-color: #bfd9d9;
