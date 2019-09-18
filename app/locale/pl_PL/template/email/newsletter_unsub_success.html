@@ -1,2 +1,51 @@
-<!--@subject Wypisanie z newslettera @-->
-Informujemy, że adres został pomyślnie wypisany z newslettera.
+<!--@subject {{var store.getFrontendName()}}: Nowe Zamówienie nr {{var order.increment_id}} @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image",
+"htmlescape var=$order.getCustomerName()":"Customer Name",
+"var store.getFrontendName()":"Store Name",
+"store url=\"customer/account/\"":"Customer Account Url",
+"var order.increment_id":"Order Id",
+"var order.getCreatedAtFormated('long')":"Order Created At (datetime)",
+"var order.getBillingAddress().format('html')":"Billing Address",
+"var payment_html":"Payment Details",
+"var order.getShippingAddress().format('html')":"Shipping Address",
+"var order.getShippingDescription()":"Shipping Description",
+"layout handle=\"sales_email_order_items\" order=$order":"Order Items Grid",
+"var order.getEmailCustomerNote()":"Email Order Note"}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+<head>
+</head>
+<body style="background:#F6F6F6; font-size:12px; margin:0; padding:0;">
+{{template config_path="design/email/header"}}
+{{inlinecss file="email-inline.css"}}
+<div style="background:#F6F6F6; font-size:12px; margin:0; padding:0;">
+<table cellspacing="0" cellpadding="0" border="0" width="100%">
+<tr>
+    <td align="center" valign="top" style="">
+        <table bgcolor="#FFFFFF" cellspacing="0" cellpadding="10" border="0" width="650" style="border:1px solid #E0E0E0; border:none;">
+            <!-- [ header starts here] -->
+            <tr>
+                <td valign="top"><a href="{{store url=""}}"><img src="{{skin url="images/prepared_image_email.png" _area='frontend'}}" alt="bg-image" style="width: 100%;"/></a></td>
+            </tr>
+            <!-- [ middle starts here] -->
+            <tr>
+                <td id="main_row" valign="top" style="padding-top: 43px; padding-bottom: 60px;">
+                    <h1 style=" font-weight:normal; ">Witaj w sklepie {{var store.getFrontendName()}}.</h1>
+                    <p style = "padding: 10px; text-align: left;">
+                        Z przykrością informujemy, że Twoja subskrypcja została wyłączona.<br/>
+                    </p>
+                   </td>
+            </tr>
+            <tr>
+                <td style="background-color: #daf4f5; text-align: center;"><p style="font-size:14px; margin:0; text-align: center; padding: 15px;">Dziękujemy, <strong>{{var store.getFrontendName()}}</strong></p></td>
+            </tr>
+        </table>
+    </td>
+</tr>
+</table>
+</div>
+</body>
