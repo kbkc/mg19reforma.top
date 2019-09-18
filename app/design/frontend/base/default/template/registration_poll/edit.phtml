@@ -44,20 +44,44 @@
             </li>
             <li>
                     <?php
+                        //$attribute = Mage::getSingleton('eav/config')->getAttribute('customer', 'what_you_do');
+                    ?>
+                     <?php
                         $attribute = Mage::getSingleton('eav/config')->getAttribute('customer', 'what_you_do');
+                        $question_value = Mage::getStoreConfig('registrationpoll_options/registrationpoll_question/registration_poll_question');
+                        $max_num_of_answers = Mage::getStoreConfig('registrationpoll_options/registrationpoll_max_number_of_answers/registration_poll_number_max_number_of_answers');
                     ?>
                     <label for="what_do_you_do" class="required"><em>*</em><?php echo $this->__('What do you do') ?></label>
-                    <div class="input-box">
-                        <!--<input type="text" name="what_you_do" id="what_you_do" value="<?php //echo $this->htmlEscape($this->getCustomer()->getWhatyoudo()) ?>" title="<?php //echo $this->__('What you do') ?>" class="input-text" />-->
-                        <select name="what_you_do" id="what_you_do" class="">
+                    <div id="registrationMiniForm" class="input-box">
                             <?php
                                  $options = $attribute->getSource()->getAllOptions();
                                  foreach($options as $option){
                             ?>
-                                <option value='<?php echo $option['value']?>' <?php if($this->getFormData()->getWhatyoudo() == $option['value']){ echo 'selected="selected"';}?>><?php echo $this->__($option['label'])?></option>
+                            <input class ="inputPoll required-entry" type="checkbox" name="what_you_do" value='<?php echo $option['value']?>' <?php if($this->getCustomer()->getWhatyoudo() == $option['value']){ echo 'selected="selected"';}?>> <?php echo $this->__($option['label'])?>
+                            <br>
                             <?php } ?>
-                        </select>
-                    </div>
+                            <input type="text" name="what_you_do" id="what_you_do" value="<?php echo $this->htmlEscape($this->getCustomer()->getWhatyoudo()) ?>" title="<?php echo $this->__('License Number') ?>" class="input-text" style="display: none;"  />
+                            <script type="text/javaScript">
+                                jQuery('input.inputPoll').on('change', function () {
+                                    if((jQuery("input.inputPoll:checkbox:checked").length>0)) {
+                                        jQuery('.input-box .inputPoll').removeClass('required-entry');
+                                    } else{
+                                        jQuery('.input-box .inputPoll').addClass('required-entry');
+                                    }
+                                    if(jQuery(this).is(':checked')&&jQuery("input.inputPoll:checkbox:checked").length<=(<?php echo $max_num_of_answers ?>)) {
+                                        jQuery('#what_you_do').val(jQuery('#what_you_do').val() + jQuery(this).val()+', ');
+                                    }else if(jQuery(this).is(':checked')&&jQuery("input.inputPoll:checkbox:checked").length>(<?php echo $max_num_of_answers ?>)){
+                                        jQuery(this).prop( "checked", false );
+                                        alert('maximum number of allowed answers');
+                                    } 
+                                    else {
+                                        currentVal = jQuery('#what_you_do').val();
+                                        currentVal = currentVal.replace(jQuery(this).val()+', ', '');
+                                        jQuery('#what_you_do').val(currentVal);
+                                    }
+                                });
+                            </script>
+                        </div>
             </li>
         <?php $_dob = $this->getLayout()->createBlock('customer/widget_dob') ?>
         <?php if ($_dob->isEnabled()): ?>
@@ -76,7 +100,7 @@
                 <div class="input-box">
                     <!-- This is a dummy hidden field to trick firefox from auto filling the password -->
                     <input type="text" class="input-text no-display" name="dummy" id="dummy" />
-                    <input type="password" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Current Password')) ?>" class="input-text required-entry" name="current_password" id="current_password" />
+                    <input type="password" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Current Password')) ?>" class="input-text required-entry" name="current_password" id="current_password" style="margin-top:10px;"/>
                 </div>
             </li>
             <li class="control">
