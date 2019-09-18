@@ -3,7 +3,7 @@
     <customer_account_edit>
         <reference name="customer_edit">
             <action method="setTemplate">
-                <template>registration_poll/form/edit.phtml</template>
+                <template>registration_poll/edit.phtml</template>
             </action>
         </reference>
     </customer_account_edit>

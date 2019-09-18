@@ -1,31 +1,53 @@
-<!--@subject Newsletter subscription confirmation @-->
+
+<!--@subject {{var store.getFrontendName()}}: Nowe Zamówienie nr {{var order.increment_id}} @-->
 <!--@vars
 {"store url=\"\"":"Store Url",
-"var logo_url":"Email Logo Image Url",
-"var logo_alt":"Email Logo Image Alt",
-"htmlescape var=$customer.name":"Customer Name",
-"var subscriber.getConfirmationLink()":"Subscriber Confirmation Url"}
+"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image",
+"htmlescape var=$order.getCustomerName()":"Customer Name",
+"var store.getFrontendName()":"Store Name",
+"store url=\"customer/account/\"":"Customer Account Url",
+"var order.increment_id":"Order Id",
+"var order.getCreatedAtFormated('long')":"Order Created At (datetime)",
+"var order.getBillingAddress().format('html')":"Billing Address",
+"var payment_html":"Payment Details",
+"var order.getShippingAddress().format('html')":"Shipping Address",
+"var order.getShippingDescription()":"Shipping Description",
+"layout handle=\"sales_email_order_items\" order=$order":"Order Items Grid",
+"var order.getEmailCustomerNote()":"Email Order Note"}
 @-->
 <!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
 @-->
-
+<head>
+</head>
+<body style="background:#F6F6F6; font-size:12px; margin:0; padding:0;">
 {{template config_path="design/email/header"}}
 {{inlinecss file="email-inline.css"}}
-
-<table cellpadding="0" cellspacing="0" border="0">
-    <tr>
-        <td class="action-content">
-            <h1>Thank you for subscribing.</h1>
-            <p>To begin receiving the newsletter, you must first confirm your subscription:</p>
-            <table cellspacing="0" cellpadding="0" class="action-button" >
-                <tr>
-                    <td>
-                        <a href="{{var subscriber.getConfirmationLink()}}"><span>Confirm Subscription</span></a>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
+<div style="background:#F6F6F6; font-size:12px; margin:0; padding:0;">
+<table cellspacing="0" cellpadding="0" border="0" width="100%">
+<tr>
+    <td align="center" valign="top" style="">
+        <table bgcolor="#FFFFFF" cellspacing="0" cellpadding="10" border="0" width="650" style="border:1px solid #E0E0E0; border:none;">
+            <!-- [ header starts here] -->
+            <tr>
+                <td valign="top"><a href="{{store url=""}}"><img src="{{skin url="images/prepared_image_email.png" _area='frontend'}}" alt="bg-image" style="width: 100%;"/></a></td>
+            </tr>
+            <!-- [ middle starts here] -->
+            <tr>
+                <td id="main_row" valign="top" style="padding-top: 43px; padding-bottom: 60px;">
+                    <h1 style=" font-weight:normal; ">Welcome in{{var store.getFrontendName()}}.</h1>
+                    <p style = "padding: 10px; text-align: center;">
+                        If you want to be our subscriber, please click the link below.<br/>
+                    </p>
+                    <a href="{{var subscriber.getConfirmationLink()}}" style="color:#1E7EC8;">{{var subscriber.getConfirmationLink()}}</a><p>
+                   </td>
+            </tr>
+            <tr>
+                <td style="background-color: #daf4f5; text-align: center;"><p style="font-size:14px; margin:0; text-align: center; padding: 15px;">Thank You, <strong>{{var store.getFrontendName()}}</strong></p></td>
+            </tr>
+        </table>
+    </td>
+</tr>
 </table>
-
-{{template config_path="design/email/footer"}}
+</div>
+</body>
