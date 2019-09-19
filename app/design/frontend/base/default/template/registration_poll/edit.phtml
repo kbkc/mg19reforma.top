@@ -23,6 +23,8 @@
  * @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+$whatYouDo = explode(", ",$this->getCustomer()->getData('what_you_do'));
+$deleteLastElement = array_pop($whatYouDo);
 ?>
 <div class="page-title">
     <h1><?php echo $this->__('Edit Account Information') ?></h1>
@@ -57,10 +59,10 @@
                                  $options = $attribute->getSource()->getAllOptions();
                                  foreach($options as $option){
                             ?>
-                            <input class ="inputPoll required-entry" type="checkbox" name="what_you_do" value='<?php echo $option['value']?>' <?php if($this->getCustomer()->getWhatyoudo() == $option['value']){ echo 'selected="selected"';}?>> <?php echo $this->__($option['label'])?>
+                            <input class ="inputPoll required-entry" type="checkbox" name="what_you_do" value='<?php echo $option['value']?>' <?php if($this->getCustomer()->getWhatyoudo() == $option['value']){ echo 'selected="selected"';}?> <?php echo ((in_array($option['value'], $whatYouDo)) ? 'checked' : '');?>> <?php echo $this->__($option['label'])?>
                             <br>
                             <?php } ?>
-                            <input type="text" name="what_you_do" id="what_you_do" value="<?php echo $this->htmlEscape($this->getCustomer()->getWhatyoudo()) ?>" title="<?php echo $this->__('License Number') ?>" class="input-text" style="display: none;"  />
+                            <input type="text" name="what_you_do" id="what_you_do" value="<?php echo $this->htmlEscape($this->getCustomer()->getWhatyoudo()) ?>" title="<?php echo $this->__('What You Do') ?>" class="input-text" style="display: none;"  />
                             <script type="text/javaScript">
                                 jQuery('input.inputPoll').on('change', function () {
                                     if((jQuery("input.inputPoll:checkbox:checked").length>0)) {
@@ -144,4 +146,17 @@
         setPasswordForm(true);
     <?php endif; ?>
 //]]>
+
+jQuery( document ).ready(function() {
+   jQuery('#registrationMiniForm :input').each(function() {
+            if(jQuery(this).prop('checked')){
+                jQuery('#what_you_do').val(jQuery('#what_you_do').val() + jQuery(this).val()+', ');
+            }
+        });
+    if(jQuery('#what_you_do').val().length>1){
+        jQuery('#registrationMiniForm :input').each(function() {
+            jQuery('.input-box .inputPoll').removeClass('required-entry');
+        });
+    }
+});
 </script>
