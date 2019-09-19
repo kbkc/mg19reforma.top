@@ -39,7 +39,7 @@ $table = $installer->getConnection()->newTable($installer->getTable('registratio
     $installer->getConnection()->createTable($table);
     
 $attribute = Mage::getSingleton('eav/config')->getAttribute('customer', 'what_you_do');
-$attribute->setData('used_in_forms', array('adminhtml_customer', 'customer_account_create'));
+$attribute->setData('used_in_forms', array('adminhtml_customer', 'customer_account_create','customer_account_edit'));
 $attribute->setData('is_user_defined', 0);
 $attribute->save();
 $installer->endSetup();
