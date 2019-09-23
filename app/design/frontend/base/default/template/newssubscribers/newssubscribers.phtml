@@ -13,8 +13,8 @@ if ($this->isActivePopUp()):
 <div id="esns_background_layer">
     <?php if ($this->getTheme() == 'default'): ?>
     <div id="esns_box_layer">
-        <div id= "esns_header_image"><img src="<?php echo $this->getSkinUrl('images/newssubscribers/main-imagenewslleter.png') ?>" /></div>
-        <div id= "esns_contact_image"><img src="<?php echo $this->getSkinUrl('images/newssubscribers/contact-nl.png') ?>" /></div>
+        <div id= "esns_header_image"><img src="<?php echo (Mage::app()->getWebsite()->getCode()=="base") ? $this->getSkinUrl('images/newssubscribers/main-imagenewslleter.png') : $this->getSkinUrl('images/newssubscribers/main-imagenewslleter-pl.png') ?>" /></div>
+        <div id= "esns_contact_image"><img src="<?php echo (Mage::app()->getWebsite()->getCode()=="base") ? $this->getSkinUrl('images/newssubscribers/contact-nl.png') : $this->getSkinUrl('images/newssubscribers/contact-nl-pl.png') ?>" /></div>
         <div id="esns_box_close"></div>
         <div id="esns_box_title">
             <?php if ($this->getFirstTitle()): ?>
@@ -49,7 +49,7 @@ if ($this->isActivePopUp()):
                     <?php echo $this->getSecondTitle() ?>
                 </div>
                 <?php endif; ?>
-                <div id="esns_box_subscribe_submit"><a href="javascript:void(0)" id="esns_submit" onclick="myFunction()"><?php echo $this->__(''); ?></a></div>
+                <div id="esns_box_subscribe_submit" style="background-image:url('<?php echo (Mage::app()->getWebsite()->getCode()=="base") ? $this->getSkinUrl('images/newssubscribers/read-more-nl.png') : $this->getSkinUrl('images/newssubscribers/read-more-nl-pl.png')?>');"><a href="javascript:void(0)" id="esns_submit" onclick="myFunction()"><?php echo $this->__(''); ?></a></div>
             </div>
         </div>
         
