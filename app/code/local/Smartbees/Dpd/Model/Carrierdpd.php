@@ -28,10 +28,9 @@ implements Mage_Shipping_Model_Carrier_Interface
     $rate->setCarrier($this->_code);
     $rate->setCarrierTitle($this->getConfigData('title'));
     $rate->setMethod($this->_code);
-    $rate->setMethodTitle($this->getConfigData('name'));
+    $rate->setMethodTitle($this->getConfigData('title'));
     $rate->setPrice(Mage::getStoreConfig('carriers/smartbees_dpd/price'));
     $rate->setCost(0);
-     
     return $rate;
   }
   protected function _getExpressShippingRate()
@@ -41,7 +40,7 @@ implements Mage_Shipping_Model_Carrier_Interface
       $rate->setCarrier($this->_code);
       $rate->setCarrierTitle($this->getConfigData('title'));
       $rate->setMethod('express');
-      $rate->setMethodTitle('DPD za pobraniem');
+      $rate->setMethodTitle($this->getConfigData('titlefordelivery'));
       $rate->setPrice(Mage::getStoreConfig('carriers/smartbees_dpd/cenapobranie'));
       $rate->setCost(0);
       return $rate;
