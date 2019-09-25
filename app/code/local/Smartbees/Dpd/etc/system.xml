@@ -3,7 +3,7 @@
   <sections>
     <carriers>
       <groups>
-        <smartbees_dpd translate="label">
+        <smartbees translate="label" module="smartbees_dpd">
           <label>DPD</label>
           <sort_order>1</sort_order>
           <show_in_default>1</show_in_default>
@@ -72,7 +72,7 @@
               <show_in_store>1</show_in_store> 
             </cenapobranie>
           </fields>
-        </smartbees_dpd>
+        </smartbees>
       </groups>
     </carriers>
   </sections>
