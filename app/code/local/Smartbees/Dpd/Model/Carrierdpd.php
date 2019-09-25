@@ -4,7 +4,7 @@ class Smartbees_Dpd_Model_Carrierdpd
 extends Mage_Shipping_Model_Carrier_Abstract
 implements Mage_Shipping_Model_Carrier_Interface
 {
-  protected $_code = 'smartbees_dpd';
+  protected $_code = 'smartbees';
  
   public function collectRates(Mage_Shipping_Model_Rate_Request $request)
   {
@@ -17,7 +17,7 @@ implements Mage_Shipping_Model_Carrier_Interface
   public function getAllowedMethods()
   {
     return array(
-      'smartbees_dpd' => $this->getConfigData('name'),
+      'smartbees' => $this->getConfigData('name'),
     );
   }
  
@@ -29,7 +29,7 @@ implements Mage_Shipping_Model_Carrier_Interface
     $rate->setCarrierTitle($this->getConfigData('title'));
     $rate->setMethod($this->_code);
     $rate->setMethodTitle($this->getConfigData('title'));
-    $rate->setPrice(Mage::getStoreConfig('carriers/smartbees_dpd/price'));
+    $rate->setPrice(Mage::getStoreConfig('carriers/smartbees/price'));
     $rate->setCost(0);
     return $rate;
   }
@@ -41,7 +41,7 @@ implements Mage_Shipping_Model_Carrier_Interface
       $rate->setCarrierTitle($this->getConfigData('title'));
       $rate->setMethod('express');
       $rate->setMethodTitle($this->getConfigData('titlefordelivery'));
-      $rate->setPrice(Mage::getStoreConfig('carriers/smartbees_dpd/cenapobranie'));
+      $rate->setPrice(Mage::getStoreConfig('carriers/smartbees/cenapobranie'));
       $rate->setCost(0);
       return $rate;
   }
