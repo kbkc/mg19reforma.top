@@ -26,6 +26,7 @@
 ?>
 <script type="text/javascript">
     function showpopup() {
+        window.location= '<?php echo Mage::getBaseUrl()."checkout/cart" ?>';
         jQuery("#popup-quickorder").fadeIn(200);
     }
 </script>
@@ -58,7 +59,7 @@
 		<?php if($showPopup):?>
 
             <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="showpopup()">
-                <span class="view-cart fa fa-shopping-cart"><?php echo $buttonTitle ?></span>
+                <span class="view-cart fa fa-shopping-cart" onclick="showpopup()"><?php echo $buttonTitle ?></span>
             </button>
 		<?php else: ?>
             <div class="actions-no hover-box">
