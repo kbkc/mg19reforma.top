@@ -66,6 +66,7 @@
 <style type="text/css"><?php echo $styles ?></style>
 	<script type="text/javascript">
 		function showpopup() {
+			window.location= '<?php echo Mage::getBaseUrl()."checkout/cart" ?>';
 			jQuery("#popup-quickorder").fadeIn(200);
 		}
 	</script>
