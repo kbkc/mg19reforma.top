@@ -71,14 +71,22 @@
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store> 
             </cenapobranie>
-            <chooseemailtemplate translate="label">
-              <label>Choose E-mail template.</label>
+            <chooseemailtemplatepl translate="label">
+              <label>Choose E-mail template for PL.</label>
               <frontend_type>text</frontend_type>
               <sort_order>31</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store> 
-            </chooseemailtemplate>
+            </chooseemailtemplatepl>
+            <chooseemailtemplateeu translate="label">
+              <label>Choose E-mail template for EU.</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>31</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+            </chooseemailtemplateeu>
           </fields>
         </smartbees>
       </groups>

@@ -9,8 +9,16 @@ class Smartbees_Dpd_Model_Observer extends Varien_Event_Observer {
 
         $customer = $order->getCustomerName();
         $email= $order->getCustomerEmail();
-        if(($order->getShippingMethod()=="smartbees_smartbees")||($order->getShippingMethod()=="smartbees_express")) $templateId = Mage::getStoreConfig('carriers/smartbees/chooseemailtemplate');
-        elseif($order->getShippingMethod()=="pickup_pickup") $templateId = Mage::getStoreConfig('carriers/pickup/chooseemailtemplate');
+        if(($order->getShippingMethod()=="smartbees_smartbees")||($order->getShippingMethod()=="smartbees_express")) 
+        {
+            if(strpos($order->getStoreName(), 'Polska')) $templateId = Mage::getStoreConfig('carriers/smartbees/chooseemailtemplatepl');
+            else $templateId = Mage::getStoreConfig('carriers/smartbees/chooseemailtemplateeu');
+        }
+        elseif($order->getShippingMethod()=="pickup_pickup") 
+        {
+            if(strpos($order->getStoreName(), 'Polska')) $templateId = Mage::getStoreConfig('carriers/pickup/chooseemailtemplatepl');
+            else $templateId = Mage::getStoreConfig('carriers/pickup/chooseemailtemplateeu');
+        }
         $senderName = Mage::getStoreConfig('trans_email/ident_support/name');
         $senderEmail = Mage::getStoreConfig('trans_email/ident_support/email');
         $sender = array('name' => $senderName,
