@@ -45,4 +45,8 @@ implements Mage_Shipping_Model_Carrier_Interface
       $rate->setCost(0);
       return $rate;
   }
+  public function isTrackingAvailable()
+  {
+      return true;
+  }
 }
