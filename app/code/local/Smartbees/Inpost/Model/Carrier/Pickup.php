@@ -42,4 +42,8 @@ implements Mage_Shipping_Model_Carrier_Interface {
 	{
 		return array('excellence'=>$this->getConfigData('name'));
 	}
+	public function isTrackingAvailable()
+	{
+		return true;
+	}
 }

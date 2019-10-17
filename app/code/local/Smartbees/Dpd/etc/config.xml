@@ -14,11 +14,22 @@
         <class>Smartbees_Dpd_Model</class>
       </smartbees_dpd>
     </models>
+    <events>
+      <sales_order_shipment_track_save_after>
+          <observers>
+              <Smartbees_Dpd_Model_Observer>
+                  <type>singleton</type>
+                  <class>Smartbees_Dpd_Model_Observer</class>
+                  <method>send_email</method>
+              </Smartbees_Dpd_Model_Observer>
+          </observers>
+      </sales_order_shipment_track_save_after>
+    </events>
     <helpers>
       <smartbees_dpd>
         <class>Smartbees_Dpd_Helper</class>
       </smartbees_dpd>
-    </helpers>
+    </helpers>>
   </global>
   <default>
     <carriers>
