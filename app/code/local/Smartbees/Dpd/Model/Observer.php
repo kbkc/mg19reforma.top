@@ -30,10 +30,9 @@ class Smartbees_Dpd_Model_Observer extends Varien_Event_Observer {
             'customerName' => $customer,
             'trackingNr' => $track->getNumber(),
             'orderId' => $order->getIncrementId(),
-            'shippingMethod' => $order->getShippingDescription(),
+            'shippingMethod' => $order->getData()['shipping_description'],
             'storeName' => Mage::app()->getStore()->getFrontendName()
         );
-        
         $translate  = Mage::getSingleton('core/translate');
         
         Mage::getModel('core/email_template')
