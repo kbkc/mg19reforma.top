@@ -1,0 +1,209 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <RedInGo_Kid>
+      <version>0.1.4</version>
+    </RedInGo_Kid>
+  </modules>
+  <frontend>
+    <routers>
+      <kid>
+        <use>standard</use>
+          <args>
+            <module>RedInGo_Kid</module>
+            <frontName>redingo_integrator</frontName>
+          </args>
+      </kid>
+    </routers>
+  </frontend>
+  <global>
+    <helpers>
+      <kid>
+        <class>RedInGo_Kid_Helper</class>
+      </kid>
+    </helpers>
+    <blocks>
+      <kid>
+            <class>RedInGo_Kid_Block</class>
+      </kid>
+        <adminhtml>
+            <rewrite>
+                    <sales_order_grid>RedInGo_Kid_Block_Adminhtml_Sales_Order_Grid</sales_order_grid>
+            </rewrite>
+        </adminhtml>
+    </blocks>
+    <models>
+        <kid>
+              <class>RedInGo_Kid_Model</class>
+              <resourceModel>kid_mysql4</resourceModel>
+        </kid>
+        <kid_mysql4>
+              <class>RedInGo_Kid_Model_Mysql4</class>
+		<entities>
+            <kid>
+                  <table>redingo_kid</table>
+            </kid>
+            <kategorie>
+                  <table>redingo_kategorie</table>
+            </kategorie>
+            <status>
+                  <table>redingo_status</table>
+            </status>
+            <grupa>
+                <table>redingo_grupa</table>
+            </grupa>
+            <rodzaj>
+                <table>redingo_rodzaj</table>
+            </rodzaj>
+            <rodzajkid>
+                <table>redingo_rodzaj_kid</table>
+            </rodzajkid>
+        </entities>
+        </kid_mysql4>
+        <catalog>
+                <rewrite>
+                        <product>RedInGo_Kid_Model_Catalog_Product</product>
+                </rewrite>
+        </catalog>
+        <sales>
+                <rewrite>
+                        <order>RedInGo_Kid_Model_Sales_Order</order>
+                </rewrite>
+        </sales>
+    </models>
+    <events>
+      <core_block_abstract_to_html_before> <!-- identifier of the event we want to catch -->
+        <observers>
+          <core_block_abstract_to_html_before_handler> <!-- identifier of the event handler -->
+            <type>model</type> <!-- class method call type; valid are model, object and singleton -->
+            <class>kid/observer</class> <!-- observers class alias -->
+            <method>faktury</method>  <!-- observer's method to be called -->
+            <args></args> <!-- additional arguments passed to observer -->
+          </core_block_abstract_to_html_before_handler>
+        </observers>
+      </core_block_abstract_to_html_before>
+    </events>
+    <resources>
+      <kid_setup>
+            <setup>
+              <module>RedInGo_Kid</module>
+              <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+            </setup>
+            <connection>
+              <use>core_setup</use>
+            </connection>
+      </kid_setup>
+      <kid_write>
+            <connection>
+              <use>core_write</use>
+            </connection>
+      </kid_write>
+      <kid_read>
+            <connection>
+              <use>core_read</use>
+            </connection>
+      </kid_read>
+    </resources>
+  </global>
+
+    <crontab>
+        <jobs>
+            <kid_grupa>
+                <schedule><cron_expr>*/5 * * * *</cron_expr></schedule>
+                <run><model>kid/cron::grupa</model></run>
+            </kid_grupa>
+        </jobs>
+    </crontab>
+
+  <admin>
+	<routers>
+	  <kid>
+	    <use>admin</use>
+		<args>
+		  <module>RedInGo_Kid</module>
+		  <frontName>admin_kid</frontName>
+		</args>
+	  </kid>
+	</routers>
+  </admin>
+  <adminhtml>
+	<menu>
+	  <kid module="kid">
+		<title>Integrator</title>
+		<sort_order>100</sort_order>
+		<children>
+		  <products module="kid">
+		    <title>Manage Products</title>
+  			<sort_order>0</sort_order>
+  			<action>admin_kid/adminhtml_products</action>
+		  </products>
+      <status module="kid">
+		    <title>Manage Status</title>
+  			<sort_order>0</sort_order>
+  			<action>admin_kid/adminhtml_status</action>
+		  </status>
+      <instal module="kid">
+        <title>Instal</title>
+        <sort_order>1</sort_order>
+        <action>admin_kid/adminhtml_kidbackend</action>
+      </instal>
+		</children>
+	  </kid>
+	</menu>
+	<acl>
+	  <resources>
+		<all>
+		  <title>Allow Everything</title>
+		</all>
+		<admin>
+		  <children>
+			<kid translate="title" module="kid">
+			  <title>Kid</title>
+			  <sort_order>1000</sort_order>
+			  <children>
+		  <products translate="title">
+			<title>Manage Products</title>
+			<sort_order>0</sort_order>
+		  </products>
+			  </children>
+			</kid>
+		  </children>
+		</admin>
+	  </resources>
+	</acl>
+	<layout>
+	  <updates>
+		<kid>
+		  <file>kid.xml</file>
+		</kid>
+	  </updates>
+	</layout>
+  </adminhtml>
+  <default>
+      <kid>
+          <aktualizacja>
+              <name>1</name>
+          </aktualizacja>
+      </kid>
+      <kid>
+          <kid>
+              <wylocz>0</wylocz>
+          </kid>
+      </kid>
+      <kid>
+          <kid>
+              <sku>kat</sku>
+          </kid>
+      </kid>
+      <kid>
+          <import>
+              <manufacturer>manufacturer</manufacturer>
+          </import>
+      </kid>
+      <kid>
+          <kid>
+              <cena>b</cena>
+          </kid>
+      </kid>
+  </default>
+</config>

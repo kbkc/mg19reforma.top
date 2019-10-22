@@ -12,5 +12,5 @@
 
 AuthType Basic
 AuthName "Access to the downloader"
-AuthUserFile /home/reforma-ua/web/reforma-ua.itdelight.com/public_html/downloader/.htpasswd
+#AuthUserFile /home/reforma-ua/web/reforma-ua.itdelight.com/public_html/downloader/.htpasswd
 Require valid-user

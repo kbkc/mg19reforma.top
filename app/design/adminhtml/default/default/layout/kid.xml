@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+
+  <kid_adminhtml_products_index>
+    <reference name="content">
+      <block type="kid/adminhtml_products" name="products"/>
+    </reference>
+  </kid_adminhtml_products_index>
+
+  <kid_adminhtml_kidbackend_index>
+	<reference name="content">
+	  <block type="kid/adminhtml_kidbackend" name="kidbackend" template="kid/kidbackend.phtml"/>
+	</reference>
+  </kid_adminhtml_kidbackend_index>
+
+  <kid_adminhtml_status_index>
+	<reference name="content">
+	  <block type="kid/adminhtml_status" name="status"/>
+	</reference>
+  </kid_adminhtml_status_index>
+
+	<kid_adminhtml_grupa_index>
+		<reference name="content">
+			<block type="kid/adminhtml_grupa" name="grupa"/>
+		</reference>
+	</kid_adminhtml_grupa_index>
+	<kid_adminhtml_rodzaj_index>
+		<reference name="content">
+			<block type="kid/adminhtml_rodzaj" name="rodzaj"/>
+		</reference>
+	</kid_adminhtml_rodzaj_index>
+
+</layout>
