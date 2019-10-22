@@ -1,0 +1,55 @@
+<config>
+    <tabs>
+        <smartbees translate="label" module="Smartbees_CustomerAttr">
+            <label>Smartbees modules</label>
+            <sort_order>99999</sort_order>
+        </smartbees>
+    </tabs> 
+    <sections>
+        <smartbees_modules_options translate="label" module="Smartbees_CustomerAttr">
+            <label>Smartbees Modules Options</label>
+            <tab>smartbees</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>  
+            <groups>
+                <smartbees_customerattr translate="label">
+                    <label>Customer Attributes</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>   
+                    <fields>
+                        <agree_messages_content>
+                            <label>Akceptacja wysyłania wiadomości, treść</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                    
+                        </agree_messages_content>
+                        <agree_rodo_content>
+                            <label>Akceptacja rodo, treść</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                    
+                        </agree_rodo_content>
+                        <personal_data_administrator>
+                            <label>Administratorem danych osobowych ...</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                    
+                        </personal_data_administrator>
+                    </fields>                          
+                </smartbees_customerattr>
+            </groups>                  
+        </smartbees_modules_options>
+    </sections>
+</config> 

@@ -193,6 +193,13 @@ input.input-text:focus,select:focus,textarea:focus{background-color:#fff;
 .contact-content .form-list textarea{height:175px;}
 .map-conttact iframe{width: 100%;}
 .map-conttact { clear: both;}
+body.customer-account-create .customer-attributes-agree {border: 1px solid #eee; background: #fff; padding: 22px 25px 12px 33px; margin: 28px 0;}
+body.customer-account-create .customer-attributes-agree .agree-messages-attr, .customer-attributes-agree .agree-terms-conditions{margin-bottom: 20px;}
+body.customer-account-create .customer-attributes-agree .personal-data-admin{margin-top: 20px; font-size: 11px;}
+body.customer-account-create .customer-attributes-agree input{margin:0;}
+body.customer-account-create .customer-attributes-agree input{display: inline-block;}
+body.customer-account-create .customer-attributes-agree label{float: none; margin: 0; font-weight: normal;}
+.personal-data-admin-newsletter {max-width: 380px; width: 100%; text-align: justify;}
 /* ----------------
  [19. Contact page]
  */
@@ -311,16 +318,17 @@ h1.title-page {color: #757575;   font-size: 40px;  font-weight: bold; text-align
 .pager .pages li a .fa{padding-left:5px}
 
 /* Sorter */
-.toolbar .sorter{padding:15px 0;}
-.sorter .view-mode{float:left;margin:0}
-.sorter .view-mode label,.sorter .limiter label,.sorter .sort-by label,.pager .amount, .sorter .sort-by select, .limiter select{font-size:13px;font-weight:300;color:#5b5b5b;float:left;padding:0 10px 0 0;margin:0;line-height: 30px;}
+.toolbar .sorter{padding:15px 0 5px 0; display: flex;flex-wrap: wrap;justify-content: space-between;}
+.toolbar .sorter::after{content: none;}
+.sorter .view-mode{margin:0}
+.sorter .view-mode label,.sorter .limiter label,.sorter .sort-by label,.pager .amount, .sorter .sort-by select, .limiter select{font-size:13px;font-weight:300;color:#5b5b5b;float:left;padding:0 10px 0 0;margin:0;line-height: 30px; margin-bottom: 10px;}
 .sorter .view-mode span{border:0;}
 .sorter .view-mode span.active,.sorter .view-mode span:hover{color: #2a2a2a;}
-.sorter .sort-by{float: none;margin: 0; display: inline-block;line-height: 28px;}
+.sorter .sort-by, .sorter .limiter, .sorter .view-mode{padding-left: 5px;}
 .sorter .sort-by label{vertical-align:middle}
-.sorter .sort-by select,.limiter select{border: 1px solid #ebebeb; height: 30px}
-.sorter .limiter{ float: right;margin:0;padding: 0;line-height: 28px;}
-.pager {float: right; margin:6px 0 0; display: none;}
+.sorter .sort-by select,.limiter select{border: 1px solid #ebebeb; height: 30px;}
+.sorter .limiter{ margin:0;line-height: 28px;}
+.pager { margin:6px 0 0; display: none;}
 .sorter .view-mode span{cursor:pointer;text-align: center; width: 30px;height: 30px;line-height: 28px; display: inline-block; font-size: 13px; color: #bcbcbc; border-width: 1px; border-style: solid; border-color: #bcbcbc}
 .toolbar .sorter .view-mode  strong.grid,.toolbar .sorter .view-mode  strong.list{color: #e9255e;border-bottom: 2px solid #e9255e;}
 .sorter .view-mode  a.list,.sorter .view-mode  strong.list{}
@@ -1933,7 +1941,7 @@ ul.magictabs{padding:0; margin-bottom: 40px}
 .checkout-agreements li{margin:30px 0}
 .checkout-agreements .agreement-content{overflow:auto;height:12em;padding:10px;background-color:#fbfaf6;border:1px solid #bbb6a5}
 .checkout-agreements .agree{margin:0;padding:10px 0 10px 11px}
-.checkout-agreements .agree input.checkbox{margin-right:6px}
+.checkout-agreements .agree input.checkbox{margin-right:6px; margin-top: 0; display: inline;}
 .checkout-agreements .agree label{font-weight:bold;color:#666}
 .opc .checkout-agreements{border:1px solid #d9dde3;border-width:0 1px;padding:5px 30px}
 .opc .checkout-agreements li{margin:20px 0 0}
@@ -3226,7 +3234,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .mean-container .mean-nav > ul {
    overflow-y: auto;
-   max-height: 85vh;
+   max-height: 75vh;
 }
 body {
   /* overflow-y: hidden;*/
