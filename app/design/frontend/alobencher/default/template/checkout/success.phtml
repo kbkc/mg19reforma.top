@@ -31,8 +31,21 @@
 <h2 class="sub-title"><?php echo $this->__('Thank you for your purchase!') ?></h2>
 <p>
     <?php echo $this->__('You can immediately pay for the order'); ?>
+	asdfg
 </p>
+<?php if ($this->getOrderId()):?>
+    <div class="bank_detail">
+    <?php $orderId = $this->getOrderId(); ?>
+    <?php $order = Mage::getModel("sales/order")->loadByIncrementId($orderId); ?>
+    <?php $paymentCode = $order->getPayment()->getMethod(); 
+	?>
 
+       <?php if ($paymentCode=='banktransfer') { 
+           echo $paymentCode = $order->getPayment()->getAdditionalInformation()['instructions'];
+       } ?>
+
+   </div>
+<?php endif;?>
 <!-- <button type="button" class="button pay-btn" title="<?php //echo $this->__('Paypal Payment') ?>"
         onclick="window.location='<?php //echo $this->getUrl('liqpay/payment/specialredirect') ?>'">
     <span><span><?php// echo $this->__('Paypal Payment') ?></span></span></button> -->
@@ -43,6 +56,7 @@
     <?php else : ?>
         <p><?php echo $this->__('Your order # is: %s.', Mage::getSingleton('core/session')->getLastRealOrderId()) ?></p>
     <?php endif; ?>
+
 <?php endif; ?>
 
 <div class="buttons-set">
