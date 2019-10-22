@@ -85,6 +85,44 @@ $deleteLastElement = array_pop($whatYouDo);
                             </script>
                         </div>
             </li>
+            <li>
+                <?php
+                    $agreeMessagesContent = Mage::getStoreConfig('smartbees_modules_options/smartbees_customerattr/agree_messages_content');
+                    $agreeRodoContent = Mage::getStoreConfig('smartbees_modules_options/smartbees_customerattr/agree_rodo_content');
+                ?>
+                <div class = "customer-attributes-agree">
+                    <div class = "agree-messages-attr">
+                        <label><input type = "checkbox" id = "agree-messages-attr"/>
+                        <?php echo $agreeMessagesContent ?></label>
+                        <input type = "text" name="agree_messages" id="agree_messages" value="<?php echo $this->getCustomer()->getData()['agree_messages'] ?>" title="<?php echo $this->__('Agree Messages') ?>" class="input-text" style="display: none;"  readonly/>                                
+                    </div>
+                    <div class = "agree-rodo-attr">
+                        <label><input type = "checkbox" id = "agree-rodo-attr"/>
+                        <?php echo $agreeRodoContent?></label>
+                        <input type="text" name="agree_rodo" id="agree_rodo" value="<?php echo $this->getCustomer()->getData()['agree_rodo'] ?>" title="<?php echo $this->__('Agree Rodo') ?>" class="input-text" style="display: none;"  readonly/>
+                    </div>
+                </div>
+                <script type="text/javaScript">
+                    jQuery('input#agree-messages-attr').on('change', function () {
+                        if(jQuery(this).is(':checked')) {
+                            console.log("check");
+                            jQuery("#agree_messages").val('tak');
+                        }else {
+                            console.log("uncheck");
+                            jQuery("#agree_messages").val('nie');
+                        }
+                    });
+                    jQuery('input#agree-rodo-attr').on('change', function () {
+                        if(jQuery(this).is(':checked')) {
+                            console.log("check");
+                            jQuery("#agree_rodo").val('tak');
+                        }else {
+                            console.log("uncheck");
+                            jQuery("#agree_rodo").val('nie');
+                        }
+                    });
+                </script>
+            </li>
         <?php $_dob = $this->getLayout()->createBlock('customer/widget_dob') ?>
         <?php if ($_dob->isEnabled()): ?>
             <li><?php echo $_dob->setDate($this->getCustomer()->getDob())->toHtml() ?></li>
@@ -158,5 +196,9 @@ jQuery( document ).ready(function() {
             jQuery('.input-box .inputPoll').removeClass('required-entry');
         });
     }
+
+    if(jQuery('#agree_rodo').val()=="tak") jQuery('#agree-rodo-attr').prop('checked', true); else jQuery('#agree-rodo-attr').prop('checked', false);
+    if(jQuery('#agree_messages').val()=="tak") jQuery('#agree-messages-attr').prop('checked', true); else jQuery('#agree-messages-attr').prop('checked', false);
+
 });
 </script>

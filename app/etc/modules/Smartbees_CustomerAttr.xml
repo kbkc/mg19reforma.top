@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Smartbees_CustomerAttr>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends><Mage_Customer/></depends>
+        </Smartbees_CustomerAttr>
+    </modules>
+</config> 

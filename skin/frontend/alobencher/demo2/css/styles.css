@@ -193,6 +193,13 @@ input.input-text:focus,select:focus,textarea:focus{background-color:#fff;
 .contact-content .form-list textarea{height:175px;}
 .map-conttact iframe{width: 100%;}
 .map-conttact { clear: both;}
+body.customer-account-create .customer-attributes-agree {border: 1px solid #eee; background: #fff; padding: 22px 25px 12px 33px; margin: 28px 0;}
+body.customer-account-create .customer-attributes-agree .agree-messages-attr, .customer-attributes-agree .agree-terms-conditions{margin-bottom: 20px;}
+body.customer-account-create .customer-attributes-agree .personal-data-admin{margin-top: 20px; font-size: 11px;}
+body.customer-account-create .customer-attributes-agree input{margin:0;}
+body.customer-account-create .customer-attributes-agree input{display: inline-block;}
+body.customer-account-create .customer-attributes-agree label{float: none; margin: 0; font-weight: normal;}
+.personal-data-admin-newsletter {max-width: 380px; width: 100%; text-align: justify;}
 /* ----------------
  [19. Contact page]
  */
@@ -1933,7 +1940,7 @@ ul.magictabs{padding:0; margin-bottom: 40px}
 .checkout-agreements li{margin:30px 0}
 .checkout-agreements .agreement-content{overflow:auto;height:12em;padding:10px;background-color:#fbfaf6;border:1px solid #bbb6a5}
 .checkout-agreements .agree{margin:0;padding:10px 0 10px 11px}
-.checkout-agreements .agree input.checkbox{margin-right:6px}
+.checkout-agreements .agree input.checkbox{margin-right:6px; margin-top: 0; display: inline;}
 .checkout-agreements .agree label{font-weight:bold;color:#666}
 .opc .checkout-agreements{border:1px solid #d9dde3;border-width:0 1px;padding:5px 30px}
 .opc .checkout-agreements li{margin:20px 0 0}
