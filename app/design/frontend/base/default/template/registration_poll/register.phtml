@@ -31,6 +31,11 @@
  * @var $this Mage_Customer_Block_Form_Register
  */
 ?>
+<?php
+    $agreeMessagesContent = Mage::getStoreConfig('smartbees_modules_options/smartbees_customerattr/agree_messages_content');
+    $agreeRodoContent = Mage::getStoreConfig('smartbees_modules_options/smartbees_customerattr/agree_rodo_content');
+    $personalDataAdmin = Mage::getStoreConfig('smartbees_modules_options/smartbees_customerattr/personal_data_administrator_register');
+?>
 <div class="account-create">
     <div class="page-title">
         <h1><?php echo $this->__('Create an Account') ?></h1>
@@ -211,10 +216,48 @@
                 </li>
                 <?php echo $this->getChildHtml('form.additional.info'); ?>
             </ul>
-            <?php $termsKyeUrl = (Mage::app()->getWebsite()->getCode()=="pl"? 'terms_pl' : 'terms_eu'); ?>
-            <?php echo $this->__('I have read and agreed to the ') ?><a href="<?php echo $this->getBaseUrl().$termsKyeUrl ?>"><?php echo $this->__('Terms and Conditions') ?></a>
-            <input type="checkbox" name="terms" title="<?php echo $this->__('Terms and Conditions') ?>" value="1" id="terms" class="checkbox required-entry" />
         </div>
+        <div class = "customer-attributes-agree">
+            <div class = "agree-terms-conditions">
+                <?php $termsKyeUrl = (Mage::app()->getWebsite()->getCode()=="pl" ? 'terms_pl' : 'terms_eu'); ?>
+                <?php $privacyUrl = (Mage::app()->getWebsite()->getCode()=="pl" ? 'polityka' : 'privacy-policy'); ?>
+                <label><input type="checkbox" name="terms" title="<?php echo $this->__('Terms and Conditions') ?>" value="1" id="terms" class="checkbox required-entry" /><?php echo $this->__('*I have read and agreed to the ') ?><a href="<?php echo $this->getBaseUrl().$termsKyeUrl ?>" target="_blank"><?php echo $this->__('Terms and Conditions') ?></a><?php echo ' '.$this->__('and'); ?> <a href="<?php echo $this->getBaseUrl().$privacyUrl ?>" target="_blank"><?php echo $this->__('Privacy policy') ?></a>
+                </label>
+            </div>
+            <div class = "agree-messages-attr">
+                <label><input type = "checkbox" id = "agree-messages-attr"/>
+                <?php echo $agreeMessagesContent ?></label>
+                <input type = "text" name="agree_messages" id="agree_messages" value="<?php echo $this->escapeHtml($this->getFormData()->getAgreemessages()) ?>" title="<?php echo $this->__('Agree Messages') ?>" class="input-text" style="display: none;" readonly/>                                
+            </div>
+            <div class = "agree-rodo-attr">
+                <label><input type = "checkbox" id = "agree-rodo-attr"/>
+                <?php echo $agreeRodoContent?></label>
+                <input type="text" name="agree_rodo" id="agree_rodo" value="<?php echo $this->escapeHtml($this->getFormData()->getAgreerodo()) ?>" title="<?php echo $this->__('Agree Rodo') ?>" class="input-text" style="display: none;"  readonly/>
+            </div>
+            <div class = "personal-data-admin">
+                <?php echo $personalDataAdmin ?>
+            </div>
+        </div>
+        <script type="text/javaScript">
+            jQuery('input#agree-messages-attr').on('change', function () {
+                if(jQuery(this).is(':checked')) {
+                    console.log("check");
+                    jQuery("#agree_messages").val('tak');
+                }else {
+                    console.log("uncheck");
+                    jQuery("#agree_messages").val('nie');
+                }
+            });
+            jQuery('input#agree-rodo-attr').on('change', function () {
+                if(jQuery(this).is(':checked')) {
+                    console.log("check");
+                    jQuery("#agree_rodo").val('tak');
+                }else {
+                    console.log("uncheck");
+                    jQuery("#agree_rodo").val('nie');
+                }
+            });
+        </script>
         <div class="buttons-set">
             <p class="required"><?php echo $this->__('* Required Fields') ?></p>
             <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>" class="back-link"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
