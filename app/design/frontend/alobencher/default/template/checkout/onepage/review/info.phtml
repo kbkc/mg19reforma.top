@@ -81,4 +81,24 @@
         review = new Review('<?php echo $this->getUrl('checkout/onepage/saveOrder', array('form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>', '<?php echo $this->getUrl('checkout/onepage/success') ?>', $('checkout-agreements'));
     //]]>
     </script>
+    <?php if ((!Mage::getSingleton('customer/session')->isLoggedIn())): ?>
+    <script type="text/javascript">
+           jQuery('#review-buttons-container > .button.btn-checkout').on('click', function(){
+                var checkboxState = false;
+                if(jQuery('#agreement-checkbox').is(':checked')) checkboxState=true;
+                else checkboxState=false;
+                if(!checkboxState) {
+                    alert('<?php echo $this->__('Please accept terms & conditions and privacy policy before you placeing order.');?>')
+                    return false; 
+                    }
+                return review.save();
+           });
+    </script>
+    <?php else: ?>
+    <script type="text/javascript">
+            jQuery('#review-buttons-container > .button.btn-checkout').on('click', function(){
+                return review.save();   
+            });
+    </script>
+    <?php endif; ?>
 </div>
