@@ -11,7 +11,7 @@ class Smartbees_CronShipmentTrack_Model_Observer
         if($emails){
             foreach($emails as $em){
                 Zend_Debug::dump($em->getData());
-                $order = Mage::getModel('sales/order')->loadByIncrementId($em->getData()['order_id']);
+                $order = Mage::getModel('sales/order')->load($em->getData()['order_id']);
                 $track_id = $em->getData()['tracking_id'];
                 Zend_Debug::dump($em->getData()['tracking_id']);
                // send_email($order, $track_id);
