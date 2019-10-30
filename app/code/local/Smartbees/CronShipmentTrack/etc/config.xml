@@ -1,0 +1,41 @@
+<config>
+    <modules>
+        <Smartbees_CronShipmentTrack>
+            <version>1.0.0</version>
+        </Smartbees_CronShipmentTrack>
+    </modules>
+    <global>
+        <resources>
+            <smartbees_cronshipmenttrack_setup>
+                <setup>
+                    <module>Smartbees_CronShipmentTrack</module>
+                    <class>Mage_Customer_Model_Resource_Setup</class>
+                </setup>
+            </smartbees_cronshipmenttrack_setup>
+        </resources>
+        <models>
+             <cronshipmenttrack>
+                 <class>Smartbees_CronShipmentTrack_Model</class>
+                 <resourceModel>cronshipmenttrack_resource</resourceModel>
+             </cronshipmenttrack>
+             <cronshipmenttrack_resource>
+                <class>Smartbees_CronShipmentTrack_Model_Resource</class>
+                <entities>
+                    <cronshipmenttrack>
+                        <table>ship_tracking_number_with_flag</table>
+                    </cronshipmenttrack>
+                </entities>
+            </cronshipmenttrack_resource>
+        </models>
+    </global>
+    <crontab>
+        <jobs>
+            <smartbees_cronshipmenttrack>
+                <schedule><cron_expr>*/1 * * * *</cron_expr></schedule>
+                <run>
+                    <model>cronshipmenttrack/observer::sendemail</model>
+                </run>
+            </smartbees_cronshipmenttrack>
+        </jobs>
+    </crontab>
+</config>

@@ -1,0 +1,8 @@
+<config>
+    <modules>
+        <Smartbees_CronShipmentTrack>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Smartbees_CronShipmentTrack>
+    </modules>
+</config>
