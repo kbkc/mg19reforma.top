@@ -45,12 +45,19 @@ class Smartbees_CronShipmentTrack_Model_Observer
                     'storeName' => Mage::app()->getStore()->getFrontendName()
                 );
                 $translate  = Mage::getSingleton('core/translate');
-                Zend_Debug::dump($vars);
-               $mm = Mage::getModel('core/email_template')
-                ->setDesignConfig(array('area' => 'frontend', 'store' => $storeId))
-                ->sendTransactional($templateId, $sender,  $email, $customer, $vars, $storeId);
-       // Zend_Debug::dump($mm);
-                $translate->setTranslateInline(true);
+
+                try {
+                    Mage::getModel('core/email_template')
+                    ->setDesignConfig(array('area' => 'frontend', 'store' => $storeId))
+                    ->sendTransactional($templateId, $sender,  $email, $customer, $vars, $storeId);
+                    $translate->setTranslateInline(true);
+
+                    $em->setData('flag', 1);
+                    $em->save();
+
+                } catch(Exception $error) {
+                    Mage::log($error->getMessage());
+                }
             }
         }
        // $order = Mage::getModel('sales/order')->loadByIncrementId('2000000028');
@@ -58,44 +65,5 @@ class Smartbees_CronShipmentTrack_Model_Observer
         //Mage::log("TEST success", null, "dev.log");
     }
 	
-	public function send_email($order, $track_id) {
-        //$event = $observer->getEvent();
-        //$track = $event->getTrack();
-        //$shipment = $track->getShipment();
-        //$order = $shipment->getOrder();
-
-        $customer = $order->getCustomerName();
-        $email= $order->getCustomerEmail();
-        if(($order->getShippingMethod()=="smartbees_smartbees")||($order->getShippingMethod()=="smartbees_express")) 
-        {
-            if(strpos($order->getStoreName(), 'Polska')) $templateId = Mage::getStoreConfig('carriers/smartbees/chooseemailtemplatepl');
-            else $templateId = Mage::getStoreConfig('carriers/smartbees/chooseemailtemplateeu');
-        }
-        elseif($order->getShippingMethod()=="pickup_pickup") 
-        {
-            if(strpos($order->getStoreName(), 'Polska')) $templateId = Mage::getStoreConfig('carriers/pickup/chooseemailtemplatepl');
-            else $templateId = Mage::getStoreConfig('carriers/pickup/chooseemailtemplateeu');
-        }
-        $senderName = Mage::getStoreConfig('trans_email/ident_support/name');
-        $senderEmail = Mage::getStoreConfig('trans_email/ident_support/email');
-        $sender = array('name' => $senderName,
-            'email' => $senderEmail);
-
-        $storeId = Mage::app()->getStore()->getId();
-
-        $vars = array('customerEmail' => $email,
-            'customerName' => $customer,
-            'trackingNr' =>  $track_id,
-            'orderId' => $order->getIncrementId(),
-            'shippingMethod' => $order->getData()['shipping_description'],
-            'storeName' => Mage::app()->getStore()->getFrontendName()
-        );
-        $translate  = Mage::getSingleton('core/translate');
-        
-        Mage::getModel('core/email_template')
-        ->setDesignConfig(array('area' => 'frontend', 'store' => $storeId))
-        ->sendTransactional($templateId, $sender,  $email, $customer, $vars, $storeId);
-
-        $translate->setTranslateInline(true);
-    } 
+	
 }
