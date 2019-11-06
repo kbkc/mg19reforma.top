@@ -292,7 +292,7 @@ class Magiccart_Magicmenu_Block_Menu extends Mage_Catalog_Block_Navigation
             $html .= '<li class="level' .($level -2) .$childClass. '"><a href="' . $category->getUrl(). '"><span>' .$this->__($category->getName()) . $this->getCatLabel($category) . "</span></a>\n" . $childHtml . '</li>';
         }
         //$html .= '</div>';
-        if($html) $html = '<ul class="level'.($level -3).'"><div class="cat-column">' .$html. '</div></ul>';
+        if($html) $html = '<ul class="level'.($level -3).'" data-cid="'.$category->getId().'"><div class="cat-column">' .$html. '</div></ul>';
         return $html;
     }
 
