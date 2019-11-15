@@ -3261,7 +3261,8 @@ ul.nav-accordion li.level0 > span.expand:before,
 ul.nav-accordion li.level0 > ul.level0 > li.level1 >span:before{
     display: none;
 }
-.magicmenu .nav-desktop .level0.dropdown .hasChild ul[data-cid='306']{
+.magicmenu .nav-desktop .level0.dropdown .hasChild ul[data-cid='306'],
+.magicmenu .nav-desktop .level0.dropdown .hasChild ul[data-cid='246']{
 	bottom: 0;
 	top: auto;
 }
